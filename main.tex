@@ -34,7 +34,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{Best practices for constructing, preparing, and evaluating protein-ligand binding affinity benchmarks [Article v\versionnumber]}
 \author[1*]{David Hahn}
-\author[2]{Hannah Bruce Macdonald}
+\author[2]{Hannah E. Bruce Macdonald}
 \author[3]{Laura Perez Benito}
 \author[2]{John D. Chodera}
 \author[4]{Antonia S. J. S. Mey}
@@ -43,7 +43,7 @@
 \author[1,2\authfn{1}\authfn{3}]{Firstname Middlename Familyname}
 \author[2\authfn{1}\authfn{4}]{Firstname Initials Surname}
 \affil[1]{Institution 2}
-\affil[2]{Institution 2}
+\affil[2]{Computational and Systems Biology Program, Sloan Kettering Institute, Memorial Sloan Kettering Cancer Center, New York, NY 10065}
 \affil[3]{Institution 2}
 \affil[4]{Institution 2}
 \affil[5]{Departments of Pharmaceutical Sciences and Chemistry, University of California, Irvine, CA USA}
@@ -54,7 +54,8 @@
 \corr{email2@example.com}{FS}
 
 \orcid{Author 1 name}{AAAA-BBBB-CCCC-DDDD}
-\orcid{Author 2 name}{EEEE-FFFF-GGGG-HHHH}
+\orcid{Hannah E. Bruce Macdonald}{0000-0002-5562-6866}
+\orcid{Author 3 name}{AAAA-BBBB-CCCC-DDDD}
 
 \contrib[\authfn{1}]{These authors contributed equally to this work}
 \contrib[\authfn{2}]{These authors also contributed equally to this work}
@@ -156,14 +157,22 @@ Note that a checklist is not intended to cover \emph{all} important steps, but r
 \end{itemize}
 \end{checklist}
 
-\begin{checklist}{Fourth list}
-\textbf{This is some further description.}
+\begin{checklist}{Plotting results}
+\textbf{Presenting results in an appropriate format: Section~\ref{sec:plotting_results}}
 \begin{itemize}
-\item First thing
-\item Also remember
-\item And finally
+\item Plot results with the dependent variable (calculated) on y-axis, and the independent variable (experimental) on the x-axis. 
+\item Ensure that the data are reported in the same units on both axes, and clearly labelled. Where the units are consistent, the scale of the axis in real space should be consistent, such that a 1 cm change on the x-axis corresponds to the same change in affinity to 1 cm on the y-axis.
+\item Plot only one target per plot, unless specifically looking at selectivity.
 \end{itemize}
 \end{checklist}
+
+\begin{checklist}{Statistical analysis}
+\textbf{Quantifying the success of a method: Section~\ref{sec:statistical_analysis}}
+\begin{itemize}
+\item 
+\end{itemize}
+\end{checklist}
+
 
 \end{Checklists*}
 
@@ -195,6 +204,33 @@ The \texttt{algpseudocode} and \texttt{algorithms} packages is loaded by the doc
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
+
+
+\subsection{dataset selection}
+
+\subsection{setting up simulations}
+
+
+\subsection{Measuring the success of free energy calculations requires careful analysis}
+Reliable reporting and analysis of the success of calculations is vital for the validation and benchmarking of free energy methods as well as the dissemination of published results. This reporting and analysis falls into two major categories -- plotting or visualization of results, and statistical analysis of the results. Here we make recommendations for both categories.
+
+\subsubsection{Plots of free energy results should adhere to certain common standards}
+\label{sec:plotting_results}
+Figures plotting experimental vs. calculated results are a very useful way to gauge the success of a method or a set of calculations. We recommend several key steps to ensure these plots are valuable, communicate accurate information, and are informative and readable. Experimental values (on the x-axis) should be converted into the same units as the free energy results (on the y-axis), and axes should use the same scale. One common issue with plotting free energy results is that different scales are used on the different axess, which can change the appearance of the results.
+
+INSERT STRETCHED OUT PLOT
+
+Error bars can be very helpful in understanding the uncertainty in the data -- both for calculated values and for experimental values, and thus both experimental and computational error bars should alwyas be included in visualizations of the data. Different sources of error might be used to quantify this, whether an uncertainty directly from a free energy estimator, variance between repeats or a hysteresis-type analysis. How the error bars have been calculated should be reported in the figure caption.
+* more details on ways to compute error bars?
+* more details on experimental error bars?
+Additionally, experimental values which were not actually measured (e.g. values resulting from a measured $K_D$ value which only has experimental bounds, such as $> 5 \mu M$) should not be plotted or should be clearly indicated by different styles and symbols.
+
+Finally, plots of results across various targets should typically show one figure per target. Differences in the success of free energy methods can vary widely between targets, and combining the data across targets onto a single plot can obscure actual performance on any given target. Additionally, when considering absolute free energies, the affinity ranges between targets may vary, which may result in analysis picking up the correlation between targets and their affinities, rather than the free energy methods ability to differentiate affinities for a particular target. One exception to this however may be if free energy calculations were being performed for selectivity analysis of similar proteins, whereby the targets are not independent parameters.
+
+\subsubsection{statistical analysis}
+\label{sec:statistical_analysis}
+Free energy calculations fall into two categories: absolute and relative. Depending on which type of result are being analyzed --- absolute or relative --- different statistics will be appropriate. Accuracy statistics, such as root mean squared error (RMSE) and mean unsigned errors (MUE) provide information as to how well the computational method recapitulates the experimental results, and allow for a 'best guess' as to how far the computation prediction of new ligands' affinities may be from experiment. Correlation statistics, such as $R^{2}$, Kendall tau ($\tau$) and Spearman's rank ($\rho$) indicate how well a method does at ordering the results, at identifying the best and worst ligand in a set, which in live drug design projects where these models may be used to make purchasing decisions, may be a more useful metric than accuracy.\\
+
 
 
 
