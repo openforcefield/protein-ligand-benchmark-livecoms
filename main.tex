@@ -45,9 +45,9 @@
 \affil[1]{Institution 2}
 \affil[2]{Computational and Systems Biology Program, Sloan Kettering Institute, Memorial Sloan Kettering Cancer Center, New York, NY 10065}
 \affil[3]{Institution 2}
-\affil[4]{Institution 2}
+\affil[4]{EaStCHEM School of Chemistry, David Brewster Road, Joseph Black Building, The King's Buildings, Edinburgh, EH9 3FJ, UK}
 \affil[5]{Departments of Pharmaceutical Sciences and Chemistry, University of California, Irvine, CA USA}
-\affil[6]{EaStCHEM School of Chemistry, David Brewster Road, Joseph Black Building, The King's Buildings, Edinburgh, EH9 3FJ, UK}
+\affil[6]{cc}
 \affil[2]{Institution 2}
 
 \corr{email1@example.com}{FMS}  % Correspondence emails.  FMS and FS are the appropriate authors initials.
@@ -55,7 +55,7 @@
 
 \orcid{Author 1 name}{AAAA-BBBB-CCCC-DDDD}
 \orcid{Hannah E. Bruce Macdonald}{0000-0002-5562-6866}
-\orcid{Author 3 name}{AAAA-BBBB-CCCC-DDDD}
+\orcid{Antonia S. J. S. Mey}{0000-0001-7512-5252}
 
 \contrib[\authfn{1}]{These authors contributed equally to this work}
 \contrib[\authfn{2}]{These authors also contributed equally to this work}
@@ -225,19 +225,27 @@ There are two possible ways in which to run alchemical free energy calculations,
 \subsubsection{Common choices for absolute and relative free energy calculations}
 
 \paragraph{Alchemical pathway}
-In order to connect the initial and final state of the alchemcial free energy calculation an alchemical pathway must be chosen. This pathway is regulated by a variable $\vec{lambda}$, which at $\vec{lambda}=0$ would mean it represents molecule A and at $\vec{lambda}=1$. As free energy is a statefunction, the computed free energy is in principle independent on the pathway, but different choices in pathway can make the problem computationally more or less tractable. The simplest way to switch between molecule A and B is using a linear switching function for the potential energy of the form:
+In order to connect the initial and final state of the alchemical free energy calculation an alchemical pathway must be chosen. This pathway is regulated by a variable $\vec{\lambda}$, which at $\vec{\lambda}=0$ would mean it represents molecule A and at $\vec{\lambda}=1$ molecule B. As free energy is a statefunction, the computed free energy is in principle independent on the pathway, but different choices in pathway can make the problem computationally more or less tractable. The simplest way to switch between molecule A and B is using a linear switching function for the potential energy of the form:
 \begin{equation}
 U(\vec{q},\vec{\lambda}) = \vec{\lambda} U_0(\vec{q}) + (1-\vec{\lambda})U_1(\vec{q}),
 \end{equation}
-where $U$ is the potential energy $\vec{q}$, is the set of positions and $\vec{lambda}$ the switching parameter. Considerable care needs to be taken in selecting the switching function and spacing of so-called $\lambda$-windows. Common choices are, how many $\lambda$-windows should be used? What functional form should my switching function take? The concept of \textit{difficult} and \textit{easy} transformation is more and more explored, but currently heuristics based on phase space overlap between neighboring $\lambda$-windows is the best way to assess how many windows should be simulated. This can for example be done by looking at the offdiagonals of an overlap matrix~\cite{}. Furthermore, the choice of simulation protocol will influence what switching function and how many $\lambda$-windows should be used. 
+where $U$ is the potential energy $\vec{q}$, is the set of positions and $\vec{\lambda}$ the switching parameter. Considerable care needs to be taken in selecting the switching function and spacing of so-called $\lambda$-windows. Common choices are, how many $\lambda$-windows should be used? What functional form should my switching function take? The concept of \textit{difficult} and \textit{easy} transformation is more and more explored, but currently heuristics based on phase space overlap between neighboring $\lambda$-windows is the best way to assess how many windows should be simulated. This can for example be done by looking at the offdiagonals of an overlap matrix~\cite{}. Furthermore, the choice of simulation protocol will influence what switching function and how many $\lambda$-windows should be used. 
 \paragraph{Choice of Simulation protocol}
 There are currently four common types of simulation protocols available, which are summarised in Fig.~\ref{fig:protocols}, these are: Fig.~\ref{fig:protocols} (A) independent replicas, (B) replica exchange, (C) Single replica, self adjusted mixture modelling and (D) non-equilibirum switching. Particularly for (B) and (C) the choice of $\lambda$-spacing will be important, as in (B) it dictates the success of replicas exchanging between $\lambda$s and in (C), often tightly spaced replicas allow for a best exploration. Independent replicas are not necessarily recommended, but are still commonly implemented in software packages. 
-
+\begin{figure}
+    \includegraphics[width=0.95\linewidth]{figures/protocol.pdf}
+    \caption{\textbf{The four alchemical simulation protocols} (A)xx, (B)xx (C)xx, (D) xx}
+    \label{fig:protocols}
+\end{figure}
 \subsubsection{Specific choices for absolute and relative calculations}
 \paragraph{Perturbation maps for relative calculations}
 In relative free energy calculations the choice in which to set up the relative perturbations is very vast and can have a substantial effect on how accurate calculations may turn out to be. The way in which different ligands are connected by relative alchemical calculations is called a perturbation map. In particular for benchmarking it would be vitally important to use the same type of perturbation maps for the same benchmark sets unless new methodologies on how to setup perturbations maps are tested. In this way each edge of the perturbation map will be the same and plots created during the analysis phase later will be comparable. The simplest way of connecting lingands is in a star shaped from to a central crystal structure, with the assumption that all ligands of the congeneric series will bind in the same binding mode as the available crystal -- which may even be confirmed by other crystals, see Fig.~\ref{fig:map} (A), there are different methods available for creating interconnected perturbation maps using LOMAP~\cite{} or Diffnet~\cite{}, as well as some work towards assessing trade off in terms of what network structure will actually provide most reliable estimates with as little computational cost as possible~\cite{}.
 
-
+\begin{figure}
+    \includegraphics[width=0.95\linewidth]{figures/network.pdf}
+    \caption{\textbf{Two types of perturbation maps} (A)star map, (B) multi connection map}
+    \label{fig:map}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %  Simulation analysis  %
@@ -296,7 +304,7 @@ It is best practise to report the bootstrapped statistical errors alongside data
 %%%%%%%%%%%%%%%%
 
 (Explain the contributions of the different authors here)
-ASJSM: Wrote Sec.~\ref{sec:alchemical_prep}
+ASJSM: Wrote Sec.~\ref{sec:alchemical_prep} and created Fig.~\ref{fig:map} and Fig.~\ref{fig:protocols}. 
 
 
 % We suggest you preserve this comment:
