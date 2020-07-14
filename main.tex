@@ -128,17 +128,8 @@ Note that a checklist is not intended to cover \emph{all} important steps, but r
 % - exists on a separate page
 % This style of checklist will be especially helpful if you want to encourage readers to print and use your checklist in practice, as they
 % can easily print it without also printing other material from your manuscript. However, other styles of checklist are also possible (below).
-\begin{Checklists*}[p!]
 
-\begin{checklist}{First list}
-\textbf{You can easily make full width checklists that take a whole page}
-\begin{itemize}
-\item Items in your checklist can and should reference sections where the cited issues are discussed in detail, such as Section~\ref{sec:reference_this}
-\item Also remember
-\item And finally
-\end{itemize}
-\end{checklist}
-
+\begin{Checklists*}
 \begin{checklist}{Second list}
 \textbf{This is some further description.}
 \begin{itemize}
@@ -160,8 +151,9 @@ Note that a checklist is not intended to cover \emph{all} important steps, but r
 \begin{checklist}{Plotting results}
 \textbf{Presenting results in an appropriate format: Section~\ref{sec:plotting_results}}
 \begin{itemize}
+\item Clearly label the data with titles, legends, and captions.
 \item Plot results with the dependent variable (calculated) on y-axis, and the independent variable (experimental) on the x-axis. 
-\item Ensure that the data are reported in the same units on both axes, and clearly labelled. Where the units are consistent, the scale of the axis in real space should be consistent, such that a 1 cm change on the x-axis corresponds to the same change in affinity to 1 cm on the y-axis.
+\item Ensure that the data are reported in the same units on both axes, and labelled. Where the units are consistent, the scale of the axis in real space should be consistent, such that a 1 cm change on the x-axis corresponds to the same change in affinity to 1 cm on the y-axis.
 \item Plot only one target per plot, unless specifically looking at selectivity.
 \end{itemize}
 \end{checklist}
@@ -170,6 +162,8 @@ Note that a checklist is not intended to cover \emph{all} important steps, but r
 \textbf{Quantifying the success of a method: Section~\ref{sec:statistical_analysis}}
 \begin{itemize}
 \item 
+\item Identify which metrics are appropriate for your method. Statistics that measure accuracy, such as RMSE and MUE are commonplace, and additionally correlation statistics are appropriate for absolute free energies, but not relative free energies.
+\item Bootstrap statistics to provide confidence intervals. 
 \end{itemize}
 \end{checklist}
 
@@ -208,32 +202,96 @@ The \texttt{algpseudocode} and \texttt{algorithms} packages is loaded by the doc
 
 \subsection{dataset selection}
 
+
+\subsubsection{structural data}
+\label{sec:struct_data}
+\begin{Checklists*}[p!]
+
+\begin{checklist}{Structural Data}
+\textbf{This list of items will go to Sect. \ref{sec:struct_data}}
+\begin{itemize}
+\item a successful free energy calculation requires are well prepared model of the system, with structures close to its energetic minimum. the basis for this is an experimental structure, either from X-ray crystallography, cryo EM, NMR or homology models. https://doi.org/10.1021/acs.jcim.7b00564, https://doi.org/10.1021/acs.jcim.0c00116; https://doi.org/10.26434/chemrxiv.11364884.v2; 
+\item quality of x-ray structure  (Iridium: https://doi.org/10.1016/j.drudis.2012.06.011)
+    \begin{itemize}
+    \item Global criteria
+        \begin{itemize}
+        \item x-ray resolution only gives a theoretical limit, therefore not a good metric for quality. it should be < 2.0 (Schindler et al.) or < 3.5 (Warren et al) $\AA$
+        \item Use coordinate error to select the best structure (< 0.7)
+        \item Experimental data is available, i.e. electron density
+        \item The reported Rfree < 0.45 when resolution $\ge 3.5 \AA$
+        \item The reported difference between R and Rfree $\ge 0.05$
+        \end{itemize}
+    \item Local criteria
+        \begin{itemize}
+        \item Identify ligand atoms where there are crystal packing atoms within 6 Å
+        \item The ligand must have at least partial density (check visually or RSCC > 0.80)
+        \item All ligand and active site atoms with occupancy <1.0 are identified
+        \item Active site atoms with partial density are identified
+        \item Also are crystallographic waters resolved
+        \item Alternate conformations for ligand and active site atoms are identified
+        \item Identify covalent ligands
+        \item Are there crystal contacts? 
+        \item  Local metrics such as EDIA or Zobs or Spruce(?) can indicate if the electron density is sufficient to support the crystallographic placement of a given atom.
+        \end{itemize}
+    \end{itemize}
+\item aspects to be considered beyond the quality of the structure (see also structure preparation, Sect. \ref{sec:prep}
+    \begin{itemize}
+    \item Structure (also the binding mode!) could be deformed due to crystal contacts, additives, experimental temperature,... Can you assume the structure in the crystalline form is representative of the biologically active conformation? 
+    \item Content of the structure: is the small molecule (or a closely related one) bound? 
+    \item Are there cofactors or cobinders which should be included to model the natural environment of the protein?
+    \item Can we model the measurement conditions, temperature, ion concentration, other additives?
+    \item Can we model the natural environment (ion concentration, cofactors, membranes, ...)?
+    \end{itemize}
+\item If these requirements are not met, it does not necessarily mean that the data is not usable and  the results will be bad. A structure not meeting the requirements just needs more manual work by --- ideally an experienced --- user. Unresolved areas can be modelled with nowadays tools and knowledge about atom interactions.
+\item Collective intelligence could be a way to mitigate the influence of individuals to the prepared input structures of a benchmark set. On a platform, other scientists could suggest changes to structures and updated versions could be deposited, increasing the quality of the benchmark set. Endorsement and rating of deposited structures could increase the trust into specific structures and the database in general. 
+\end{itemize}
+\end{checklist}
+
+\end{Checklists*}
+
+\subsubsection{binding data}
+
 \subsection{setting up simulations}
 
+\subsubsection{Structure preparation}
+\label{sec:prep}
 
 \subsection{Measuring the success of free energy calculations requires careful analysis}
 Reliable reporting and analysis of the success of calculations is vital for the validation and benchmarking of free energy methods as well as the dissemination of published results. This reporting and analysis falls into two major categories -- plotting or visualization of results, and statistical analysis of the results. Here we make recommendations for both categories.
 
 \subsubsection{Plots of free energy results should adhere to certain common standards}
 \label{sec:plotting_results}
-Figures plotting experimental vs. calculated results are a very useful way to gauge the success of a method or a set of calculations. We recommend several key steps to ensure these plots are valuable, communicate accurate information, and are informative and readable. Experimental values (on the x-axis) should be converted into the same units as the free energy results (on the y-axis), and axes should use the same scale. One common issue with plotting free energy results is that different scales are used on the different axess, which can change the appearance of the results.
+Figures plotting experimental vs. calculated results are a very useful way to gauge the success of a method or a set of calculations. We recommend several key steps to ensure these plots are valuable, communicate accurate information, and are informative and readable. Experimental values (on the x-axis) should be converted into the same units as the free energy results (on the y-axis), and axes should use the same scale. One common issue with plotting free energy results is that different scales are used on the different axes, which can change the appearance of the results.
 
-INSERT STRETCHED OUT PLOT
+\begin{figure}
+    \includegraphics[width=0.95\linewidth]{figures/plotting-basics.png}
+    \caption{\textbf{Changes to the plotting style can change the appearance of the data.} The above three figures illustrates the same toy data. A) shows the data correctly, with the same units (which are labelled) and scales on both axes. B) shows the same data, however the limits on the y-axis have been changed such that the scales is not consistent. C) is also not consistent, but this is due to the scale of the plot, rather than the limits.}
+    \label{fig:plotting-basics}
+\end{figure}
 
-Error bars can be very helpful in understanding the uncertainty in the data -- both for calculated values and for experimental values, and thus both experimental and computational error bars should alwyas be included in visualizations of the data. Different sources of error might be used to quantify this, whether an uncertainty directly from a free energy estimator, variance between repeats or a hysteresis-type analysis. How the error bars have been calculated should be reported in the figure caption.
-* more details on ways to compute error bars?
-* more details on experimental error bars?
+Error bars can be very helpful in understanding the uncertainty in the data -- both for calculated values and for experimental values, and thus both experimental and computational error bars should always be included in visualizations of the data. Different sources of error might be used to quantify this, whether an uncertainty directly from a free energy estimator, variance between repeats or a hysteresis-type analysis. How the error bars have been calculated should be reported in the figure caption.\\
+* more details on ways to compute error bars?\\
+* more details on experimental error bars?\\
 Additionally, experimental values which were not actually measured (e.g. values resulting from a measured $K_D$ value which only has experimental bounds, such as $> 5 \mu M$) should not be plotted or should be clearly indicated by different styles and symbols.
 
 Finally, plots of results across various targets should typically show one figure per target. Differences in the success of free energy methods can vary widely between targets, and combining the data across targets onto a single plot can obscure actual performance on any given target. Additionally, when considering absolute free energies, the affinity ranges between targets may vary, which may result in analysis picking up the correlation between targets and their affinities, rather than the free energy methods ability to differentiate affinities for a particular target. One exception to this however may be if free energy calculations were being performed for selectivity analysis of similar proteins, whereby the targets are not independent parameters.
 
-\subsubsection{statistical analysis}
+\subsubsection{Consistent reporting of statistics is vital for measuring success}
 \label{sec:statistical_analysis}
 Free energy calculations fall into two categories: absolute and relative. Depending on which type of result are being analyzed --- absolute or relative --- different statistics will be appropriate. Accuracy statistics, such as root mean squared error (RMSE) and mean unsigned errors (MUE) provide information as to how well the computational method recapitulates the experimental results, and allow for a 'best guess' as to how far the computation prediction of new ligands' affinities may be from experiment. Correlation statistics, such as $R^{2}$, Kendall tau ($\tau$) and Spearman's rank ($\rho$) indicate how well a method does at ordering the results, at identifying the best and worst ligand in a set, which in live drug design projects where these models may be used to make purchasing decisions, may be a more useful metric than accuracy.\\
 
+One mistake that is commonly made, is the use of correlation-type statistics for the bench marking of relative free energy calculations. As relative calculations are pairwise comparisons between ligands, the direction, or sign of the calculation is arbitrary. If a ligand $A$ is 2 kcal mol $^{-1}$ higher affinity than ligand $B$, this could equally be plotted and reported as ligand $B$ being -2 $kcal mol ^{-1}$ lower affinity than ligand $A$. The consequence of the possible inversion of data points can shift the correlation statistics, despite the underlying data being reliable. The same set of data points can give a range of statistical results depending on arbitrary sign-flips in the data set. While this effect is reduced with increasing data set size, this can still be problematic. If a clear protocol is used, such as mapping all of the results to either be all positive or all negative, or plotting both $A$ -> $B$ and $B$ -> $A$ then the statistics quoted will be reproducible, however is possibly best to avoid correlation statistics for relative free energy results.
 
 
 
+* more details on other analysis methods GRAM RRMSE etc. etc. 
+
+
+\subsubsection{Bootstrapping is a reliable method for determining confidence intervals for statistics}
+
+While statistics are a useful measure of the performance of a method, it is also important to understand how accurate those measures are themselves. Is a MUE of 1.2 kcal mol$^{-1}$ much better than 1.3 kcal mol$^{-1}$? Would the performance be likely to change on the addition of new ligands in the series? Is the R$^2$ being heavily leveraged by a few outliers? Performing bootstrap analysis allows for confidence intervals to be placed on the statistics, and for these questions to be answered with some confidence. A MUE of 1.2 (0.6) kcal mol$^{-1}$ is not statistically different than a MUE of 1.3 (0.5) kcal mol$^{-1}$. Bootstrap analysis provides a measure of accuracy to the statistics through random sampling with replacement. Bootstrapping should be performed on the data used to compute the statistic reported --- for relative free energies this illustrate how sensitive the statistics are to the edges chosen, and for absolute free energies: the sensitivity to the ligands in the set. If a statistical error is available for each data-point, such as the error afforded from the free energy estimator, then this can be incorporated into the bootstrap estimate, by bootstrapping over a sample taken from each datapoint with it's associated error.\\
+How many bootstraps do you need to do to converge?\\
+It is best practise to report the bootstrapped statistical errors alongside data as 95\% confidence intervals to appropriately evaluate the performance of a particular method, and identify if improvements or changes to a model are statistically significant.
 
 
 \section{Author Contributions}
