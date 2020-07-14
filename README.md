@@ -28,7 +28,7 @@ GT: Gary Tresadern
 
 
 
-##List of Contributors
+## List of Contributors
 (non-author list of people who contributed to document)
 
 ## Paper Writing as Code Development
