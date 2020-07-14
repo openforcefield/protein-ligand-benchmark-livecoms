@@ -90,7 +90,7 @@
 \maketitle
 
 \begin{abstract}
-Free energy simulations are rapidly becoming a key component to the drug design process and significant efforts have been made to streamline these methods for ease of application. As these tools become more widespread and new innovations in methods and force fields are developed, benchmarking of the performance of free energy calculations on real-world systems becomes critical so that downstreams users can have an idea of what level of accuracy is to be expected. Such benchmarking, however, requires construction of well prepared, high quality benchmark sets in order to ensure they provide a realistic assessment of performance. However, the accuracy of results also dependsuseful results are reliant on the set up of the benchmark systems themselves, such as choices made in protein preparation. Diverse choices made in analysis can also impact apparent performance. Here, we address these critical issues by presenting guidelines for selecting good experimental datasets to serve as benchmarks for free energy calculations in order to assess real-world performance as well as possibly identify challenges that remain to be solved. We also give guidelines for preparing systems for binding free energy calculations such as for in benchmarking tests, and make recommendations as to how to analyze the performance of the resulting predictions and draw conclusions about relative performance of different techniques or methods. This work provides a summary of the practices we plan to use in our own benchmarking work on free energy calculations, as well.
+Free energy simulations are rapidly becoming a key component to the drug design process and significant efforts have been made to streamline these methods for ease of application. As these tools become more widespread and new innovations in methods and force fields are developed, benchmarking of the performance of free energy calculations on real-world systems becomes critical so that downstreams users can have an idea of what level of accuracy is to be expected. Such benchmarking, however, requires construction of well prepared, high quality benchmark sets in order to ensure they provide a realistic assessment of performance. However, the accuracy of results also depends on the set up of the benchmark systems themselves, such as choices made in protein preparation. Diverse choices made in analysis can also impact apparent performance. Here, we address these critical issues by presenting guidelines for selecting good experimental datasets to serve as benchmarks for free energy calculations in order to assess real-world performance as well as possibly identify challenges that remain to be solved. We also give guidelines for preparing systems for binding free energy calculations such as for in benchmarking tests, and make recommendations as to how to analyze the performance of the resulting predictions and draw conclusions about relative performance of different techniques or methods. This work provides a summary of the practices we plan to use in our own benchmarking work on free energy calculations, as well.
 \end{abstract}
 
 \end{frontmatter}
@@ -102,16 +102,9 @@ Free energy simulations are rapidly becoming a key component to the drug design 
 
 Here you would explain what problem you are tackling and briefly motivate your work.
 
-In this particular template, we have removed most of the usage examples which occur in \texttt{sample-document.tex} to provide a minimal template you can modify; however, we retain a couple of examples illustrating more unusual features of our templates/article class, such as the checklists, and information on algorithms and pseudocode.
-
-Keep in mind, as you prepare your manuscript, that you should plan for a representative image  which will be used to highlight your article on the journal website and publications. Usually, this would be one of your figures, but it must also be uploaded separately upon article submission. We give specific guidelines for this image on the journal website in the section on article submission (see \url{https://livecomsjournal.github.io/authors/policies/index.html#article-submission}).
-
-Additionally, for well-formatted manuscripts, we recommend that you let LaTeX handle figure/table placement for you as much as possible, so please avoid specifying strenuous float instructions like `[h!]` and `[H]` as much as possible.
 
 \section{Prerequisites}
-
-Here you would identify prerequisites/background knowledge that are assumed by your work and your checklist which you view as critical, ideally giving links to good sources on these topics.
-Checklists are normally focused on errors made by users with training and experience in molecular simulations, so you can assume a basic familiarity with the fundamentals of molecular simulations.
+We assume a basic familiarity with molecular dynamics (MD) simulations, as well as alchemical free energy protocols. If you are unfamiliar with both of these concepts we suggest the best practices guide by Braun et al.~\cite{braun2019best} on molecular simulations and Mey et al.~\cite{mey2020best} on alchemical free energy calculations as a starting point. 
 
 \section{Checklist}
 Here we use a full-page checklist with multiple sections, so it will appear on a separate page of the sample PDF.
@@ -130,23 +123,7 @@ Note that a checklist is not intended to cover \emph{all} important steps, but r
 % can easily print it without also printing other material from your manuscript. However, other styles of checklist are also possible (below).
 
 \begin{Checklists*}
-\begin{checklist}{Second list}
-\textbf{This is some further description.}
-\begin{itemize}
-\item First thing
-\item Also remember
-\item And finally
-\end{itemize}
-\end{checklist}
 
-\begin{checklist}{Third list}
-\textbf{This is some further description.}
-\begin{itemize}
-\item First thing
-\item Also remember
-\item And finally
-\end{itemize}
-\end{checklist}
 
 \begin{checklist}{Plotting results}
 \textbf{Presenting results in an appropriate format: Section~\ref{sec:plotting_results}}
@@ -174,32 +151,9 @@ Note that a checklist is not intended to cover \emph{all} important steps, but r
 
 
 
-\section{Rationale}
-
-Your Rationale section, or sections, can follow or precede your checklist (we expect that often, following the checklist will be preferable) and provide the necessary rationale for the checklist, and act as more complete \emph{best practices} description.
-This should include 1) significant detail as to the possible alternative ways to accomplish a given task, 2) description of advantages and disadvantages of the various approaches, and 3) significant literature documentation about reasons for choices.
-
-\subsection{Algorithms and Pseudocode}
-\label{sec:reference_this}
-
-The \texttt{algpseudocode} and \texttt{algorithms} packages is loaded by the document class. \ALG{euclid} was taken directly from the package documentation. (Please do not load \texttt{algorithm2e}; it's not compatible with \texttt{algpseudocde} nor \texttt{algorithms}!)
-
-\begin{algorithm}
-\caption{Euclid's algorithm}\label{alg:euclid}
-\begin{algorithmic}%[1]  %% uncomment to enable line numbers
-\Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
-   \State $r\gets a\bmod b$
-   \While{$r\not=0$}\Comment{We have the answer if r is 0}
-      \State $a\gets b$
-      \State $b\gets r$
-      \State $r\gets a\bmod b$
-   \EndWhile\label{euclidendwhile}
-   \State \textbf{return} $b$\Comment{The gcd is b}
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
 
 
+\section{Experimental data}
 \subsection{dataset selection}
 
 
@@ -251,11 +205,45 @@ The \texttt{algpseudocode} and \texttt{algorithms} packages is loaded by the doc
 
 \subsubsection{binding data}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Simulation setup and running simulations  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{How to best setup and run benchmark free energy simulations}
 \subsection{setting up simulations}
+\label{sec:setup}
 
 \subsubsection{Structure preparation}
 \label{sec:prep}
 
+\subsection{There are specific challenges for alchemical free energy calculation during setup}
+\label{sec:alchemical_prep}
+There are an abundance of details that must be considered during the set up of any simulation and in particular for alchemical free energy calculations. The two main differences between an alchemical free energy simulation setup and a conventional MD simulation are: an alchemical perturbation of the small molecules needs to be created, and the assumptions that are made with respect to the environment at the two endstates. In the following we will address all essential choices that need to be made for the setup. For a very detail introduction to best practices for alchemical free energy calculations and a much broader discussion on choices for their setup please refer to the best practices guide~\cite{mey2020best}. 
+
+\subsubsection{Should I run an absolute or relative free energy calculation?}
+There are two possible ways in which to run alchemical free energy calculations, which both provide a free energies of binding, but will require different routes for their setup. \textit{Relative} free energy calculations provide free energies of binding with respect to a reference ligand, meaning that all compounds that are to be assessed for their binding affinity should share a similar scaffold. Whereas \textit{abolute} free energies of binding can be used for a dataset of ligands that do not share any commonalities as the reference state for the free energy of binding is the standard state. This is probably the easiest deciding factor in terms of what kind of calculation to run. If the particular benchmark dataset contains ligands that form a congeneric series then a relative calculation is probably that of choice. Of course congeneric ligand series can be assessed using absolute free energy calculations, or it may be of interest to compare relative to absolute calculations for a given benchmark dataset. 
+\subsubsection{Common choices for absolute and relative free energy calculations}
+
+\paragraph{Alchemical pathway}
+In order to connect the initial and final state of the alchemcial free energy calculation an alchemical pathway must be chosen. This pathway is regulated by a variable $\vec{lambda}$, which at $\vec{lambda}=0$ would mean it represents molecule A and at $\vec{lambda}=1$. As free energy is a statefunction, the computed free energy is in principle independent on the pathway, but different choices in pathway can make the problem computationally more or less tractable. The simplest way to switch between molecule A and B is using a linear switching function for the potential energy of the form:
+\begin{equation}
+U(\vec{q},\vec{\lambda}) = \vec{\lambda} U_0(\vec{q}) + (1-\vec{\lambda})U_1(\vec{q}),
+\end{equation}
+where $U$ is the potential energy $\vec{q}$, is the set of positions and $\vec{lambda}$ the switching parameter. Considerable care needs to be taken in selecting the switching function and spacing of so-called $\lambda$-windows. Common choices are, how many $\lambda$-windows should be used? What functional form should my switching function take? The concept of \textit{difficult} and \textit{easy} transformation is more and more explored, but currently heuristics based on phase space overlap between neighboring $\lambda$-windows is the best way to assess how many windows should be simulated. This can for example be done by looking at the offdiagonals of an overlap matrix~\cite{}. Furthermore, the choice of simulation protocol will influence what switching function and how many $\lambda$-windows should be used. 
+\paragraph{Choice of Simulation protocol}
+There are currently four common types of simulation protocols available, which are summarised in Fig.~\ref{fig:protocols}, these are: Fig.~\ref{fig:protocols} (A) independent replicas, (B) replica exchange, (C) Single replica, self adjusted mixture modelling and (D) non-equilibirum switching. Particularly for (B) and (C) the choice of $\lambda$-spacing will be important, as in (B) it dictates the success of replicas exchanging between $\lambda$s and in (C), often tightly spaced replicas allow for a best exploration. Independent replicas are not necessarily recommended, but are still commonly implemented in software packages. 
+
+\subsubsection{Specific choices for absolute and relative calculations}
+\paragraph{Perturbation maps for relative calculations}
+In relative free energy calculations the choice in which to set up the relative perturbations is very vast and can have a substantial effect on how accurate calculations may turn out to be. The way in which different ligands are connected by relative alchemical calculations is called a perturbation map. In particular for benchmarking it would be vitally important to use the same type of perturbation maps for the same benchmark sets unless new methodologies on how to setup perturbations maps are tested. In this way each edge of the perturbation map will be the same and plots created during the analysis phase later will be comparable. The simplest way of connecting lingands is in a star shaped from to a central crystal structure, with the assumption that all ligands of the congeneric series will bind in the same binding mode as the available crystal -- which may even be confirmed by other crystals, see Fig.~\ref{fig:map} (A), there are different methods available for creating interconnected perturbation maps using LOMAP~\cite{} or Diffnet~\cite{}, as well as some work towards assessing trade off in terms of what network structure will actually provide most reliable estimates with as little computational cost as possible~\cite{}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Simulation analysis  %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\sction{How to analyse benchmark free energy simulations properly}
 \subsection{Measuring the success of free energy calculations requires careful analysis}
 Reliable reporting and analysis of the success of calculations is vital for the validation and benchmarking of free energy methods as well as the dissemination of published results. This reporting and analysis falls into two major categories -- plotting or visualization of results, and statistical analysis of the results. Here we make recommendations for both categories.
 
@@ -276,7 +264,7 @@ Additionally, experimental values which were not actually measured (e.g. values 
 
 Finally, plots of results across various targets should typically show one figure per target. Differences in the success of free energy methods can vary widely between targets, and combining the data across targets onto a single plot can obscure actual performance on any given target. Additionally, when considering absolute free energies, the affinity ranges between targets may vary, which may result in analysis picking up the correlation between targets and their affinities, rather than the free energy methods ability to differentiate affinities for a particular target. One exception to this however may be if free energy calculations were being performed for selectivity analysis of similar proteins, whereby the targets are not independent parameters.
 
-\subsubsection{Consistent reporting of statistics is vital for measuring success}
+\subsubsubsection{Consistent reporting of statistics is vital for measuring success}
 \label{sec:statistical_analysis}
 Free energy calculations fall into two categories: absolute and relative. Depending on which type of result are being analyzed --- absolute or relative --- different statistics will be appropriate. Accuracy statistics, such as root mean squared error (RMSE) and mean unsigned errors (MUE) provide information as to how well the computational method recapitulates the experimental results, and allow for a 'best guess' as to how far the computation prediction of new ligands' affinities may be from experiment. Correlation statistics, such as $R^{2}$, Kendall tau ($\tau$) and Spearman's rank ($\rho$) indicate how well a method does at ordering the results, at identifying the best and worst ligand in a set, which in live drug design projects where these models may be used to make purchasing decisions, may be a more useful metric than accuracy.\\
 
@@ -287,7 +275,7 @@ One mistake that is commonly made, is the use of correlation-type statistics for
 * more details on other analysis methods GRAM RRMSE etc. etc. 
 
 
-\subsubsection{Bootstrapping is a reliable method for determining confidence intervals for statistics}
+\subsection{Bootstrapping is a reliable method for determining confidence intervals for statistics}
 
 While statistics are a useful measure of the performance of a method, it is also important to understand how accurate those measures are themselves. Is a MUE of 1.2 kcal mol$^{-1}$ much better than 1.3 kcal mol$^{-1}$? Would the performance be likely to change on the addition of new ligands in the series? Is the R$^2$ being heavily leveraged by a few outliers? Performing bootstrap analysis allows for confidence intervals to be placed on the statistics, and for these questions to be answered with some confidence. A MUE of 1.2 (0.6) kcal mol$^{-1}$ is not statistically different than a MUE of 1.3 (0.5) kcal mol$^{-1}$. Bootstrap analysis provides a measure of accuracy to the statistics through random sampling with replacement. Bootstrapping should be performed on the data used to compute the statistic reported --- for relative free energies this illustrate how sensitive the statistics are to the edges chosen, and for absolute free energies: the sensitivity to the ligands in the set. If a statistical error is available for each data-point, such as the error afforded from the free energy estimator, then this can be incorporated into the bootstrap estimate, by bootstrapping over a sample taken from each datapoint with it's associated error.\\
 How many bootstraps do you need to do to converge?\\
@@ -308,6 +296,8 @@ It is best practise to report the bootstrapped statistical errors alongside data
 %%%%%%%%%%%%%%%%
 
 (Explain the contributions of the different authors here)
+ASJSM: Wrote Sec.~\ref{sec:alchemical_prep}
+
 
 % We suggest you preserve this comment:
 For a more detailed description of author contributions,
