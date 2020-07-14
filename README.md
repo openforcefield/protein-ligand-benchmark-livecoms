@@ -14,16 +14,16 @@
 
 ## List of Authors
 
-DH: David Hahn
-CIB: Christopher I. Bayly
-JS: Jesper Soerensen
-HBM: Hannah Bruce Macdonald
-VG: Vytautas Gapsys
-LPB: Laura Perez Benito
-JDC: John D. Chodera
-DLM: David L. Mobley
-ASJSM: Antonia S. J. S. Mey
-GT: Gary Tresadern
+DH: David Hahn    
+CIB: Christopher I. Bayly   
+JS: Jesper Soerensen   
+HBM: Hannah Bruce Macdonald   
+VG: Vytautas Gapsys   
+LPB: Laura Perez Benito   
+JDC: John D. Chodera   
+DLM: David L. Mobley   
+ASJSM: Antonia S. J. S. Mey   
+GT: Gary Tresadern   
 
 
 
