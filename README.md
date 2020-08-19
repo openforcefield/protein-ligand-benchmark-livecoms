@@ -20,6 +20,7 @@ JS: Jesper Soerensen
 HBM: Hannah Bruce Macdonald   
 VG: Vytautas Gapsys   
 LPB: Laura Perez Benito   
+CS: Christina Schindler
 JDC: John D. Chodera   
 DLM: David L. Mobley   
 ASJSM: Antonia S. J. S. Mey   
