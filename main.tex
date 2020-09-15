@@ -507,8 +507,8 @@ where $U$ is the potential energy $\vec{q}$, is the set of positions and $\vec{\
 \subsubsection{Choice of Simulation protocol}
 There are currently four common types of simulation protocols available, which are summarised in Fig.~\ref{fig:protocols}, these are: Fig.~\ref{fig:protocols} (A) independent replicas, (B) replica exchange, (C) Single replica, self adjusted mixture modelling and (D) non-equilibrium switching. Particularly for (B) and (C) the choice of $\lambda$-spacing will be important, as in (B) it dictates the success of replicas exchanging between $\lambda$s and in (C), often tightly spaced replicas allow for a best exploration. Independent replicas are not necessarily recommended, but are still commonly implemented in software packages. 
 \begin{figure}
-    \includegraphics[width=0.95\linewidth]{figures/setup/protocol/Figures.pdf}
-    \caption{\textbf{There are four simulations protocols available for generating samples and all $\vec{\lambda}$ states.} (A), (B)xx (C)xx, (D) xx}
+    \includegraphics[width=0.95\linewidth]{figures/setup/protocol/Figure.pdf}
+    \caption{\textbf{There are four simulations protocols available for generating samples and all $\vec{\lambda}$ states.} (A) Independent replicas run in parallel at different $\lambda$s as indicated by differently colored arrows, (B) Replica exchange attempts after short simulation for each replica (C) Self-adjusted mixture sampling with a single replica exploring all of $\lambda$, (D) Non-equilibrium methods with equilibrium end-state simulation and frequent non-equlibrium switching between endstates. , the clock icon is indicating the flow of simulation time and the pair of dice indicate a Metropolis Hastings based trial move}
     \label{fig:protocols}
 \end{figure}
 
@@ -547,7 +547,7 @@ Reliable reporting and analysis of the success of calculations is vital for the 
 
 \subsubsection{Plots of free energy results should adhere to certain common standards}
 \label{sec:plotting_results}
-Figures plotting experimental vs. calculated results are a very useful way to gauge the success of a method or a set of calculations. We recommend several key steps to ensure these plots are valuable, communicate accurate information, and are informative and readable. Experimental values (on the x-axis) should be converted into the same units as the free energy results (on the y-axis), and axes should use the same scale. One common issue with plotting free energy results is that different scales are used on the different axes, which can change the appearance of the results, as illustrated in Figure \ref{fig:plotting-basics}, where changes in the axis and ratios can make the data look more correlated.
+Figures plotting experimental vs. calculated results are a very useful way to gauge the success of a method or a set of calculations. We recommend several key steps to ensure these plots are valuable, communicate accurate information, and are informative and readable. Experimental values (on the x-axis) should be converted into the same units as the free energy results (on the y-axis), and axes should use the same scale. One common issue with plotting free energy results is that different scales are used on the different axes, which can change the appearance of the results, as illustrated in Figure~\ref{fig:plotting-basics}, where changes in the axis and ratios can make the data look more correlated.
 
 \begin{figure}
     \includegraphics[width=0.95\linewidth]{figures/reporting/plotting-basics.pdf}
@@ -580,17 +580,17 @@ While statistics are a useful measure of the performance of a method, it is also
 
 \subsubsection{The maximum achievable computational accuracy is limited by the accuracy of the experimental data}\label{section:expt-accuracy}
 
-Quantifying the experimental uncertainty is necessary for understanding the upper-limit of feasible accuracy for a model.\cite{brown2009healthy} Understanding this is both useful for fair comparison between methods, and for conveying the reliability of a model to medicinal chemists\cite{griffen2020chemists}. Building predictive models becomes more difficult with (a) a small experimental dynamic range and (b) large experimental uncertainties. It is useful to understand the upper limit of success a computational method can have for a set of experimental results;
+Quantifying the experimental uncertainty is necessary for understanding the upper-limit of feasible accuracy for a model~\cite{brown2009healthy}. Understanding this is both useful for fair comparison between methods, and for conveying the reliability of a model to medicinal chemists~\cite{griffen2020chemists}. Building predictive models becomes more difficult with (a) a small experimental dynamic range and (b) large experimental uncertainties. It is useful to understand the upper limit of success a computational method can have for a set of experimental results;
 
 \begin{equation}\label{eqn:r2max}
-    R^2_{max} = 1 - (\frac{\sigma(measurement  error)}{\sigma(affinity)}) ^2
+    R^2_{\mathrm{max}} = 1 - (\frac{\sigma(\mathrm{measurement\,  error})}{\sigma(\mathrm{affinity})}) ^2,
 \end{equation}
 
-where $R^2_{max}$ is the highest achievable $R^2$ for a dataset with a standard deviation of affinities ($\sigma(affinity)$) and an experimental uncertainty of  $\sigma(measurement  error)$\cite{sheridan2020experimental}.
+where $R^2_{\mathrm{max}}$ is the highest achievable $R^2$ for a dataset with a standard deviation of affinities ($\sigma(\mathrm{affinity})$) and an experimental uncertainty of  $\sigma(\mathrm{measurement \, error})$~\cite{sheridan2020experimental}.
 
-The primary publication of the experimental results is typically the best source of experimental uncertainty as cited affinites may occasionally be subject to rounding differences or unit errors\cite{kramer2012experimental}. Errors quoted will likely to be an estimate of the repeatability of the assay, rather than true, independent reproducibility. Publications with essential experimental controls reported --- such as incubation time and concentration regime to demonstrate equilibrium --- can add confidence to the reported affinity, however these may be performed and not reported\cite{jarmoskaite2020measure}. Meta-analyses of both repeatability\cite{sheridan2020experimental} and reproducibility\cite{kramer2012experimental} found errors of 0.3-0.4 log units (0.43-0.58 kcal mol$^{-1}$) and 0.44 (0.64 kcal mol$^{-1}$) log units respectively. These values provide a guideline for experimental error, if none is provided. It is not recommended to validate computational methods against experimental values obtained from a combination of sources if avoidable.\\
+The primary publication of the experimental results is typically the best source of experimental uncertainty as cited affinities may occasionally be subject to rounding differences or unit errors~\cite{kramer2012experimental}. Errors quoted will likely to be an estimate of the repeatability of the assay, rather than true, independent reproducibility. Publications with essential experimental controls reported --- such as incubation time and concentration regime to demonstrate equilibrium --- can add confidence to the reported affinity, however these may be performed and not reported~\cite{jarmoskaite2020measure}. Meta-analyses of both repeatability~\cite{sheridan2020experimental} and reproducibility~\cite{kramer2012experimental} found errors of 0.3-0.4 log units (0.43-0.58 kcal mol$^{-1}$) and 0.44 (0.64 kcal mol$^{-1}$) log units respectively. These values provide a guideline for experimental error, if none is provided. It is not recommended to validate computational methods against experimental values obtained from a combination of sources if avoidable.\\
 
-If an experimental uncertainty of 0.64 kcal mol$^{-1}$ is assumed for a dataset with a standard deviation of affinity of 1.25 kcal mol$^{-1}$, using Equation \ref{eqn:r2max} an upper-limit R$^2_{max}$ of 0.89 should be achievable.
+If an experimental uncertainty of 0.64 kcal mol$^{-1}$ is assumed for a dataset with a standard deviation of affinity of 1.25 kcal mol$^{-1}$, using Equation \ref{eqn:r2max} an upper-limit R$^2_{\mathrm{max}}$ of 0.89 should be achievable.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
