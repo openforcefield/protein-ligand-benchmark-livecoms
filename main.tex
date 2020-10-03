@@ -131,10 +131,9 @@ The D3R and SAMPL prospective challenges have demonstrated the utility of focusi
 
 Here, our proposed benchmark set augments existing datasets while recommending cleaning up or removing entirely some protein-ligand sets. We provide inputs that can be used to reliably launch future studies. Here, we highlight key considerations in the construction of a useful set of protein-ligand benchmarks, the preparation of these systems for use as a community-wide benchmark, and the appropriate statistical analyses for assessing and comparing the accuracy of different methods in a statistically meaningful way. We also provide a set of open source tools and data repositories that will act as living benchmark sets, and give statistical analysis tools that mirror our  recommendations for how these benchmarks should be conducted. We hope these materials will become a common standard utilized by the community for assessing performance and comparing methodologies.  
 
-%DLM got to here
 
 \section{Prerequisites}
-We assume a basic familiarity with molecular dynamics (MD) simulations, as well as alchemical free energy protocols. If you are unfamiliar with both of these concepts we suggest the best practices guide by Braun et al.~\cite{braunBestPracticesFoundations2019} on molecular simulations and Mey et al.~\cite{meyBestPracticesAlchemical2020} on alchemical free energy calculations as a starting point. 
+We assume a basic familiarity with molecular dynamics (MD) simulations, as well as alchemical free energy protocols. If you are unfamiliar with both of these concepts we suggest the best practices guides by Braun et al.~\cite{braunBestPracticesFoundations2019} on molecular simulations and Mey et al.~\cite{meyBestPracticesAlchemical2020} on alchemical free energy calculations as a starting point. 
 
 \section{Checklist}
 Here we use a full-page checklist with multiple sections, so it will appear on a separate page of the sample PDF.
@@ -186,11 +185,11 @@ Note that a checklist is not intended to cover \emph{all} important steps, but r
 \section{Dataset Selection}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Details of the criteria for optimal benchmark datasets will follow throughout the rest of the manuscript. The aim of this section is to consider what is the purpose of a current or future additional protein-ligand benchmark dataset. It is understood that FE calculations are relatively costly in terms of computational effort. A certain number of datapoints, either activity measurements or activity differences, will be needed to empower subsequent statistical analyses, see later section XXXX. Once this number is reached, and even surpassed, what is the point of adding more new datasets? 
+Details of our criteria for good benchmark datasets will follow throughout the rest of the manuscript. Here, we examine the purpose of protein-ligand benchmark datasets, and of expanding these sets. FE calculations are relatively costly in terms of computational effort. A certain number of datapoints, either activity measurements or activity differences, will be needed to empower subsequent statistical analyses, see later section XXXX. Once this number is reached, and even surpassed, what is the point of adding more new datasets? 
 
-This can be illustrated by considering a common drug discovery target such as beta secretase (BACE) that already recurs in existing FE benchmark datasets. Given the vast number of patents, medicinal chemistry articles, and X-ray structures it could be possible to construct hundreds of BACE FE datasets containing several dozen ligands in each. That might be of use in specific application scenarios, but would likely offer limited scientific insights for continued FE results of ligands with analogous chemotypes, binding site, binding mode, and subpocket interactions.  
+To answer this, consider beta secretase (BACE), a common drug discovery target that already occurs in FE benchmark datasets. Given the vast number of patents, medicinal chemistry articles, and X-ray structures it could be possible to construct hundreds of BACE FE datasets containing several dozen ligands in each. These might have value for very specific applications, but will likely offer limited scientific insight about cross-target performance. This same holds true for other targets; often the amount of data available far exceeds that needed for benchmarking.
 
-We propose a core of  robust datasets that match optimal criteria for benchmarking but then we would consider incorporating new datasets which explore increasingly difficult concepts. A variety of parameters can guide future datasets. Concepts can include but not limited to:
+Here, we propose a core of  robust datasets that match optimal criteria for benchmarking but then we would consider incorporating new datasets which explore increasingly difficult concepts. A variety of parameters can guide future datasets. Concepts can include but not limited to:
 
 Drug discovery interest, representative of classical drug discovery targets and chemistry, chemical and target diversity: drug discovery evolves and new target families emerge: nuclear receptors, G protein-coupled receptors, ion channels, proteases, kinases, epigenetic targets, protein protein interactions, etc. Binding FE calculations are agnostic to protein classification, but there can be a pragmatic value in expanding benchmark sets to new protein families that may present unexpected inherent difficulties, either conformational or due to binding site characteristics (presence of metal ions for instance). 
 
@@ -255,9 +254,9 @@ Activity cliffs.
 % Iridium publication from Greg Warren, source of a checklist of things to care about: https://doi.org/10.1016/j.drudis.2012.06.011
 % Zoe Woody Bryce -- Relative paper in JCIM, things to keep in mind when you’re preparing a protein.
 
-A successful free energy calculation requires a well prepared model of the simulation system, with structures close to its energetic minimum. 
+A successful free energy calculation requires a well prepared model of the system to be simulated, with structures close to its energetic minimum. 
 %
-The basis for the protein structure is an experimental structure, which is most commonly obtained from X-ray crystallography.
+Starting structures are typically obtained from experimental structures, most commonly obtained from X-ray crystallography.
 Other sources can be structures from cryo EM, NMR or homology models.
 %https://doi.org/10.1021/acs.jcim.7b00564, %https://doi.org/10.1021/acs.jcim.0c00116; %https://doi.org/10.26434/chemrxiv.11364884.v2; 
 As free energy calculations are usually run at atomic resolution, the input structure needs to provide the coordinates of all atoms. These are ideally determined by the model.
@@ -595,8 +594,10 @@ This can be exacerbated by experimental uncertainties, which will be covered in 
 
 
 \begin{figure}
-    \includegraphics[width=0.95\linewidth]{figures/reporting/doublevalues.pdf}
-    \caption{\textbf{Using correlation statistics with relative free energy results are unreliable.} For a set of $N$ datapoints, there are $2^N$ possible permutations in the sign for the datapoints, where the changes in sign results in a range of possible statistics from the same underlying data. For a set of 10 example relative free energies, the range of possible values for $R^2$, Kendall $\tau$ and $\rho$ are reported. Plotting results with all-positive datapoints, or plotting both signs for free energy results provide estimates that are individually reproducible, but not in agreement with each other. For this reason, best practise is to avoid reporting correlation statistics for the reporting of relative free energy calculations, and instead using accuracy  statistics such as RMSE and MUE instead.}
+    \includegraphics[width=0.95\linewidth]{figures/reporting/relativeissuesA.pdf}
+    \includegraphics[width=0.95\linewidth]{figures/reporting/relativeissuesB.pdf}
+    \caption{\textbf{Using correlation statistics with relative free energy results are unreliable.} For a set of $N$ datapoints, there are $2^N$ possible permutations in the sign for the datapoints, where the changes in sign results in a range of possible statistics from the same underlying data. For a set of 10 example relative free energies, the range of possible values for $R^2$, Kendall $\tau$ and $\rho$ are illustated in the violin plot. The order of permutations that result in the highest and lowest correlation statistic  are shown 
+below, for $R^2$, Kendall $\tau$ and $\rho$ are shown for the same set of ten toy relative free energy resultsm achieved by simply using different definitions of relative 'directions' for different edges. For this reason, best practise is to avoid reporting correlation statistics for the reporting of relative free energy calculations, and instead using accuracy  statistics such as RMSE and MUE instead.}
     \label{fig:changing-corr}
 \end{figure}
 
