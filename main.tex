@@ -55,7 +55,7 @@
 \affil[7]{DeepCure, 131 Dartmouth St, Boston, MA 02116 USA }
 \affil[8]{Computational Chemistry \& Biology, Merck KGaA, Frankfurter Str. 250, 64289 Darmstadt, Germany}
 
-\corr{email1@example.com}{DFH}  % Correspondence emails.  FMS and FS are the appropriate authors initials.
+\corr{davidfriedrichhahn@gmail.com}{DFH}  % Correspondence emails.  
 
 \orcid{David F. Hahn}{0000-0003-2830-6880}
 \orcid{Hannah E. Bruce Macdonald}{0000-0002-5562-6866}
@@ -98,7 +98,7 @@
 \maketitle
 
 \begin{abstract}
-Free energy simulations are rapidly becoming a key component to the drug design process and significant efforts have been made to streamline these methods for ease of application. As these tools become more widespread and new innovations in methods and force fields are developed, benchmarking of the performance of free energy calculations on real-world systems becomes critical so that downstream users can have an idea of what level of accuracy is to be expected. Benchmarking also plays a critical role in assessment of progress. Such benchmarking, however, requires construction of a benchmark set, which is a set of well prepared, high quality input in order to ensure they provide a realistic assessment of performance. However, the accuracy of results also depends on the set up of the benchmark systems themselves, such as choices made in protein preparation. Diverse choices made in analysis can also impact apparent performance. Here, we address these critical issues by presenting guidelines for selecting good experimental datasets to serve as benchmarks for free energy calculations in order to assess real-world performance as well as possibly identify challenges that remain to be solved. We also give guidelines for preparing benchmark systems for binding free energy calculations. Additionally, we provide recommendations regarding the analysis of the resulting predictions and the comparison of relative performance of different techniques or methods.
+Free energy simulations are rapidly becoming a key component to the drug design process and significant efforts have been made to streamline these methods for ease of application. As these tools become more widespread and new innovations in methods and force fields are developed, benchmarking of the performance of free energy calculations on real-world systems becomes critical so that downstream users can have an idea of what level of accuracy is to be expected. Benchmarking also plays a critical role in assessment of progress. Such benchmarking requires construction of a benchmark set, which is a set of well prepared, high quality inputs designed to ensure the resulting calculations provide a realistic assessment of performance. However, the accuracy of results also depends on the set up of the benchmark systems themselves, such as choices made in protein preparation. Diverse choices made in analysis can also impact apparent performance. Here, we address these critical issues by presenting guidelines for selecting good experimental datasets to serve as benchmarks for free energy calculations in order to assess real-world performance as well as possibly identify challenges that remain to be solved. We also give guidelines for preparing benchmark systems for binding free energy calculations. Additionally, we provide recommendations regarding the analysis of the resulting predictions and the comparison of relative performance of different techniques or methods.
 \end{abstract}
 
 \end{frontmatter}
@@ -119,7 +119,7 @@ We begin by giving additional background, then discuss dataset selection, datase
 
 The quantitative prediction of protein ligand binding affinity is a key goal of computational assisted drug discovery. The accurate prioritization of ligands for synthesis could deliver substantial efficiency and quality improvements in early drug discovery~\cite{abelCriticalReviewValidation2017,abelModelingValuePredictive2018}. Binding free energy (FE) calculations, particularly alchemical binding free energy calculations, have emerged as arguably the most promising tool~\cite{courniaRelativeBindingFree2017}. Alchemical binding FE methods such as free energy perturbation (FEP)~\cite{zwanzigHighTemperatureEquation1954,bennettEfficientEstimationFree1976}, or thermodynamic integration (TI)~\cite{kirkwoodQuantumStatisticsAlmost1933,kirkwoodQuantumStatisticsAlmost1934,kirkwoodStatisticalMechanicsFluid1935} have a substantial legacy with the original theory dating back many decades. Seminal work in the 1980’s and 90’s demonstrated applications with organic and biological systems and linked the theory to molecular dynamics (MD) or Monte Carlo (MC) simulation packages~\cite{jorgensenMonteCarloSimulation1985,straatsmaFreeEnergyHydrophobic1986,lybrandTheoreticalCalculationRelative1986,merzFreeEnergyPerturbation1989,pearlmanDeterminationDifferentialEffects1995,choderaAlchemicalFreeEnergy2011,mobleyPerspectiveAlchemicalFree2012}. 
 
-Alchemical perturbations in binding FE calculations involve the modification of one chemical moiety to another, or its complete removal or addition, via a chemically unrealistic pathway that can only be achieved in silico such as the transformation of one atom-type to another. Alchemical protein ligand binding FE calculations are often classified as either relative (RBFE) or absolute (ABFE). While the underlying theory is similar, the implementation differs due to use of an alternative thermodynamic cycle. For RBFE the affinity of a ligand to a protein is calculated with respect to another ligand, and involves alchemical perturbations of only the substructures that change between the two ligands. On the other hand, ABFE calculations alchemically remove an entire ligand from solvent and protein. The reader is referred to a recent review of alchemical methods and recommendations for their use~\cite{meyBestPracticesAlchemical2020}.
+Alchemical perturbations in binding FE calculations involve the modification of one chemical moiety to another, or its complete removal or addition, via a chemically unrealistic pathway that can only be achieved in silico such as by changing atoms of one element into those of another. Alchemical protein ligand binding FE calculations are often classified as either relative (RBFE) or absolute (ABFE). While the underlying theory is similar, the implementation differs due to use of an alternative thermodynamic cycle. For RBFE the affinity of a ligand to a protein is calculated with respect to another ligand, and involves alchemical perturbations of only the substructures that change between the two ligands. On the other hand, ABFE calculations alchemically remove an entire ligand from solvent and protein. The reader is referred to a recent review of alchemical methods and recommendations for their use~\cite{meyBestPracticesAlchemical2020}.
 
 \onecolumn
 \begin{figure}
@@ -131,7 +131,7 @@ Alchemical perturbations in binding FE calculations involve the modification of 
 
 Drug discovery lead optimization (LO) typically involves the synthesis of hundreds of close analogues, often differing by only small structural modifications, in order to identify the optimal leads that show a good balance of target potency and other properties. This makes it an ideal scenario for RBFE where small differences in structure are well suited to alchemical perturbation. A number of recent studies have highlighted the good performance of RBFE for LO datasets. The high profile report from Wang et al.~\cite{wangAccurateReliablePrediction2015} used their commercial implementation of FEP and reported mean unsigned errors of < 1.2 kcal/mol. As they pointed out at the time, it is challenging to set up and reliably run RBFE calculations, but their results were robust over a relatively large dataset of 8 protein targets, 199 ligands, and 330 perturbations. It is not reported why these protein-ligand sets were chosen, other than they may be typical of current LO drug discovery. The same group has re-used this dataset to test updates to their force field (OPLS3\cite{harder_opls3_2016} and OPLS3e\cite{roos_opls3e_2019}). Today, this has become the de facto dataset for most large scale RBFE reports. It has been used to compare the performance of Amber/TI calculations~\cite{songUsingAMBER18Relative2019}, Flare’s FEP (Cresset and Michel group)~\cite{kuhnAssessmentBindingAffinity2020} and used as a subset with PMX and Gromacs\cite{gapsysLargeScaleRelative2020}. This dataset has also been used in machine learning studies~\cite{jimenezDEEPProteinLigand2018,jimenez-lunaDeltaDeltaNeuralNetworks2019}. In contrast, to date ABFE calculations have not been studied with datasets of a similar scale, although individual reports have shown success accurately predicting binding affinities~\cite{aldeghiLargescaleAnalysisWater2018,courniaRigorousFreeEnergy2020}.
 
-Despite the success cases, there are many reports showing that RBFE calculations still struggle in certain scenarios,\cite{sherborne_collaborating_2016} such as with scaffold modifications~\cite{wangAccurateModelingScaffold2017} and ring expansion~\cite{liuRingBreakingFeasible2015}, water displacement\cite{michel_energetics_2009,brucemacdonald_ligand_2018}, protein flexibility (CITE), applications on GPCRs\cite{lenselink_predicting_2016,deflorian_accurate_2020} and the modelling of cofactors like metal ions or heme (CITE). This is manifest in a large-scale study of FEP applied to drug discovery projects at Merck KGaA, in which Schindler et al. reported several cases of disappointing outcomes~\cite{schindler_largescale_2020}. In addition, new methods and implementation improvements for FE calculations continue to emerge, for instance the efforts on lambda dynamics~\cite{knightMultisiteDynamicsSimulated2011,vilseckPredictingBindingFree2018}, and non-equilibrium RBFE calculations~\cite{gapsysLargeScaleRelative2020,rufaChemicalAccuracyAlchemical2020}. Furthermore, there are many other methodologies such as end-point binding FE calculations (for instance MMGBSA, MMPBSA) or pathway based FE calculations that continue to be developed and applied. Therefore, we must balance the increased confidence that simulation-based FE calculations can impact drug discovery, with the need to further understand, test and overcome limitations of the current methods.
+Despite the success cases, there are many reports showing that RBFE calculations still struggle in certain scenarios,\cite{sherborne_collaborating_2016} such as with scaffold modifications~\cite{wangAccurateModelingScaffold2017} and ring expansion~\cite{liuRingBreakingFeasible2015}, water displacement\cite{michel_energetics_2009,brucemacdonald_ligand_2018,ross_enhancing_2020a,ben-shalom_accounting_2020}, protein flexibility\cite{huang_insights_2012,fratev_improved_2019,singh_absolute_2020}, applications on GPCRs\cite{lenselink_predicting_2016,deflorian_accurate_2020} and the modelling of cofactors like metal ions or heme (CITE). This is manifest in a large-scale study of FEP applied to drug discovery projects at Merck KGaA, in which Schindler et al. reported several cases of disappointing outcomes~\cite{schindler_largescale_2020}. In addition, new methods and implementation improvements for FE calculations continue to emerge, for instance the efforts on lambda dynamics~\cite{knightMultisiteDynamicsSimulated2011,vilseckPredictingBindingFree2018}, and non-equilibrium RBFE calculations~\cite{gapsysLargeScaleRelative2020,rufaChemicalAccuracyAlchemical2020}. Furthermore, there are many other methodologies such as end-point binding FE calculations (for instance MMGBSA, MMPBSA) or pathway based FE calculations that continue to be developed and applied. Therefore, we must balance the increased confidence that simulation-based FE calculations can impact drug discovery, with the need to further understand, test and overcome limitations of the current methods.
 
 In brief, the issues mentioned above are related to three challenges or FE calculations,
 (1) an accurate representation of the biological system, 
@@ -158,7 +158,7 @@ We assume a basic familiarity with molecular dynamics (MD) simulations, as well 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Details of our criteria for good benchmark datasets will follow throughout the rest of the manuscript. Here, we examine the purpose of protein-ligand benchmark datasets, and of expanding these sets.
-Here, we propose a core of  robust datasets that match optimal criteria for benchmarking but then we would consider incorporating new datasets which explore increasingly difficult concepts. A variety of parameters can guide future datasets.
+We propose a core of robust datasets that match optimal criteria for benchmarking but suggest supplementing this core with new datasets which explore increasingly difficult concepts. A variety of parameters can guide future datasets.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Protein Selection}
@@ -198,7 +198,7 @@ covalently bound ligands.
 %
 If the ligand sets are sufficiently large, they can then be split into separate subsets (subsets with e.g. different ring sizes or different charges).
 %
-Ligand sampling can be problematic in some cases. Aromatic rings with asymmetric substitution will usually sample dihedral rotations freely in solvent but can become trapped in protein pockets during short FE simulations. Macrocycles present more extreme issues of ligand sampling and likely require special consideration. 
+Ligand sampling can be problematic in some cases. Aromatic rings with asymmetric substitution will usually sample dihedral rotations freely in solvent but can become trapped in protein pockets during short FE simulations.\cite{kaus_how_2015} Macrocycles present more extreme issues of ligand sampling and likely require special consideration.\cite{wagner_computational_2017,yu_accurate_2017,paulsen_evaluation_2020} 
 %The restrictions on charge states are preferable for comparative benchmarking of multiple FE methods, since methods for dealing with charge changes are not yet supported in all software packages. Similarly, transformations involving ring breaking and changes in ring size should be avoided at the moment (if a large enough number of molecules is available, these can be split into separate sets), as well as datasets with covalently bound inhibitors. 
 % Note that e.g., the FEP+ method \cite{wangAccurateReliablePrediction2015} can support these types of transformations\cite{wangAccurateModelingScaffold2017,} and previously published benchmark sets \cite{{schindler_largescale_2020} also include such cases. 
 The chemical diversity of the ligands that can be considered in a benchmark needs to be suitable for the given free energy method. Single RBFEs rely on common structural elements between the molecules being compared, and are hence more appropriate for a congeneric series of ligands. 
@@ -265,6 +265,7 @@ A successful free energy calculation requires a well prepared model of the syste
 %
 Often structural studies use shorter constructs that might be missing several domains compared to the full-length protein. To facilitate crystallization, mutations might have been introduced. In addition, parts of the protein might not be resolved. Ideally, such deviations should be kept to a minimum in a benchmark data set.
 %
+
 Starting structures are typically obtained from experimental structures, most commonly obtained from X-ray crystallography.
 Other sources can be structures from cryo EM, NMR or homology models.
 %https://doi.org/10.1021/acs.jcim.7b00564, %https://doi.org/10.1021/acs.jcim.0c00116; %https://doi.org/10.26434/chemrxiv.11364884.v2; 
@@ -272,7 +273,8 @@ As free energy calculations are usually run at atomic resolution, the input stru
 %
 For X-ray structures, this requirement is only met by high quality structures.
 The evaluation criteria defined by OpenEye Iridium\cite{warrenEssentialConsiderationsUsing2012} can guide the assessment of X-ray structure. 
-%
+
+
 Regarding the assessment overall quality of the structure (global criteria), the X-ray resolution is often used as it is easily accessible.
 %
 However, this metric only gives a theoretical limit and not the real quality of the model. Therefore it is not a good metric for quality and should only be used alongside other metrics. Iridium requests a resolution threshold of $< 3.5\,$\AA,\cite{warrenEssentialConsiderationsUsing2012} although more strict thresholds have been suggested (i.e. $<2.0\,$\AA  in a recent benchmark\cite{schindler_largescale_2020}).
@@ -287,31 +289,31 @@ Both $R$-factors are easily accessible for reported crystallographic data, e.g. 
 Additionally to the quality of the model, the quality of the crystal is also included in the coordinate error metric,
 %
 \begin{equation}
-    \mathrm{coordinate error} = \frac{2.22 R_{\mathrm{free}}\sqrt{N_i^3}\sqrt{V_a}} {n_{\mathrm{obs}}^{5/6}},
+    \mathrm{coordinate\ error} = \frac{2.22 R_{\mathrm{free}}\sqrt{N_i^3}\sqrt{V_a}} {n_{\mathrm{obs}}^{5/6}},
     \label{eq:coordinate_error}
 \end{equation}
 %
 where $N_i$ is the number of heavy atoms with occupancy of 1, $V_a$ is the volume of the asymmetric unit cell and $n_{\mathrm{obs}}$ is the number of non-$R_{\mathrm{free}}$ reflections used during refinement. A high-quality structure should have a coordinate error $<0.7$.
 
-\onecolumn
-\begin{table}[h]
+%\onecolumn
+\begin{table*}[h]
 \caption{
-Evaluation of the quality of structural experimental data of a proposed benchmark set. 
+Evaluation of the quality of structural experimental data of the proposed benchmark set.
 %
 The successive entries are the 
 target name/identifier,
 the used PDB ID and its quality evalutation in terms of
 Iridium classification (Ir. Class.), 
 Iridium score (Ir. Score) and 
-DPI.
+diffraction-component precision index (DPI).
 %
-Additionally, a PDB ID of a higher quality structure and 
-its quality measures are provided.
+The structures listed in "Used structure" are those used in the initial version of this dataset, which is drawn in part from previous studies. However, alternate available structures may be superior. In these cases, we provide a PDB ID of a higher quality structure and 
+its quality measures, in the "Alternate structure" fields.
 }
 \label{tab:struct}
 \input{struct_table}
-\end{table}
-\twocolumn
+\end{table*}
+%\twocolumn
 
 Next to the above global metrics, the local resolution of side chains and ligands in the crystal is of importance for a high quality model. Special care should be taken for the ligand and around the active site. 
 %
@@ -338,8 +340,9 @@ The ligand in the experimental structure should be sufficiently close to the lig
 A choice of the simulation conditions like temperature, ion concentration, other additives like co-factors or membranes require additional considerations. Ideally, these conditions are close to structural experiment, the affinity measurements and the physiological conditions. Most likely, a trade-off between all of these has to be found. 
     
 %
-If these requirements are not met, it does not necessarily mean that the data is not usable and the results will be bad. A structure not meeting the requirements just needs more manual work by --- ideally an experienced --- user. Unresolved areas can be modelled with nowadays tools and knowledge about atom interactions.
-%
+If these requirements are not met, it does not necessarily mean that the data is not usable and the results will be bad. A structure not meeting the requirements may suffice after more manual work by the user, ideally an experieenced one. Unresolved areas can be modelled with current tools and knowledge about atom interactions, though this can be a cause for concern if these are near the binding site.
+
+
 Collective intelligence could be a way to mitigate the influence of individuals to the prepared input structures of a benchmark set. On a platform, other scientists could suggest changes to structures and updated versions could be deposited, increasing the quality of the benchmark set. Endorsement and rating of deposited structures could increase the trust into specific structures and the database in general.
 
 
@@ -388,7 +391,7 @@ To assess the reliability, ideally, errors are reported for all ligand affinitie
 
 There are two main requirements to consider in order to ensure that the experimental data are representative of the physics-based binding free energy that is calculated from the simulations. First, the measured output should reflect or closely correlate with actual protein-ligand \emph{binding}. Second, the assay conditions and the protein-ligand system used in the simulation should match as closely as possible. The first point relates to choosing the appropriate type of experimental data to compare with. Ideally, these would be biophysical binding data such as $K_d$ determined from isothermal titration calorimetry (ITC) or surface plasmon resonance (SPR). However, this type of data is often only available for a small number of compounds in drug discovery projects (and the related literature), typically for a few representatives per series. In addition, ITC data are often only available for a narrow dynamic range.~\cite{wiseman_rapid_1989,chodera_entropyenthalpy_2013} Since having a sufficiently large data set with a large dynamic range is also very important (see below), it may often be necessary to use data from functional assays (e.g., IC$_{50}$ from a biochemical assay) instead. For this assay, correlation with a biophysical readout should be checked before using the system as a benchmark data set.\cite{kalliokoski_comparability_2013}
 
-With regards to matching simulation and binding assay, it is important to have detailed knowledge of the assay conditions available; e.g., salt concentrations and co-factors. This information is needed for setting up a simulation model that closely matches the experimental conditions (see Section \ref{sec:prep}). For a benchmark set, experimental data with assay conditions involving many co-factors or multiple protein partners should be avoided. In addition, one should check which protein construct was used in the structural studies compared to the assay (see Section \ref{sec:struct_data}). These should match as closely as possible. 
+With regards to matching simulation and binding assay, it is important to have detailed knowledge of the assay conditions available; e.g., salt concentrations and co-factors. This information is needed for setting up a simulation model that closely matches the experimental conditions (see Section \ref{sec:prep}). Generally, salt concentration should match experimental assay conditions to capture screening effects, though sometimes salt \emph{identity} may be varied because of force field limitations. For a benchmark set, experimental data with assay conditions involving many co-factors or multiple protein partners should be avoided. In addition, one should check which protein construct was used in the structural studies compared to the assay (see Section \ref{sec:struct_data}). These should match as closely as possible. 
 
 Finally, a dataset used for benchmarking of free energy calculations needs to be suitable to draw robust conclusions on the success of the methods ideally by both accuracy and correlation statistics. Whether a dataset is suitable depends on the number of data points in the set, the experimental dynamic range and the experimental uncertainty. 
 
@@ -427,7 +430,7 @@ As stated before, in practice it is challenging to find datasets that meet these
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %        Simulation setup and running simulations          %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{How to best setup and run benchmark free energy simulations}
+\section{How to best set up and run benchmark free energy simulations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %-----------------------------------------------------------
@@ -455,7 +458,7 @@ Once protein and ligand have been prepared, the complex is assembled and solvate
 Once the above decisions have been made and the complete simulation system has been set up, it is important to let it relax and equilibrate at simulation temperature and pressure, which should mimic the assay conditions.
 
 %-----------------------------------------------------------
-\subsection{There are specific challenges for alchemical free energy calculation during setup}
+\subsection{There are specific challenges for alchemical free energy calculations during setup}
 \label{sec:alchemical_prep}
 %-----------------------------------------------------------
 
@@ -468,13 +471,13 @@ There are two possible ways in which to run alchemical free energy calculations,
 \subsubsection{Alchemical pathway}
 
 \paragraph{Choices in topology}
-The choice of topology, may be dictated by the simulation software of choice as not all common MD codes implement all topologies. The topology refers to the way in which a molecule A is changed to molecule B. Selecting either a dual or single topology approach is acceptable, unless performance of different topologies is assessed across the benchmark datasets. For more details on the different topology choices and implementations please refer to Mey el al.~\cite{meyBestPracticesAlchemical2020}.
+The choice of topology, may be dictated by the simulation software of choice as not all common MD codes implement all topologies. The topology refers to the way in which a molecule A is changed to molecule B. Selecting either a dual or single topology approach is acceptable, unless performance of different topologies is assessed across the benchmark datasets. For more details on the different topology choices and implementations please refer to Mey et al.~\cite{meyBestPracticesAlchemical2020} al.~\cite{meyBestPracticesAlchemical2020}.
 \paragraph{Choices around $\lambda$}
 In order to connect the initial and final state of the alchemical free energy calculation an alchemical pathway must be chosen. This pathway is regulated by a variable $\vec{\lambda}$, which at $\vec{\lambda}=0$ would mean it represents molecule A and at $\vec{\lambda}=1$ molecule B. As free energy is a state function, the computed free energy is in principle independent on the pathway, but different choices in pathway can make the problem computationally more or less tractable. The simplest way to switch between molecule A and B is using a linear switching function for the potential energy of the form:
 \begin{equation}
 U(\vec{q},\vec{\lambda}) = \vec{\lambda} U_0(\vec{q}) + (1-\vec{\lambda})U_1(\vec{q}),
 \end{equation}
-where $U$ is the potential energy $\vec{q}$, is the set of positions and $\vec{\lambda}$ the switching parameter. Considerable care needs to be taken in selecting the switching function and spacing of so-called $\lambda$-windows. Common choices are, how many $\lambda$-windows should be used? What functional form should my switching function take? The concept of \textit{difficult} and \textit{easy} transformation is more and more explored, but currently heuristics based on phase space overlap between neighboring $\lambda$-windows is the best way to assess how many windows should be simulated. This can for example be done by looking at the offdiagonals of an overlap matrix~\cite{}. Furthermore, the choice of simulation protocol will influence what switching function and how many $\lambda$-windows should be used. 
+where $U$ is the potential energy $\vec{q}$, is the set of positions and $\vec{\lambda}$ the switching parameter. Considerable care needs to be taken in selecting the switching function and spacing of so-called $\lambda$-windows. Common choices are, how many $\lambda$-windows should be used? What functional form should my switching function take? The concept of \textit{difficult} and \textit{easy} transformation is more and more explored, but currently heuristics based on phase space overlap between neighboring $\lambda$-windows is the best way to assess how many windows should be simulated. This can for example be done by looking at the off-diagonals of an overlap matrix~\cite{https://doi.org/10.1007/s10822-015-9840-9, https://doi.org/10.1021/acs.jcim.0c00165}. Furthermore, the choice of simulation protocol will influence what switching function and how many $\lambda$-windows should be used. 
 %- Alchemical protocol  (Alchemical path, coupling function?), which can be any function, presumably monotonic, that at no stage leaves naked charges.
 %- Number of lambda windows - compromise between computational expense and results
 %- Spacing of lambda windows - mention trailblaze? But want reasonable exchange (if exchange is happening)
@@ -496,7 +499,7 @@ When setting up a relative calculation it is important to be aware of the simila
 %- Will a change in the ligand (charge possibly) result in a charge change in the protein - not fixable with infinite sampling (David: Charge change in protein could - theoretically - be also part of the alchemical transformation, no?)
 
 \subsubsection{Perturbation maps for relative calculations}
-In relative free energy calculations the choice in which to set up the relative perturbations is very vast and can have a substantial effect on how accurate calculations may turn out. The way in which different ligands are connected by relative alchemical calculations is called a perturbation map. In particular for benchmarking it would be vitally important to use the same type of perturbation maps for the same benchmark sets unless new methodologies on how to setup perturbations maps are tested. In this way each edge of the perturbation map will be the same and plots created during the analysis phase later will be comparable. The simplest way of connecting ligands is in a star shaped from to a central crystal structure, with the assumption that all ligands of the congeneric series will bind in the same binding mode as the available crystal -- which may even be confirmed by other crystals, see Fig.~\ref{fig:map} (A), there are different methods available for creating interconnected perturbation maps using LOMAP~\cite{} or Diffnet~\cite{}, as well as some work towards assessing trade off in terms of what network structure will actually provide most reliable estimates with as little computational cost as possible~\cite{}.
+In relative free energy calculations the choice in which to set up the relative perturbations is very vast and can have a substantial effect on how accurate calculations may turn out. The way in which different ligands are connected by relative alchemical calculations is called a perturbation map. In particular for benchmarking it would be vitally important to use the same type of perturbation maps for the same benchmark sets unless new methodologies on how to setup perturbations maps are tested. In this way each edge of the perturbation map will be the same and plots created during the analysis phase later will be comparable. The simplest way of connecting ligands is in a star shaped from to a central crystal structure, with the assumption that all ligands of the congeneric series will bind in the same binding mode as the available crystal -- which may even be confirmed by other crystals, see Fig.~\ref{fig:map} (A), there are different methods available for creating interconnected perturbation maps using LOMAP~\cite{https://doi.org/10.1007/s10822-013-9678-y} or Diffnet~\cite{https://doi.org/10.1021/acs.jcim.9b00528}, as well as some work towards assessing trade off in terms of what network structure will actually provide most reliable estimates with as little computational cost as possible~\cite{}.
 
 \begin{figure}
     \includegraphics[width=0.95\linewidth]{figures/network.pdf}
@@ -583,7 +586,7 @@ While statistics are a useful measure of the performance of a method, it is also
 \label{sec:conclusion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The methods of binding free energy calculations have been continuously developed over the last decades and are increasingly used both in academic research as well as pharmaceutical industry applications in structure based drug discovery~\cite{sherborne_collaborating_2016, gapsysLargeScaleRelative2020,schindler_largescale_2020}. 
+Methods for binding free energy calculations have been continuously developed over the last decades and are increasingly used both in academic research as well as pharmaceutical industry applications in structure based drug discovery~\cite{sherborne_collaborating_2016, gapsysLargeScaleRelative2020,schindler_largescale_2020}, making their validation and benchmarking particularly crucial. 
 %
 A robust and transparent assessment is required to probe the various aspects of binding free energy calculations for prospective applications.  Potential aspects to be benchmarked comprise but are not limited to
 (a) alternative inputs (e.g. different X-ray structures of the same target),
@@ -593,23 +596,25 @@ A robust and transparent assessment is required to probe the various aspects of 
 (e) alternative calculation protocols (e.g. sampling methods).
 %
 
-In order to benchmark methods reliably, we provide best practices recommendations for setting up benchmark calculations.
-This setup begins with the appropriate choice of the experimental data, which includes 
-the choice of target(s) and ligands (Section \ref{sec:dataset}) with both
+In order to reliably benchmark methods, we provide best practices recommendations for setting up benchmark calculations.
+This setup begins with the appropriate choice of experimental inputs and data, which includes 
+the choice of target(s) and ligands (Section \ref{sec:dataset}). We require both
 structural information (Section \ref{sec:struct_data}) and 
 affinity data (Section \ref{sec:affinities}.
-This input data needs to be adequately prepared (Section \ref{sec:prep}) before the systems are simulated with a specific choice of 
+This input information needs to be adequately prepared to generate simulation inputs (Section \ref{sec:prep}) before the systems are simulated with a specific choice of 
 software, 
 calculation setup, and 
-simulation protocol.
-To finally assess the accuracy of the calculation, present the results and compare to other calculations, we establish standard reporting procedures which are presented in Section \ref{sec:analysis}.
+simulation protocol. Here, we made a variety of recommendations as to how to select and prepare systems for benchmarking.
 
-Our learnings are exemplified in publically available tools for the analysis of calculations (github.com/openforcefield/arsenic)
+Benchmarking also requires analysis and comparison with experiment, thus we also recommend standard reporting procedures (Section~\ref{sec:analysis}). These provide a mechanism to assess the accuracy of the calculations, present the results and compare to calculations done with other methods. These standard procedures will make it far easier to compare results across studies done by different researchers or using different tools.
+
+Our recommendations are exemplified in publicly available tools for the analysis of calculations (github.com/openforcefield/arsenic)
 and a living protein-ligand benchmark dataset (github.com/openforcefield/PLBenchmarks).
 %
-Note that our recommendations are in part not fulfilled in the living benchmark dataset. The main reason is the difficulty to find large and accurate experimental data sets to date. But the issues are annotated and the benchmark set should evolve to meet our recommendations.
 
-We hope that this best practice recommendations will be adopted and extended by the community in order to advance the accuracy, applicability and availability of binding free energy calculations in the future. 
+Here, we also provide a proposed living benchmark set. This set is living in the sense that we expect it to be subject to ongoing updates, curation, and improvement -- both by ourselves and by the community, and we welcome community input via the GitHub issue tracker at [where?]. Additionally, further curation is clearly necessary as our recommendations are in part not fulfilled in the initial version of this benchmark dataset. This is in part because we have begun from previously used benchmark sets and are beginning the curation process, but also because it is difficult to find large and accurate experimental data sets meeting all the desired characteristics. Thus, in our initial set, the relevant issues are annotated and we expect the benchmark set to evolve to better meet the recommendations given here.
+
+We hope that our recommended best practices will be adopted and extended by the community, and we believe that these best practices will ultimately help advance the accuracy, applicability and availability of binding free energy calculations. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Checklists}
@@ -618,26 +623,27 @@ We hope that this best practice recommendations will be adopted and extended by 
 
 \begin{Checklists*}
 
-\begin{checklist}{Structural Data}
+\begin{checklist}{Choose Suitable Protein Structures for Benchmarking}
 \textbf{Find experimental structural data: Section~\ref{sec:struct_data}}
 
     \textbf{Global criteria}
     \begin{itemize}
-        \item Use coordinate error to select the best structure (< 0.7)
-        \item Experimental data is available, i.e. electron density
-        \item The reported $Rfree < 0.45$ when resolution $\le 3.5 \AA$
-        \item The reported difference between R and Rfree $\le 0.05$
+        \item Select the best available structure (coordinate error < 0.7)
+        \item Ensure experimental data is available, i.e. electron density
+        \item Ensure the reported $Rfree < 0.45$ when resolution $\le 3.5 \AA$
+        \item Check that the reported difference between R and Rfree $\le 0.05$
         \end{itemize}
     \textbf{Local criteria}
     \begin{itemize}
         \item Identify ligand atoms where there are crystal packing atoms within 6 $\AA$
-        \item The ligand must have at least partial density (check visually or RSCC > 0.80)
+        \item Confirm that the ligand has at least partial density (check visually or RSCC > 0.80) and the density is adequate to confirm ligand presence and binding mode
         \item All ligand and active site atoms with occupancy <1.0 are identified
-        \item Active site atoms with partial density are identified
-        \item Also are crystallographic waters resolved
-        \item Alternate conformations for ligand and active site atoms are identified
-        \item Identify covalent ligands
+        \item Identify active site atoms with partial density and ensure these are acceptable and not key contacts
+        \item Confirm whether crystallographic waters are resolved
+        \item Identify any alternate conformations for ligand and active site atoms 
+        \item Confirm that this is not a covalent ligand as deposited, and is also not likely to have reacted to become one
         \item Are there crystal contacts? 
+        \item Check for any missing loops or residues in the structure and confirm these are not near the binding site/not key for the study
     \end{itemize}
 % \item aspects to be considered beyond the quality of the structure (see also structure preparation, Sect. \ref{sec:prep}
 %     \begin{itemize}
@@ -651,7 +657,7 @@ We hope that this best practice recommendations will be adopted and extended by 
 % \item Collective intelligence could be a way to mitigate the influence of individuals to the prepared input structures of a benchmark set. On a platform, other scientists could suggest changes to structures and updated versions could be deposited, increasing the quality of the benchmark set. Endorsement and rating of deposited structures could increase the trust into specific structures and the database in general. 
 \end{checklist}
 
-\begin{checklist}{Affinity Data}
+\begin{checklist}{Ensure Affinity Data is Adequate for Benchmarking}
 \textbf{Find experimental affinity data: Section~\ref{sec:affinities}}
     \begin{itemize}
     \item Single source data.
@@ -666,59 +672,64 @@ We hope that this best practice recommendations will be adopted and extended by 
 
 
 \begin{Checklists*}
-\begin{checklist}{System Preparation}
+\begin{checklist}{Prepare the System with Care Because Failures Here are Crucial}
 \textbf{Prepare structural data for simulation: Section~\ref{sec:prep}}
     \begin{itemize}
-        \item Assess which domains of the X-ray structure are needed, remove any parts that will not affect your simulation.
+        \item Assess which domains of the X-ray structure are needed and retain domains present in the experimental study, unless it is known that further simplifications can be made without affecting accuracy
         \item Check other components of the structure and remove if they do not affect your simulation or system, such as: cofactors, structural waters, other ligands, PTMs.
-        \item Split the protein and ligand structures to prepare separately.
+        \item Split the protein and ligand structures to prepare separately.\\
         \textbf{Protein preparation}
     \begin{itemize}
                 \item Add caps if needed.
-                \item If possible, model missing loops, if loops are too long (> 15 20 residues) or too mobile consider: capping the ends and add restraints, or model a short GLY loop that links both ends.
-                \item Check side chain flips (HIS, ASN, GLN) – particularly that orientations are chosen leading to preferred interactions with the ligand
-                \item Check the protonation states – again checking in the context of the interactions that would be formed with the ligand.
+                \item If possible, model missing loops, if loops are too long (> 15 to 20 residues) or too mobile, consider capping the ends and adding restraints, or modeling a short GLY loop that links both ends. These must not be in the binding site.
+                \item Inspect for  side chain flips of side chains which can fit density similarly when reoriented (HIS, ASN, GLN); confirm that the orientations chosen lead to preferred interactions with the ligand. Evaluate alternate placements if necessary.
+                \item Check the protonation states of the ligand and receptor, again checking in the context of the interactions that would be formed with the ligand.
     \end{itemize}
         \textbf{Ligand preparation}
     \begin{itemize}
             \item Check the chemical structure is correct (bond orders, stereochemistry).
             \item Align the ligand series based on conformations of (X-ray) reference compound(s).
-            \item Check tautomer and ionizations states.
+            \item Check tautomer and ionization states. Determine whether multiple possibilities need to be considered
+            \item Check whether alternate rotamers may need to be considered after alignment to reference compound(s)
     \end{itemize}
-        \item Assemble the protein and ligand, solvate solvate or embedded in a membrane. 
-        \item Add ions.
+    \end{itemize}
+        \textbf{System preparation}
+    \begin{itemize}
+        \item Assemble the protein and ligand, solvate or embed in a membrane. 
+        \item Add ions; use an appropriate salt concentration to model the assay
         \item Equilibrate the system.
     \end{itemize}
 \end{checklist}
 
-\begin{checklist}{Simulation Setup}
+\begin{checklist}{Carefully Select Appropriate Simulation Details}
 \textbf{Choose simulation setup: Section~\ref{sec:alchemical_prep}}
     \begin{itemize}
         \item Choose absolute vs. relative calculations.
         \item Choose topology approach and alchemical pathway.
         \item Choose sampling protocol.
-        \item Perturbation map.
+        \item Plan a a perturbation map if calculations are relative
     \end{itemize}
 \end{checklist}
 \end{Checklists*}
 
 
 \begin{Checklists*}
-\begin{checklist}{Plotting results}
+\begin{checklist}{Present Graphs of Results in a Consistent Manner}
 \textbf{Presenting results in an appropriate format: Section~\ref{sec:plotting_results}}
 \begin{itemize}
 \item Clearly label the data with titles, legends, and captions.
 \item Plot results with the dependent variable (calculated) on y-axis, and the independent variable (experimental) on the x-axis. 
-\item Ensure that the data are reported in the same units on both axes, and labelled. Where the units are consistent, the scale of the axis in real space should be consistent, such that a 1 cm change on the x-axis corresponds to the same change in affinity to 1 cm on the y-axis.
+\item Ensure that the data are reported in the same units on both axes, and labelled. The scale of the axis in real space should be consistent, such that a 1 cm change on the x-axis corresponds to the same change in affinity to 1 cm on the y-axis.
 \item Plot only one target per plot, unless specifically looking at selectivity.
 \end{itemize}
 \end{checklist}
 
-\begin{checklist}{Statistical analysis}
+\begin{checklist}{Use Careful Statistical Analysis to Quantify Performance}
 \textbf{Quantifying the success of a method: Section~\ref{sec:statistical_analysis}}
 \begin{itemize}
-\item Identify which metrics are appropriate for your method. Statistics that measure accuracy, such as RMSE and MUE are commonplace, and additionally correlation statistics are appropriate for absolute free energies, but not relative free energies.
+\item Identify which metrics are appropriate for your method. Statistics that measure accuracy, such as RMSE and MUE, are commonplace; correlation statistics are appropriate for absolute free energies, but not relative free energies.
 \item Bootstrap statistics to provide confidence intervals. 
+\item Provide confidence intervals for all reported values and avoid overinterpreting results given these intervals
 \end{itemize}
 \end{checklist}
 
@@ -774,15 +785,15 @@ For a more detailed description of contributions from the community and others, 
 %Declare any potentially competing interests, financial or otherwise
 %%%%%%%
 
-Declare any potentially conflicting interests here, whether or not they pose an actual conflict in your view.
+%Declare any potentially conflicting interests here, whether or not they pose an actual conflict in your view.
+DLM serves on the scientific advisory board for OpenEye Scientific Software and is an Open Science Fellow with Silicon Therapeutics.
 
 \section{Funding Information}
 %%%%%%%
 % Authors should acknowledge funding sources here. Reference specific grants.
 %%%%%%%
-FMS acknowledges the support of NSF grant CHE-1111111.
 JDC acknowledges support from NIH grant P30 CA008748.
-We’ll need to acknowledge OpenFF also.
+We appreciate the financial support of the Open Force Field Consortium (\url{https://openforcefield.org}), and the National Institutes of Health (NIGMS R01GM132386 and R01GM108889).
 HEBM acknowledges support from a Molecular Sciences Software Institute Investment Fellowship and Relay Therapeutics. 
 
 
