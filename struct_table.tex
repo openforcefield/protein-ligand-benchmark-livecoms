@@ -1,25 +1,26 @@
-\begin{tabular}{l|llll|lll}
-Target     & \multicolumn{4}{c|}{Used structure}                          & \multicolumn{3}{c}{Alternate structure} \\
-           & PDB ID      & Ir. Class. & Ir. Score & DPI  & PDB ID & Ir. Class. &  Ir. Score\\
+\begin{tabular}{l|l@{ (}l@{ - }l@{) }l|lll|ll|lll}
+Target     & \multicolumn{4}{c|}{Used structure}                          & \multicolumn{3}{c|}{Alternate structure}  & \multicolumn{2}{c|}{Alternate HT structure with ligand similarity > 1.4} & \multicolumn{3}{c}{Ligand Information}\\
+           & & & & DPI  & PDB ID & Ir. Class. &  Ir. Score & PDB ID  &  Ir. Score & Count & Dyn. Range  & std(DG)\\
+           &            &           &           &       &       &               &          &               &     &      & [$\mathrm{kcal\,mol^{-1}}$] & [$\mathrm{kcal\,mol^{-1}}$] \\ 
 \hline
-BACE(Sch)   & 4DJW        & HT                     & 0.32          & 0.11 & 6UWP& HT& 0.28\\
-BACE(HUNT1) & 3ZOV        & MT                     & 0.4           & 0.2  & 6UWP& HT& 0.28\\
-BACE(HUNT2) & 4JPC        & HT                     & 0.32          & 0.12 & 6UWP& HT& 0.28\\
-BACE(P2)    & 3IN4        & HT                     & 0.59          & 0.28 & 6UWP& HT& 0.28\\
-CDK2       & 1H1Q        & MT                     & 0.87          & 0.28 & 3DDQ& HT& 0.31\\
-CDK8       & 5HNB        & MT                     & 0.74          & 0.22 & 5XS2& HT& 0.33\\
-EG5        & 3L9H        & MT                     & 0.88          & 0.18 & 2X7C& HT& 0.32\\
-Galectin   & 5E89        & MT                     & 1.04          & 0.07 & 5NF7& HT& 0.3 \\ 
-HIF2a      & 5TBM        & HT                     & 0.35          & 0.17 & 3H82& HT& 0.3 \\ 
-Jnk1       & 2GMX        & NT                     & See Fig X     & 0.77 & 3ELJ& MT& 0.31\\
-MCL1       & 4HW3        & HT                     & 0.41          & 0.26 & 6O6F& HT& 0.3 \\
-P38(MAPK14)& 3FLY        & HT                     & 0.6           & 0.12 & 6SFI& HT& 0.3 \\
-PDE2       & 6EZF        & MT                     & 0.3           & 0.07 & 6C7E& HT& 0.29\\
-PFKFB3     & 6HVI        & HT                     & 0.31          & 0.11 & & & \\
-PTP1B      & 2QBS        & MT                     & 0.33          & 0.15 & 2HB1& HT& 0.32\\
-SHP2       & 5EHR        & MT                     & 0.32          & 0.1  & 6MD7& HT& 0.35\\
-SYK        & 4PV0        & MT                     & 0.69          & 0.19 & 4PX6& HT& 0.3\\
-Thrombin   & 2ZFF        & HT                     & 0.3           & 0.06 & 5JZY& HT& 0.27\\
-TNKS2      & 4UI5        & HT                     & 0.29          & 0.08 & 4BU9& HT& 0.29\\
-TYK2       & 4GIH        & HT                     & 0.5           & 0.15 & 3LXP& HT& 0.31\\
+BACE(Sch)   & 4DJW        & HT                     & 0.32          & 0.11 & 6UWP& HT & 0.28& 3IN3,3INF,4DJV,3LHG,3INH & 0.36,0.33,0.31,0.36,0.3  & 36 & 3.9 & 0.8\\
+BACE(HUNT1) & 3ZOV        & MT                     & 0.4           & 0.2  & 6UWP& HT & 0.28 & 4J0T,5YGY,4J0P,4J0Y,5HU1 & 0.33,0.37,0.34,0.30,0.29 & 0.28 \\
+BACE(HUNT2) & 4JPC        & HT                     & 0.32          & 0.12 & 6UWP& HT & 0.28& 4JP9,4JPE,4JOO,4RRO	   & 0.31,0.35,0.33,0.33            & 32 & 4.9 & 1.2\\
+BACE(P2)    & 3IN4        & HT                     & 0.59          & 0.28 & 6UWP& HT & 0.28& 3IN3,3LHG,3INF,4DJV	& 0.36,0.36,0.33,0.33,0.31 & 12 & 0.9 & 0.3\\
+CDK2       & 1H1Q        & MT                     & 0.87          & 0.28 & 3DDQ& HT& 0.31 & 4EOR &	0.39 & 16 & 4.3 & 1.2\\
+CDK8       & 5HNB        & MT                     & 0.74          & 0.22 & 5XS2& HT& 0.33 & 5IDN (HT - 1.2) &	0.36 & 33 & 5.7 & 1.3\\
+EG5        & 3L9H        & MT                     & 0.88          & 0.18 & 2X7C& HT& 0.32 & 3K3B (HT - 0.83) &	0.41 & 28 & 3.5 & 0.9\\
+Galectin   & 5E89        & MT                     & 1.04          & 0.07 & 5NF7& HT& 0.3 &5OAX,5ODY (MT - alt confs, packing)	& 0.54,0.33  & 8 & 2.7 & 0.8\\ 
+HIF2a      & 5TBM        & HT                     & 0.35          & 0.17 & 3H82& HT& 0.3 & 5UFB,6D09 &	0.36,0.35   & 42 & 4.6 & 1.1 \\ 
+Jnk1       & 2GMX        & NT                     & Fig. \ref{fig:jnk1_pdb_report}     & 0.77 & 3ELJ& MT& 0.31  & 3V3V (MT ligand density - 0.79) & 1.5 & 21 & 3.4 & 0.8\\
+MCL1       & 4HW3        & HT                     & 0.41          & 0.26 & 6O6F& HT& 0.3   & 4WMU,4ZBI,4ZBF	& 0.41,0.45,0.35 & 42 & 4.2 & 1.1\\
+P38(MAPK14)& 3FLY        & HT                     & 0.6           & 0.12 & 6SFI& HT& 0.3  & 3FLN,3FMH,3FMK & 0.33,43,30 & 34 & 3.8 & 1.0\\
+PDE2       & 6EZF        & MT                     & 0.3           & 0.07 & 6C7E& HT& 0.29 & 6B97 (HT - 0.91) & 0.46 & 21 & 3.2 & 0.9\\
+PFKFB3     & 6HVI        & HT                     & 0.31          & 0.11 &     &   &      & 6HVH & 0.36 & 40 & 3.7 & 1.1\\
+PTP1B      & 2QBS        & MT                     & 0.33          & 0.15 & 2HB1& HT& 0.32 & 2ZMM (MT - contacts),2QBR & 0.33,0.65 & 16 & 4.3 & 1.2\\
+SHP2       & 5EHR        & MT                     & 0.32          & 0.1  & 6MD7& HT& 0.35 & 5EHP (MT - alt conf) & 0.33 & 26 & 4.3 & 1.2\\
+SYK        & 4PV0        & MT                     & 0.69          & 0.19 & 4PX6& HT& 0.3  & 4FYO (HT - 1.1)	& 0.4 & 44 & 6.0 & 1.0\\
+Thrombin   & 2ZFF        & HT                     & 0.3           & 0.06 & 5JZY& HT& 0.27 & 3QX5,5JZY &	0.28,0.27 & 11 & 1.7 & 0.5\\
+TNKS2      & 4UI5        & HT                     & 0.29          & 0.08 & 4BU9& HT& 0.29 & 4UVZ,4BU9 & 0.29,0.29 & 27 & 4.3 & 1.0\\
+TYK2       & 4GIH        & HT                     & 0.5           & 0.15 & 3LXP& HT& 0.31 & 5WAL (MT alt confs - 1.16) & 0.48 & 16 & 4.3 & 1.3\\
 \end{tabular}
