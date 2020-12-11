@@ -1,26 +1,239 @@
-\begin{tabular}{l|l@{ (}l@{ - }l@{) }l|lll|ll|lll}
-Target     & \multicolumn{4}{c|}{Used structure}                          & \multicolumn{3}{c|}{Alternate structure}  & \multicolumn{2}{c|}{Alternate HT structure with ligand similarity > 1.4} & \multicolumn{3}{c}{Ligand Information}\\
-           &\multicolumn{3}{c}{PDB} & DPI &\multicolumn{3}{c|}{PDB} & PDB ID  &  Ir. Score & Count & Dyn. Range  & std(DG)\\
-           &            &           &           &       &       &               &          &               &     &      & [$\mathrm{kcal\,mol^{-1}}$] & [$\mathrm{kcal\,mol^{-1}}$] \\ 
+%define keywords for footnotes
+\def\present{a}
+\def\crystal{b}
+\def\packing{c}
+\def\jnkfig{d}
+\def\alternate{e}
+\def\ligdens{f}
+{\small
+\begin{tabular}[t]{l|l@{ (}l@{, }l@{)\qquad}l|l|l|lll}
+Target     & \multicolumn{4}{c|}{Used structure}                          & \multicolumn{2}{c}{Alternate structure} & \multicolumn{3}{c}{Ligand Information}\\
+           &\multicolumn{3}{c}{PDB} & DPI & Best quality & Ligand similarity > 1.4 & Count & Dyn. Range  & std(DG)\\
+           &\multicolumn{3}{c}{} &  &               & & &  [$\mathrm{kcal\,mol^{-1}}$] & [$\mathrm{kcal\,mol^{-1}}$] \\ 
 \hline
-BACE(Sch)   & 4DJW        & HT                     & 0.32          & 0.11 & 6UWP& HT & 0.28& 3IN3,3INF,4DJV,3LHG,3INH & 0.36,0.33,0.31,0.36,0.3  & 36 & 3.9 & 0.8\\
-BACE(HUNT1) & 3ZOV        & MT                     & 0.4           & 0.2  & 6UWP& HT & 0.28 & 4J0T,5YGY,4J0P,4J0Y,5HU1 & 0.33,0.37,0.34,0.30,0.29 & 0.28 \\
-BACE(HUNT2) & 4JPC        & HT                     & 0.32          & 0.12 & 6UWP& HT & 0.28& 4JP9,4JPE,4JOO,4RRO	   & 0.31,0.35,0.33,0.33            & 32 & 4.9 & 1.2\\
-BACE(P2)    & 3IN4        & HT                     & 0.59          & 0.28 & 6UWP& HT & 0.28& 3IN3,3LHG,3INF,4DJV	& 0.36,0.36,0.33,0.33,0.31 & 12 & 0.9 & 0.3\\
-CDK2       & 1H1Q        & MT                     & 0.87          & 0.28 & 3DDQ& HT& 0.31 & 4EOR &	0.39 & 16 & 4.3 & 1.2\\
-CDK8       & 5HNB        & MT                     & 0.74          & 0.22 & 5XS2& HT& 0.33 & 5IDN (HT - 1.2) &	0.36 & 33 & 5.7 & 1.3\\
-EG5        & 3L9H        & MT                     & 0.88          & 0.18 & 2X7C& HT& 0.32 & 3K3B (HT - 0.83) &	0.41 & 28 & 3.5 & 0.9\\
-Galectin   & 5E89        & MT                     & 1.04          & 0.07 & 5NF7& HT& 0.3 &5OAX,5ODY (MT - alt confs, packing)	& 0.54,0.33  & 8 & 2.7 & 0.8\\ 
-HIF2a      & 5TBM        & HT                     & 0.35          & 0.17 & 3H82& HT& 0.3 & 5UFB,6D09 &	0.36,0.35   & 42 & 4.6 & 1.1 \\ 
-Jnk1       & 2GMX        & NT\tablefootnote{Fig. \ref{fig:jnk1_pdb_report}}                     &      & 0.77 & 3ELJ& MT& 0.31  & 3V3V (MT ligand density - 0.79) & 1.5 & 21 & 3.4 & 0.8\\
-MCL1       & 4HW3        & HT                     & 0.41          & 0.26 & 6O6F& HT& 0.3   & 4WMU,4ZBI,4ZBF	& 0.41,0.45,0.35 & 42 & 4.2 & 1.1\\
-P38(MAPK14)& 3FLY        & HT                     & 0.6           & 0.12 & 6SFI& HT& 0.3  & 3FLN,3FMH,3FMK & 0.33,43,30 & 34 & 3.8 & 1.0\\
-PDE2       & 6EZF        & MT                     & 0.3           & 0.07 & 6C7E& HT& 0.29 & 6B97 (HT - 0.91) & 0.46 & 21 & 3.2 & 0.9\\
-PFKFB3     & 6HVI        & HT                     & 0.31          & 0.11 &     &   &      & 6HVH & 0.36 & 40 & 3.7 & 1.1\\
-PTP1B      & 2QBS        & MT                     & 0.33          & 0.15 & 2HB1& HT& 0.32 & 2ZMM (MT - contacts),2QBR & 0.33,0.65 & 16 & 4.3 & 1.2\\
-SHP2       & 5EHR        & MT                     & 0.32          & 0.1  & 6MD7& HT& 0.35 & 5EHP (MT - alt conf) & 0.33 & 26 & 4.3 & 1.2\\
-SYK        & 4PV0        & MT                     & 0.69          & 0.19 & 4PX6& HT& 0.3  & 4FYO (HT - 1.1)	& 0.4 & 44 & 6.0 & 1.0\\
-Thrombin   & 2ZFF        & HT                     & 0.3           & 0.06 & 5JZY& HT& 0.27 & 3QX5,5JZY &	0.28,0.27 & 11 & 1.7 & 0.5\\
-TNKS2      & 4UI5        & HT                     & 0.29          & 0.08 & 4BU9& HT& 0.29 & 4UVZ,4BU9 & 0.29,0.29 & 27 & 4.3 & 1.0\\
-TYK2       & 4GIH        & HT                     & 0.5           & 0.15 & 3LXP& HT& 0.31 & 5WAL (MT alt confs - 1.16) & 0.48 & 16 & 4.3 & 1.3\\
+BACE\cite{cumming_structure_2012,wang_accurate_2015}  & 4DJW        & HT                     & 0.32          & 0.11 
+    &  \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+          3TPP\tnote{\present}~ & HT & 0.28 \\
+          6UWP& HT & 0.28
+        \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        3IN3\tnote{\present}~ & HT & 0.36 \\ 
+        3INF & HT & 0.33 \\ 
+        4DJV & HT & 0.31 \\ 
+        3LHG & HT & 0.36 \\ 
+        3INH  & HT & 0.33 
+      \end{tabular} 
+      & 36 & 3.9 & 0.8\\
+%
+% BACE(HUNT1) stuce 3ZOV one was not used in the benchmark studies.
+% BACE(HUNT1) & 3ZOV        & MT                     & 0.4           & 0.2  
+    % & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+    %     3TPP\tnote{\present}~ & HT & 0.28 \\
+    %     6UWP& HT & 0.28 
+    %   \end{tabular}
+%     & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+%         4J0T & HT & 0.33 \\
+%         5YGY & HT & 0.37 \\
+%         4J0P & HT & 0.34 \\
+%         4J0Y & HT & 0.30 \\
+%         5HU1 & HT & 0.29 \\
+%       \end{tabular} 
+%     &   &    &    \\
+% %
+BACE\_HUNT\cite{hunt_spirocyclic_2013,ciordia_application_2016,keranen_acylguanidine_2017} & 4JPC        & HT                     & 0.32          & 0.12 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}}
+        3TPP\tnote{\present}~ & HT & 0.28 \\ 
+        6UWP& HT & 0.28
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        4JP9\tnote{\present}~ & HT & 0.31 \\
+        4JPE & HT & 0.35 \\
+        4JOO & HT & 0.33 \\
+        4RRO & HT & 0.33 
+      \end{tabular}  
+    & 32 & 4.9 & 1.2 \\
+%
+BACE\_P2\cite{malamas_design_2010,keranen_acylguanidine_2017}    & 3IN4        & HT                     & 0.59          & 0.28 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        3TPP\tnote{\present}~ & HT & 0.28 \\
+        6UWP& HT & 0.28
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}}
+        3IN3\tnote{\present}~ & HT & 0.36 \\
+        3LHG & HT & 0.36 \\
+        3INF & HT & 0.33 \\
+        4DJV & HT & 0.31
+      \end{tabular} 
+    & 12 & 0.9 & 0.3\\
+%
+CDK2\cite{hardcastle_substituted_2004,wang_accurate_2015}       & 1H1Q        & MT                     & 0.87          & 0.28 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        3DDQ\tnote{\present}~ & HT& 0.31 
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        4EOR\tnote{\present}~ &	HT & 0.39 
+      \end{tabular} 
+    & 16 & 4.3 & 1.2 \\
+%
+CDK8\cite{schiemann_discovery_2016,schindler_largescale_2020}       & 5HNB        & MT                     & 0.74          & 0.22 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        4CRL\tnote{\present}~ & HT & 0.42 \\
+        5XS2 & HT& 0.33 
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        5IDN  & HT-1.2 & 0.36
+      \end{tabular} 
+    & 33 & 5.7 & 1.3\\
+%
+EG5\cite{schiemann_discovery_2010,schindler_largescale_2020}        & 3L9H        & MT                     & 0.88          & 0.18 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        3K5E\tnote{\present}~ & HT & 0.35 \\
+        2X7C & HT & 0.32 
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        3K3B & HT-0.83 & 0.41
+      \end{tabular} 
+    & 28 & 3.5 & 0.9 \\
+%
+Galectin\cite{delaine_galectin3binding_2016,manzoni_assessing_2018}   & 5E89        & MT                     & 1.04          & 0.07 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        1KJR\tnote{\present}~ & HT & 0.30 \\
+        5NF7 & HT& 0.30 
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        4BM8\tnote{\present, \crystal}~~~~ & MT & 0.38 \\
+        5OAX & HT & 0.54\\
+        5ODY\tnote{\packing, \alternate}~~~~ & MT & 0.33
+      \end{tabular}	
+    & 8 & 2.7 & 0.8\\ 
+%
+HIF2a\cite{wallace_smallmolecule_2016,schindler_largescale_2020}      & 5TBM        & HT                     & 0.35          & 0.17 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        3H82\tnote{\present}~ & HT & 0.30 
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        5UFB & HT & 0.36\\
+        6D09 & HT & 0.35
+      \end{tabular} 
+    & 42 & 4.6 & 1.1 \\ 
+%
+Jnk1\cite{szczepankiewicz_aminopyridinebased_2006,wang_accurate_2015}       & 2GMX        & NT\tnote{\jnkfig}~                    &      & 0.77 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        3ELJ\tnote{\present}~ & MT & 0.31  
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        3V3V\tnote{\packing}~  & MT & 1.5  
+      \end{tabular} 
+    & 21 & 3.4 & 0.8\\
+%
+MCL1\cite{friberg_discovery_2013,wang_accurate_2015}       & 4HW3        & HT                     & 0.41          & 0.26 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        3WIX\tnote{\present}~=1.2 & HT & 0.37\\
+        6O6F& HT& 0.3   
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}}
+        3WIX\tnote{\present}~=1.2 & HT & 0.37\\
+        4WMU & HT & 0.41 \\
+        4ZBI & HT & 0.45 \\
+        4ZBF & HT & 0.35	
+      \end{tabular} 
+      & 42 & 4.2 & 1.1\\
+%
+P38(MAPK14) \cite{goldstein_discovery_2011,wang_accurate_2015} & 3FLY        & HT                     & 0.6           & 0.12 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        3FMK\tnote{\present}~ & HT & 0.30 \\
+        6SFI & HT& 0.30  
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        3FLN & HT & 0.33 \\
+        3FMH\tnote{\present}~ & HT & 0.43 \\
+        3FMK\tnote{\present}~ & HT & 0.30 
+      \end{tabular} 
+    & 34 & 3.8 & 1.0\\
+%
+PDE2\cite{buijnsters_structurebased_2014,perez-benito_predicting_2018}       & 6EZF        & MT                     & 0.3           & 0.07 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        5TYY\tnote{\present}~ & HT & 0.30 \\
+        6C7E & HT& 0.29 
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        6B97 & HT-0.91 & 0.46
+      \end{tabular} 
+    & 21 & 3.2 & 0.9\\
+%
+PFKFB3\cite{boutard_discovery_2019,schindler_largescale_2020}     & 6HVI        & HT                     & 0.31          & 0.11 
+    &         
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        6HVH\tnote{\present}~ & HT & 0.36 
+      \end{tabular} 
+    & 40 & 3.7 & 1.1\\
+%
+PTP1B\cite{wilson_structurebased_2007,wang_accurate_2015}      & 2QBS        & MT                     & 0.33          & 0.15 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        2HB1\tnote{\present}~ & HT & 0.32 
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        2ZMM\tnote{\crystal}~ & MT & 0.33 \\
+        2QBR\tnote{\present}~ & HT & 0.65 
+      \end{tabular}
+    & 16 & 4.3 & 1.2 \\
+%
+SHP2\cite{chen_allosteric_2016,schindler_largescale_2020}       & 5EHR        & MT                     & 0.32          & 0.1  
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        6MDD\tnote{\present}~ & HT & 0.35 \\
+        6MD7 & HT & 0.35 
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        5EHP\tnote{\alternate}~ & MT & 0.33 
+      \end{tabular} 
+    & 26 & 4.3 & 1.2 \\
+%
+SYK\cite{currie_discovery_2014,schindler_largescale_2020}        & 4PV0        & MT                     & 0.69          & 0.19 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        4PX6\tnote{\present}~ & HT & 0.3  
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        4FYO & HT-1.1 &  0.40
+\end{tabular}	& 44 & 6.0 & 1.0\\
+%
+Thrombin\cite{baum_more_2009,wang_accurate_2015}   & 2ZFF        & HT                     & 0.3           & 0.06
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        3QX5\tnote{\present}~ & HT & 0.28 \\
+        5JZY & HT & 0.27 
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}}
+        3QX5\tnote{\present}~ & HT & 0.28 \\
+        5JZY & HT & 0.27 
+      \end{tabular}
+    & 11 & 1.7 & 0.5\\
+%
+TNKS2\cite{buchstaller_discovery_2019}      & 4UI5        & HT                     & 0.29          & 0.08 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        4PC9\tnote{\present}~ & HT & 0.27 \\
+        4BU9 & HT & 0.29 
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        4UVZ & HT & 0.29 \\
+        4BU9\tnote{\present}~ & HT & 0.29 
+    \end{tabular} 
+    & 27 & 4.3 & 1.0\\
+%
+TYK2\cite{liang_lead_2013,liang_lead_2013a,wang_accurate_2015}       & 4GIH        & HT                     & 0.5           & 0.15 
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        3LXP\tnote{\present}~ & HT & 0.31 
+      \end{tabular}
+    & \begin{tabular}[t]{l@{ (}l@{, }l@{)}} 
+        5WAL\tnote{\alternate}~ & MT-1.16 & 0.48 
+    \end{tabular} 
+    & 16 & 4.3 & 1.3\\
+\hline
 \end{tabular}
+\begin{tablenotes}
+\item [\present] structure was already available 6 month prior to publication of first benchmark study
+\item [\crystal] crystal contacts
+\item [\packing] packing
+\item [\jnkfig] Fig. \ref{fig:jnk1_pdb_report}
+\item [\alternate] alternate conformations
+\item [\ligdens] ligand density: 0.79
+\end{tablenotes}
+}
