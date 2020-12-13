@@ -326,7 +326,7 @@ higher quality alternate structures and ligand information.
 The structures listed in "Used structure" are those used in the initial version of this dataset, which is drawn in part from previous studies. However, alternate available structures may be superior. In these cases, we provide a PDB ID of a higher quality structure and 
 its quality measures, in the "Alternate structure" fields.
 %
-For the alternate structures, there is one set with the "Hiqhest quality" structure of the protein, and one set with higher quality than the used structure and also high "ligand similarity > 1.4".
+For the alternate structures, there is one set with the "Hiqhest quality" structure of the protein, and one set with higher quality than the used structure and also high ligand similarity.  > 1.4".
 %
 For each structure, the PDB ID is followed with the 
 Iridium classification and Iridium score in the brackets.
@@ -334,6 +334,8 @@ The Iridium classification categorizes each structure into not trustworthy (NT),
 medium trustworthy (MT) and highly trustworthy (HT) categories. The lower the Iridium score, the better the structure.~\cite{warrenEssentialConsiderationsUsing2012}
 For the used structures, also the 
 diffraction-component precision indeces (DPI) is listed.
+%
+We define a high ligand similarity as the OpenEye TanimotoCombo (Shape and Color Tanimoto, range from 0 to 2) being larger than 1.4 (standard cutoff).
 %
 Regarding activity data ("Ligand Information"), the number of ligands (count), the dynamic range ($\mathrm{max}(\Delta G)-\mathrm{min}(\Delta G)$) and the standard deviation of the $\Delta G$ ($\mathrm{std}(\Delta G)$) is given.
 }
@@ -614,7 +616,7 @@ If the N- and/or C-terminal residues are missing due to disorder (lack of electr
 
 This "capping" tactic can also treat the termini of "gaps": regions of missing residues over the span of the peptide chain, usually missing loop regions (again due to lack of experimental density). While capping the ends of a loop instead of modeling the whole loop may be acceptable for MD runs of relatively short duration, over longer simulations there is a risk of having the protein around the capped ends of the missing loop gradually lose its structure. Even if a loop is unstructured (and therefore missing in the X-ray structure), its presence still affects the remainder of the structure and can provide stability, such as by holding the connecting residues in place, raising concerns if these are capped instead. Strategic use of a distance restraints can mitigate this liability.
 
-Another possibility for missing loops is to close the ends with a short modeled loop of glycines of sufficient size to link the termini without introducing strain, but not necessarily of the full length of the missing loop. There are several reasons why this can be desirable. If the missing loop is particularly large (for instance >15 or 20 amino acids) accurately modeling its conformation could be challenging and introduce more uncertainty and instability to MD simulations. Furthermore, if the missing loop is distal from the binding site and not expected to affect protein ligand interactions, the replacement only needs to stabilize the termini and avoids the use of restraints. 
+Another possibility for missing loops is to close the ends with a short modeled loop of glycine residues of sufficient size to link the termini without introducing strain, but not necessarily of the full length of the missing loop. There are several reasons why this can be desirable. If the missing loop is particularly large (for instance >15 or 20 amino acids) accurately modeling its conformation could be challenging and introduce more uncertainty and instability to MD simulations. Furthermore, if the missing loop is distal from the binding site and not expected to affect protein ligand interactions, the replacement only needs to stabilize the termini and avoids the use of restraints. 
 
 However, all of these approaches are likely inferior to using a good quality model of the missing loop. 
 
@@ -624,7 +626,7 @@ Once the above issues have been resolved, there remains one more round of decisi
 
 Protonation of the protein model is generally straightforward with one key exception: the ionization state of sidechains which may undergo environmental shifts, especially HIS, ASP and GLU. Active site catalytic CYS is another case requiring care, and occasionally LYS can be deprotonated in some circumstances. The two main determining factors are the pH of the biological milieu and the microscopic environment around the ionizable sidechain. In general, the ionization state of each residue is chosen during the setup of the protein and remains constant over the course of the simulation, even if the microenvironment changes. 
 %There are some "constant pH" MD methods available which down the road could offer a more palatable alternative once they have been integrated with free energy methods. 
-Note that a formal charge on the bound ligand can also affect the ionization state of nearby protein residues; this can be particularly problematic when the ligand charge alchemically changes over the course of a relative free energy calculation.
+Note that a formal charge on the bound ligand can also affect the ionization state of nearby protein residues; this can be particularly problematic when the ligand charge alchemically changes over the course of a relative free energy calculation. Unlike side-chain rotamers, which may sample other orientations within a simulation, incorrect protonation state assignments cannot correct themselves without the use of constant-pH algorithms, that have not been routinely implemented within free energy calculations yet. 
 
 \subsubsection{Ligand preparation}
 
