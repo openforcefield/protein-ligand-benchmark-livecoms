@@ -688,18 +688,13 @@ When setting up a relative calculation it is important to be aware of the simila
 \subsubsection{Perturbation maps for relative calculations}
 In relative free energy calculations a network of perturbations between ligands can be constructed. The choice of which relative calculations is vast and can have a substantial effect on the accuracy of the results. The way in which different ligands are connected by relative alchemical calculations is called a perturbation map. In particular for benchmarking free energy methods, perturbation maps should be held fixed for a given benchmark set, unless the goal is to test different approaches for setting up perturbation maps. In this way each edge of the perturbation map will be maintained across subsequent tests and plots created during the analysis phase later will be comparable. 
 
-The simplest way of connecting ligands in a perturbation map is in a star shape, with each connected to a central crystal structure ligand, with the assumption that all ligands of the congeneric series will bind in the same binding mode as the available crystal -- which may even be confirmed by other crystals, see Fig.~\ref{fig:map} (A), there are different methods available for creating interconnected perturbation maps using LOMAP~\cite{liu_lead_2013} or Diffnet~\cite{xu_optimal_2019}, as well as some work towards assessing trade off in terms of what network structure will actually provide most reliable estimates with as little computational cost as possible~\cite{yang_optimal_2020, xu_optimal_2019}.
+The simplest way of connecting ligands in a perturbation map is in a star shape, with each connected to a central crystal structure ligand, with the assumption that all ligands of the congeneric series will bind in the same binding mode as the available crystal -- which may even be confirmed by other crystals, see Fig.~\ref{fig:map} (A), there are different methods available for creating interconnected perturbation maps using LOMAP~\cite{liu_lead_2013} or Diffnet~\cite{xu_optimal_2019}, as well as some work towards assessing trade off in terms of what network structure will actually provide most reliable estimates with as little computational cost as possible~\cite{yang_optimal_2020, xu_optimal_2019}. To date, there are no rigorous guidelines to prioritise perturbations, but we recommend to avoid difficult perturbations such as those mentioned above involving ring breaking, changes in linker length, changes in charge, and where possible attempt to maximise structural similarity in 2D (via the maximum common substructure) and 3D.
 
 \begin{figure}
     \includegraphics[width=0.95\linewidth]{figures/network.pdf}
     \caption{\textbf{Typically either star shaped perturbation maps or multi-connected perturbation maps are used in relative calculations} (A) The star map will have a central ligand, of which the crystal structure is known and all other ligands distributed in a star. (B) A multi-connected map introduces redundancies into the network, allows for larger perturbations through multiple connections and allows assessment of robustness of calculations. The diamond and green shading indicates the crystal structure.}
     \label{fig:map}
 \end{figure}
-
-- inclusion of intermediates
-- MCS
-- Ring breaking
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                    Simulation analysis                   %
@@ -943,7 +938,7 @@ We hope that our recommended best practices will be adopted and extended by the 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 (Explain the contributions of the different authors here)
-ASJSM: Wrote Sec.~\ref{sec:alchemical_prep} and created Fig.~\ref{fig:map} and Fig.~\ref{fig:protocols}. 
+ASJSM: Wrote Sec.~\ref{sec:alchemical_prep} and created Fig.~\ref{fig:map} and Fig.~\ref{fig:protocols} and helped edit the manuscript. 
 GT: Wrote introduction and dataset selection section, edited the final manuscript.
 DFH: Coordinated the writing, wrote the structural data section and conclusions, contributed to most sections.
 GLW: Generated the data for Table 1 and contributed to the text in the structural data section.
@@ -978,7 +973,7 @@ For a more detailed description of contributions from the community and others, 
 
 %Declare any potentially conflicting interests here, whether or not they pose an actual conflict in your view.
 DLM serves on the scientific advisory board for OpenEye Scientific Software and is an Open Science Fellow with Silicon Therapeutics.
-
+ASJSM is a consultant for Exscientia. 
 \section{Funding Information}
 %%%%%%%
 % Authors should acknowledge funding sources here. Reference specific grants.
