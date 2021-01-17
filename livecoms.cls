@@ -396,6 +396,7 @@
 \renewcommand{\AB@affilsepx}{; \protect\Affilfont}
 
 \newcommand{\themetadata}{%
+    \vspace{-0.3cm} % JDC
     \textbf{*For correspondence:\\}  \@correspondence\par
     \ifx\empty\@contribution\else
     \bigskip\@contribution\par\fi
@@ -429,10 +430,10 @@
        This version dated \@date%
      }\hspace*{1cm}}}%
      \textcolor{LiveCoMSMediumGrey}{\rule{\textwidth}{2pt}}
-     \vskip16pt
+     %\vskip16pt % JDC
      \textcolor{LiveCoMSLightBlue}{\large\bfseries\abstractname\space}
   }{%
-     \vskip8pt
+     %\vskip8pt % JDC
      \textcolor{LiveCoMSMediumGrey}{\rule{\textwidth}{2pt}}
      \vskip16pt
   }
@@ -450,11 +451,12 @@
 }
 
 \renewcommand{\maketitle}{%
-  \vskip36pt%
+  %\vskip36pt% % JDC
   {\color{LiveCoMSDarkBlue}\raggedright\bfseries\fontsize{22}{27}\selectfont \@title\par}%
-  \vskip16pt
+  % \vskip16pt % JDC
+  \vskip8pt % JDC
   {\@author\par}
-  \vskip8pt
+  %\vskip8pt % JDC
 }
 
 \newcommand{\makeorcid}{%
