@@ -332,14 +332,14 @@ If available data permits, an ideal benchmark system would be suitable to both a
 
 \begin{figure}
     \centering
-    \includegraphics[width=.48\textwidth]{dataset/difficult_perturbations.png}
+    \includegraphics[width=.48\textwidth]{figures/dataset/difficult_perturbations_enhanced.pdf}
     \caption{\textbf{Five ligand pairs (A, B) for different targets (with each pair for a single target)
     having structural differences which can be challenging to simulate.}
-    Eg5: charge change,
-    SHP2: charge move,
-    PDE10: linker change,
-    HIF2$\alpha$: ring creation,
-    CDK8: ring size change. 
+    (\textbf{A}) Eg5: charge change,
+    (\textbf{B}) SHP2: charge move,
+    (\textbf{C}) PDE10: linker change,
+    (\textbf{D}) HIF2$\alpha$: ring creation,
+    (\textbf{E}) CDK8: ring size change. 
     }
     \label{fig:difficult_perturbations}
 \end{figure}
@@ -752,7 +752,7 @@ Based on these simulations, we recommend a dataset size of 25 to 50 ligands. For
 \begin{figure}
     \centering
     \includegraphics[width=0.95\linewidth]{figures/N-CI.pdf}
-    \caption{\textbf{The larger the dataset, the smaller the uncertainty in the performance statistics}. Kendall $\tau$ and RMSE were evaluated for 1,000 toy datasets for a given size of the dataset $N$. The experimental data were simulated from a uniform distribution over the interval [-12:-5] and the predicted affinities were simulated from the experimental toy data using a Gaussian distribution with different standard deviation $\sigma$. The statistic was evaluated for the whole dataset and 95\% confidence intervals were estimated via bootstrapping. These were then averaged over all 1,000 toy datasets.}
+    \caption{\textbf{The larger the dataset, the smaller the uncertainty in the performance statistics}. (\textbf{A}) Kendall $\tau$ and (\textbf{B}) RMSE were evaluated for 1,000 toy datasets for a given size of the dataset $N$. The experimental data were simulated from a uniform distribution over the interval [-12:-5] and the predicted affinities were simulated from the experimental toy data using a Gaussian distribution with different standard deviation $\sigma$. The statistic was evaluated for the whole dataset and 95\% confidence intervals were estimated via bootstrapping. These were then averaged over all 1,000 toy datasets.}
     \label{fig:N_CI}
 \end{figure}
 
@@ -772,7 +772,7 @@ As stated before, in practice it is challenging to find datasets that meet these
 
 \begin{figure*}
     \centering
-    \includegraphics[width=.6\textwidth]{system_preparation.png}
+    \includegraphics[width=.49\textwidth]{figures/system_prep.pdf}
     \caption{\textbf{Outline of the system preparation steps.}}
     \label{fig:system_preparation}
 \end{figure*}
