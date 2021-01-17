@@ -43,5 +43,9 @@ Specific changes can be proposed [via pull requests](https://help.github.com/art
 ## Online Resources
 Original brainstorming document: (https://docs.google.com/document/d/1lCGcol6jYLQmcfqrUv9h_FsWygTZzqYxqgjOLCyMoL4/edit)
 
+## Desing Notes:
+- Figure labels are in captital bold face
+- Standard font for all figures should be Helvetica. Font size for lables should be at least the size of the document text. 
+
 ## List of Released Versions
 still working on first release
