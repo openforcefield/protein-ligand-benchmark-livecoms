@@ -7,12 +7,16 @@
 \def\jnkfig{f}
 \def\alternate{g}
 \def\ligdens{h}
-{\small
-\begin{tabular}[t]{l|ll|ll|llll}
-Target     & \multicolumn{2}{c|}{Used structure}                          & \multicolumn{2}{c|}{Alternate structures} & \multicolumn{4}{c}{Ligand Information}\\
+{\footnotesize
+\begin{tabular}[t]{l|ll|ll|lll}
+Target     & \multicolumn{2}{c|}{Used structure}                          & \multicolumn{2}{c|}{Alternate structures} & \multicolumn{3}{c}{Ligand Information}\\
            &PDB & DPI & 
-           &  & N & DR  & $\sigma_{\Delta G}$ & RMSE\\
-           & &  &               & & & \multicolumn{3}{c}{[$\mathrm{kcal\,mol^{-1}}$]} \\
+           &  
+           & N 
+           & DR  
+%           & $\sigma_{\Delta G}$ 
+           & RMSE\\
+           & &  &               & & & \multicolumn{2}{l}{[$\mathrm{kcal\,mol^{-1}}$]} \\
            %& [$\mathrm{kcal\,mol^{-1}}$] & [$\mathrm{kcal\,mol^{-1}}$]\\ 
 \hline
 BACE\cite{cumming_structure_2012,wang_accurate_2015}
@@ -30,7 +34,7 @@ BACE\cite{cumming_structure_2012,wang_accurate_2015}
       \end{tabular} 
     & \ligcount{36}  
     & \ligrange{3.9}
-    & 0.8
+%    & 0.8
     & \rmse{0.98}{0.78}{1.18} 
     \\
 %
@@ -62,7 +66,7 @@ BACE\_HUNT\cite{hunt_spirocyclic_2013,ciordia_application_2016,keranen_acylguani
       \end{tabular}  
     & \ligcount{32} 
     & \ligrange{4.9}
-    & 1.2 
+%    & 1.2 
     & \rmse{0.97}{0.73}{1.19}
     \\
 %
@@ -81,7 +85,7 @@ BACE\_P2\cite{malamas_design_2010,keranen_acylguanidine_2017}
       \end{tabular} 
     & \ligcount{12}  
     & \ligrange{0.9}
-    & 0.3
+%    & 0.3
     & \rmse{1.00}{0.59}{1.33}
     \\
 %
@@ -94,7 +98,7 @@ CDK2\cite{hardcastle_substituted_2004,wang_accurate_2015}       &       \mildlyt
       \end{tabular} 
     & \ligcount{16}  
     & \ligrange{4.3}
-    & 1.2 
+%    & 1.2 
     & \rmse{1.00}{0.67}{1.29}
     \\
 %
@@ -108,7 +112,7 @@ CDK8\cite{schiemann_discovery_2016,schindler_largescale_2020}       & \mildlytru
       \end{tabular} 
     & \ligcount{33}  
     & \ligrange{5.7} 
-    & 1.3
+%    & 1.3
     & \rmse{0.96}{0.73}{1.18}
 \\
 %
@@ -122,7 +126,7 @@ EG5\cite{schiemann_discovery_2010,schindler_largescale_2020}        & \mildlytru
       \end{tabular} 
     & \ligcount{28} 
     & \ligrange{3.5}
-    & 0.9 
+%    & 0.9 
     & \rmse{0.98}{0.72}{1.22}\\
 %
 Galectin\cite{delaine_galectin3binding_2016,manzoni_assessing_2018}   & \mildlytrust{5E89}{1.04}          & 0.07 
@@ -137,7 +141,7 @@ Galectin\cite{delaine_galectin3binding_2016,manzoni_assessing_2018}   & \mildlyt
       \end{tabular}	
     & \ligcount{8}  
     & \ligrange{2.7}
-    & 0.8
+%    & 0.8
     & \rmse{1.04}{0.55}{1.42}
     \\ 
 %
@@ -153,7 +157,7 @@ HIF2a\cite{wallace_smallmolecule_2016,schindler_largescale_2020}
       \end{tabular} 
     & \ligcount{42}  
     & \ligrange{4.6} 
-    & 1.1 
+%    & 1.1 
     & \rmse{1.03}{0.79}{1.27}
     \\ 
 %
@@ -166,7 +170,7 @@ Jnk1\cite{szczepankiewicz_aminopyridinebased_2006,wang_accurate_2015}       & \n
       \end{tabular} 
     & \ligcount{21}  
     & \ligrange{3.4} 
-    & 0.8
+%    & 0.8
     & \rmse{0.98}{0.68}{1.26}
     \\
 %
@@ -182,8 +186,8 @@ MCL1\cite{friberg_discovery_2013,wang_accurate_2015}       & \hightrust{4HW3}{0.
       \end{tabular} 
     & \ligcount{42}  
     & \ligrange{4.2} 
-    & 1.1
-    & \rmse{1.80}{0.83}{2.82}
+%    & 1.1
+    & \rmse{1.01}{0.80}{1.21}
     \\
 %
 P38(MAPK14) \cite{goldstein_discovery_2011,wang_accurate_2015} & \hightrust{3FLY}{0.6}           & 0.12 
@@ -197,7 +201,7 @@ P38(MAPK14) \cite{goldstein_discovery_2011,wang_accurate_2015} & \hightrust{3FLY
       \end{tabular} 
     & \ligcount{34}  
     & \ligrange{3.8}
-    & 1.0
+%    & 1.0
     & \rmse{0.99}{0.76}{1.22}
     \\
 %
@@ -211,7 +215,7 @@ PDE2\cite{buijnsters_structurebased_2014,perez-benito_predicting_2018}       & \
       \end{tabular} 
     & \ligcount{21}  
     & \ligrange{3.2} 
-    & 0.9
+%    & 0.9
     & \rmse{1.05}{0.75}{1.32}
     \\
 %
@@ -222,7 +226,7 @@ PFKFB3\cite{boutard_discovery_2019,schindler_largescale_2020}     & \hightrust{6
     & 
     & \ligcount{40}  
     & \ligrange{3.7}
-    & 1.1
+%    & 1.1
     & \rmse{1.04}{0.82}{1.25}
     \\
 %
@@ -236,7 +240,7 @@ PTP1B\cite{wilson_structurebased_2007,wang_accurate_2015}     & \mildlytrust{2QB
       \end{tabular}
     & \ligcount{16}  
     & \ligrange{4.3}
-    & 1.2 
+%    & 1.2 
     & \rmse{0.95}{0.67}{1.21}
     \\
 %
@@ -250,7 +254,7 @@ SHP2\cite{chen_allosteric_2016,schindler_largescale_2020}       & \mildlytrust{5
       \end{tabular} 
     & \ligcount{26}  
     & \ligrange{4.3}
-    & 1.2 
+%    & 1.2 
     & \rmse{1.06}{0.76}{1.34}
     \\
 %
@@ -264,7 +268,7 @@ SYK\cite{currie_discovery_2014,schindler_largescale_2020}     & \mildlytrust{4PV
       \end{tabular}	
     & \ligcount{44}  
     & \ligrange{6.0}
-    & 1.0
+%    & 1.0
     & \rmse{1.01}{0.81}{1.21}
     \\
 %
@@ -277,7 +281,7 @@ Thrombin\cite{baum_more_2009,wang_accurate_2015}   &         \hightrust{2ZFF}{0.
       \end{tabular}
     & \ligcount{11}  
     & \ligrange{1.7}
-    & 0.5
+%    & 0.5
     & \rmse{0.97}{0.63}{1.28}
     \\
 %
@@ -293,7 +297,7 @@ TNKS2\cite{buchstaller_discovery_2019}
     \end{tabular} 
     & \ligcount{27}  
     & \ligrange{4.3}
-    & 1.0
+%    & 1.0
     & \rmse{1.04}{0.78}{1.28}
     \\
 %
@@ -308,19 +312,19 @@ TYK2\cite{liang_lead_2013,liang_lead_2013a,wang_accurate_2015}
     \end{tabular} 
     & \ligcount{16}  
     & \ligrange{4.3}
-    & 1.3
+%    & 1.3
     & \rmse{0.97}{0.60}{1.30}
     \\
 \hline
 \end{tabular}
 \begin{tablenotes}
-\item [\present] structure was already available 6 month prior to publication of first benchmark study
-\item [\similar] ligand similarity > 1.4
-\item [\lesssimilar] ligand considerably similar > 0.8
-\item [\crystal] crystal contacts
-\item [\packing] packing
-\item [\jnkfig] Fig. \ref{fig:jnk1_pdb_report}
-\item [\alternate] alternate conformations
-\item [\ligdens] ligand density: 0.79
+\item [\present] structure was already available 6 month prior to publication of first benchmark study.%
+\item [\similar] ligand similarity > 1.4.%
+\item [\lesssimilar] ligand considerably similar > 0.8.%
+\item [\crystal] crystal contacts.%
+\item [\packing] packing.%
+\item [\jnkfig] Fig. \ref{fig:jnk1_pdb_report}.%
+\item [\alternate] alternate conformations.%
+\item [\ligdens] ligand density: 0.79.%
 \end{tablenotes}
 }
