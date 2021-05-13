@@ -390,7 +390,7 @@
 % custom title page
 %
 \renewcommand{\Authfont}{\bfseries\large\raggedright}
-\renewcommand{\Affilfont}{\mdseries\large\raggedright}
+\renewcommand{\Affilfont}{\mdseries\normalsize\raggedright}
 \renewcommand{\Authands}{, }
 \setlength{\affilsep}{16pt}
 \renewcommand{\AB@affilsepx}{; \protect\Affilfont}

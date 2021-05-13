@@ -36,6 +36,7 @@
 
 \newcommand{\versionnumber}{0.1}  % you should update the minor version number in preprints and major version number of submissions.
 \newcommand{\githubrepository}{\url{https://github.com/openforcefield/FE-Benchmarks-Best-Practices}}  %this should be the main github repository for this article
+\newcommand\standardstate{{\circ\kern-0.495em-}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % STRUCT TABLE SETUP
@@ -81,29 +82,30 @@
 \newcommand{\mildlytrust}[2]{{\cellcolor{medium} #1 (MT, #2)}}
 \newcommand{\hightrust}[2]{{\cellcolor{good} #1 (HT, #2)}}
 
-\newcommand{\rmse}[3]{#1[#2,#3]}
+\newcommand{\rmse}[3]{#1 [#2,#3]}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% ARTICLE SETUP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{Best practices for constructing, preparing, and evaluating protein-ligand binding affinity benchmarks [Article v\versionnumber]}
 \author[1*]{David F. Hahn}
 \author[2]{Christopher I. Bayly}
-\author[3]{Hannah E. Bruce Macdonald}
+\author[3,4]{Hannah E. Bruce Macdonald}
 \author[3]{John D. Chodera}
-\author[4]{Antonia S. J. S. Mey}
-\author[5]{David L. Mobley}
+\author[5]{Antonia S. J. S. Mey}
+\author[6]{David L. Mobley}
 \author[1]{Laura Perez Benito}
-\author[6]{Christina E. M. Schindler}
+\author[7]{Christina E. M. Schindler}
 \author[1]{Gary Tresadern}
-\author[7]{Gregory L. Warren}
+\author[8]{Gregory L. Warren}
 %\author[2\authfn{1}\authfn{4}]{Firstname Initials Surname}
 \affil[1]{Computational Chemistry, Janssen Research \& Development, Turnhoutseweg 30, Beerse B-2340, Belgium}
 \affil[2]{OpenEye Scientific Software, 9 Bisbee Court, Suite D, Santa Fe, NM 87508 USA}
 \affil[3]{Computational and Systems Biology Program, Sloan Kettering Institute, Memorial Sloan Kettering Cancer Center, New York, NY 10065 USA}
-\affil[4]{EaStCHEM School of Chemistry, David Brewster Road, Joseph Black Building, The King's Buildings, Edinburgh, EH9 3FJ, UK}
-\affil[5]{Departments of Pharmaceutical Sciences and Chemistry, University of California, Irvine, CA USA}
-\affil[6]{Computational Chemistry \& Biology, Merck KGaA, Frankfurter Str. 250, 64289 Darmstadt, Germany}
-\affil[7]{DeepCure, 131 Dartmouth St, Boston, MA 02116 USA }
+\affil[4]{MSD, The Francis Crick Institute, 1 Midland Road, London, NW1 1AT, United Kingdom}
+\affil[5]{EaStCHEM School of Chemistry, David Brewster Road, Joseph Black Building, The King's Buildings, Edinburgh, EH9 3FJ, UK}
+\affil[6]{Departments of Pharmaceutical Sciences and Chemistry, University of California, Irvine, CA USA}
+\affil[7]{Computational Chemistry \& Biology, Merck KGaA, Frankfurter Str. 250, 64289 Darmstadt, Germany}
+\affil[8]{DeepCure, 131 Dartmouth St, Boston, MA 02116 USA }
 
 
 \corr{dhahn3@its.jnj.com}{DFH}  % Correspondence emails.  
@@ -114,10 +116,10 @@
 \orcid{John D. Chodera}{0000-0003-0542-119X}
 \orcid{Antonia S. J. S. Mey}{0000-0001-7512-5252}
 \orcid{David L. Mobley}{0000-0002-1083-5533}
-\orcid{Laura Perez Benito}{XXXX}
+\orcid{Laura Perez Benito}{0000-0001-9607-9048}
 \orcid{Christina E. M. Schindler}{0000-0002-8980-048X}
 \orcid{Gary Tresadern}{0000-0002-4801-1644}
-\orcid{Gregory L. Warren}{XXXX}
+\orcid{Gregory L. Warren}{0000-0003-4017-0162}
 %\contrib[\authfn{1}]{These authors contributed equally to this work}
 %\contrib[\authfn{2}]{These authors also contributed equally to this work}
 
@@ -151,13 +153,13 @@
 \maketitle
 
 \begin{abstract}
-Free energy calculations are rapidly becoming indispensible in structure-enabled drug discovery programs. 
+Free energy calculations are rapidly becoming indispensable in structure-enabled drug discovery programs. 
 As new methods, force fields, and implementations are developed, assessing their expected accuracy on real-world systems (\emph{benchmarking}) becomes critical to provide users with an assessment of the accuracy expected when these methods are applied within their domain of applicability, and developers with a way to assess the expected impact of new methodologies.
 These assessments require construction of a benchmark---a set of well-prepared, high quality systems with corresponding experimental measurements designed to ensure the resulting calculations provide a realistic assessment of expected performance when these methods are deployed within their domains of applicability. 
 To date, the community has not yet adopted a common standardized benchmark, and existing benchmark reports suffer from a myriad of issues, including poor data quality, limited statistical power, and statistically deficient analyses, all of which can conspire to produce benchmarks that are poorly predictive of real-world performance.
 Here, we address these issues by presenting guidelines for (1) curating experimental data to develop meaningful benchmark sets, (2) preparing benchmark inputs according to best practices to facilitate widespread adoption, and (3) analysis of the resulting predictions to enable statistically meaningful comparisons among methods and force fields.
 We highlight challenges and open questions that remain to be solved in these areas, as well as recommendations for the collection of new datasets that might optimally serve to measure progress as methods become systematically more reliable.
-Finally, we provide a curated, versioned, open, standardized benchmark set adherent to these standards ({\bf PLBenchmarks}) and an open source toolkit for implementing standardized best practices assessments ({\bf arsenic}) for the community to use as a standardized assessment tool.
+Finally, we provide a curated, versioned, open, standardized benchmark set adherent to these standards ({\bf protein-ligand-benchmark}) and an open source toolkit for implementing standardized best practices assessments ({\bf arsenic}) for the community to use as a standardized assessment tool.
 While our main focus is free energy methods based on molecular simulations, these guidelines should prove useful for assessment of the rapidly growing field of machine learning methods for affinity prediction as well.
 \end{abstract}
 
@@ -171,7 +173,7 @@ While our main focus is free energy methods based on molecular simulations, thes
 
 This guide focuses on recommended best practices for benchmarking the accuracy of small molecule binding free energy (FE) calculations. 
 Here, we define \emph{benchmarking} as the assessment of expected real-world performance relative to experiment.
-We contrast this with the assessment of methods or tools intended to arrive at the same target free energy, which we refer to as \emph{validation} (Figure~\ref{fig:benchmarking_definition}), the comparison of the computational efficiency or speed of these methods, or mapping of effort-accuracy tradeoffs, all of which also play essential roles in dictating real-world usage.
+We contrast this with the assessment of methods or tools intended to arrive at the same target free energy, which we refer to as \emph{validation} (Figure~\ref{fig:benchmarking_definition}), the comparison of the computational efficiency or speed of these methods, or mapping of effort-accuracy trade offs, all of which also play essential roles in dictating real-world usage.
 Importantly, validation calculations are often performed on systems selected for tractability, rather than intended to be representative of real-world applications~\cite{mobleyPredictingBindingFree2017,vangunsteren_validation_2018,tsai_validation_2020}. 
 
 
@@ -191,12 +193,13 @@ We aim to construct benchmarks that provide a good predictor of the expected acc
 
 \underline{Organization:} 
 This best practices guide is organized as follows:
-First, we give a brief overview of protein-ligand binding free energy methods and their use with the goal of highlighting key concepts that guide the construction of a useful accuracy benchmark.
-Next, we discuss recommendations for the construction of a useful experimental benchmark dataset, which must consider the availability of high-quality structural and bioactivity data as well as the expected domain of applicability.
-Next, we provide recommendations on preparing structures for free energy calculations in a manner that will enable the benchmark dataset to be widely and readily useful by practitioners and developers, incorporating best practices for carrying out free energy calculations.
-We then discuss recommendations for the statistical analysis of both retrospective benchmarks and blind prospective challenges in order to derive robust conclusions about the accuracy of these methods and insights about where they fail.
-To address the absence of a standard community-wide benchmark, we provide a curated, versioned, open, standardized benchmark set adherent to these standards ({\bf PLBenchmarks}) and an open source toolkit for implementing standardized best practices assessments ({\bf arsenic}) for the community to use as a standardized assessment tool.
-Finally, we conclude with recommendations for data collection and curation to guide the systematic improvement of available benchmark sets, drive the expansion of the domain of applicability of free energy methods, and areas in which consensus in practice of free energy methods has not yet been settled.
+First, we give a brief overview of protein-ligand binding free energy methods and their use with the goal of highlighting key concepts that guide the construction of a meaningful benchmark.
+Next, we discuss recommendations for the construction of a high-quality experimental benchmark dataset, which must consider the availability of high-quality structural and bioactivity data as well as the expected domain of applicability.
+Next we provide recommendations on preparing structures for free energy calculations in a manner that will enable the benchmark dataset to be widely and readily usable by practitioners and developers, incorporating best practices for carrying out free energy calculations.
+We then discuss recommendations for the statistical analysis of both retrospective benchmarks and blind prospective challenges in order to derive robust conclusions about the accuracy of these methods and insights into where they fail.
+To address the absence of a standard community-wide benchmark, we provide a curated, versioned, open, standardized benchmark set adherent to these standards ({\bf protein-ligand-benchmark}). In addition, we provide an open source toolkit that implements standardized best practices for assessment and analysis of free energy calculations ({\bf arsenic}).
+Finally, we conclude with recommendations for data collection and curation to guide the systematic improvement of available benchmark sets and  drive the expansion of the domain of applicability of free energy methods.
+%, and areas in which consensus in practice of free energy methods has not yet been settled.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
@@ -209,7 +212,7 @@ Binding free energy calculations---particularly alchemical binding free energy c
 Alchemical methods, which include a multitude of approaches such as free energy perturbation (FEP)~\cite{zwanzigHighTemperatureEquation1954,bennettEfficientEstimationFree1976} and thermodynamic integration (TI)~\cite{kirkwoodQuantumStatisticsAlmost1933,kirkwoodQuantumStatisticsAlmost1934,kirkwoodStatisticalMechanicsFluid1935}, have a substantial legacy, with the original theory dating back many decades. 
 Seminal work in the 1980’s and 90’s demonstrated that molecular dynamics (MD) and Monte Carlo (MC) simulation packages could carry out these calculations for practical applications in organic and biomolecular systems~\cite{jorgensenMonteCarloSimulation1985,straatsmaFreeEnergyHydrophobic1986,lybrandTheoreticalCalculationRelative1986,merzFreeEnergyPerturbation1989,pearlmanDeterminationDifferentialEffects1995,choderaAlchemicalFreeEnergy2011,mobleyPerspectiveAlchemicalFree2012}. 
 
-Alchemical perturbations in binding free energy calculations involve the transformation of one chemical species into another, or its complete creation or deletion, via a chemically unrealistic pathway (\emph{alchemical}) that can only be achieved \textit{in silico} by manipulating its interactions in a defined way, such as changing an atom from one element identity to another.
+Alchemical perturbations in binding free energy calculations involve the transformation of one chemical species into another, or its complete creation or deletion, via a chemically unrealistic pathway (\emph{alchemical}) that can only be achieved \textit{in silico} by manipulating its interactions in a defined way. This is achieved by changing an atom from one element identity to another.
 Alchemical calculations are often classified as either \emph{relative} (RBFE) or \emph{absolute} (ABFE) binding free energy calculations. 
 While the underlying theory is similar, the implementation differs in how the thermodynamic cycle is constructed and which quantities can be computed:
 In relative calculations (RBFEs), a generally modest alchemical transformation of the chemical substructures that differ between to ligands is performed to compute the difference in free energy of binding between two related ligands ($\Delta \Delta G$).
@@ -220,7 +223,7 @@ A detailed review of commonly-used alchemical methodologies and best practices f
     \centering
     \includegraphics[width=0.95\linewidth]{figures/introduction/benchmarking_definition.png}
     \caption{
-    \textbf{Illustration of the definitions of \textit{validation}, \textit{application}, and \textit{benchmarking} used in this guide.} 
+    \textbf{Illustration of the definitions of \textit{Validation}, \textit{Application}, and \textit{Benchmarking} used in this guide.} 
     For each term, the definition, advantages (green) and potential short-comings (red) in terms of method evaluation are listed in the three panels.
     %
     \textit{Validation} (top left panel) uses systems that will confidently converge, the expected results are known, and the underlying issues are well understood. 
@@ -246,11 +249,11 @@ Schr\"{o}dinger utilized the same benchmark set to assess subsequent commercial 
 In the absence of other significant efforts to curate benchmark sets, this set (often called the "Schr\"{o}dinger JACS set") has become the \emph{de facto} dataset for most large scale RBFE reports, used to compare the performance of Amber/TI calculations~\cite{songUsingAMBER18Relative2019}, Flare’s FEP (a collaboration between Cresset and the Michel group)~\cite{kuhnAssessmentBindingAffinity2020}, and PMX/Gromacs~\cite{gapsysLargeScaleRelative2020}, as well as machine learning studies~\cite{jimenezDEEPProteinLigand2018,jimenez-lunaDeltaDeltaNeuralNetworks2019}. 
 By contrast, ABFE calculations have not been studied on datasets of similar scale to date, although individual reports have shown success accurately predicting binding affinities~\cite{aldeghiLargescaleAnalysisWater2018,courniaRigorousFreeEnergy2020}.
 
-Despite the reported success of RBFE calculations on these benchmark sets, there are many reports demonstrating that RBFE calculations still struggle in scenarios~\cite{sherborne_collaborating_2016} such as with scaffold modifications~\cite{wangAccurateModelingScaffold2017}, ring expansion~\cite{liuRingBreakingFeasible2015}, water displacement~\cite{michel_energetics_2009,brucemacdonald_ligand_2018,ross_enhancing_2020a,ben-shalom_accounting_2020}, protein flexibility~\cite{huang_insights_2012,fratev_improved_2019,singh_absolute_2020}, applications to GPCRs~\cite{lenselink_predicting_2016,deflorian_accurate_2020}, and the modelling of cofactors like metal ions or heme~\cite{swiderek_binding_2011,ono_improvement_2020}. 
-This is manifest in a large-scale study of FEP applied to active drug discovery projects at Merck KGaA, in which Schindler et al.\ reported several cases of disappointing outcomes~\cite{schindler_largescale_2020}. 
+Despite the reported success of RBFE calculations on these benchmark sets, there are many reports demonstrating that RBFE calculations still struggle in scenarios~\cite{sherborne_collaborating_2016} such as with scaffold modifications~\cite{wangAccurateModelingScaffold2017}, ring expansion~\cite{liuRingBreakingFeasible2015}, water displacement~\cite{michel_energetics_2009,brucemacdonald_ligand_2018,ross_enhancing_2020a,ben-shalom_accounting_2020}, protein flexibility~\cite{huang_insights_2012,fratev_improved_2019,singh_absolute_2020}, applications to GPCRs~\cite{lenselink_predicting_2016,deflorian_accurate_2020}, and the modelling of cofactors such as metal ions or heme~\cite{swiderek_binding_2011,ono_improvement_2020}. 
+This is manifested in a large-scale study of FEP applied to active drug discovery projects at Merck KGaA, in which Schindler et al.\ reported several cases of disappointing outcomes~\cite{schindler_largescale_2020}. 
 
 In addition, new methods and implementation improvements for FE calculations continue to emerge, for instance the efforts on lambda dynamics~\cite{knightMultisiteDynamicsSimulated2011,vilseckPredictingBindingFree2018}, and non-equilibrium RBFE calculations~\cite{gapsysLargeScaleRelative2020,rufaChemicalAccuracyAlchemical2020}. 
-Furthermore, there are many other methodologies such as end-point binding FE calculations (for instance MMGBSA, MMPBSA) or pathway based FE calculations that continue to be developed and applied. Therefore, we must balance the increased confidence that simulation-based FE calculations can impact drug discovery, with the need to further understand, test, and overcome limitations of the current methods.
+Furthermore, there are many other methodologies such as end-point binding FE calculations (for instance MMGBSA, MMPBSA) or pathway based FE calculations that continue to be developed and applied.~\cite{genheden_MM_2015} Therefore, we must balance the increased confidence that simulation-based FE calculations can impact drug discovery, with the need to further understand, test, and overcome limitations of the current methods.
 
 In brief, the issues mentioned above are related to three challenges for FE calculations,
 (1) an accurate representation of the biological system, 
@@ -258,9 +261,9 @@ In brief, the issues mentioned above are related to three challenges for FE calc
 (3) sufficient sampling. 
 Therefore, despite the importance of FE methods to drug discovery and chemical biology it is surprising that there are no benchmark sets or standard benchmark methodologies that allow calculation approaches to be compared in a manner that will reflect their future performance. 
 
-The Drug Design Data Resource~\cite{_d3r_} (D3R) and Statistical Assessment of the Modeling of Proteins and Ligands~\cite{mobley_sampl_} (SAMPL) prospective challenges have demonstrated the utility of focusing the community on common benchmark systems and using common methods to analyze performance~\cite{geballe_sampl2_2010,muddana_blind_2012,muddana_prediction_2012,muddana_sampl4_2014,gathiaka_d3r_2016,bannan_blind_2016,yin_overview_2017,gaieb_d3r_2018,gaieb_d3r_2019,parks_d3r_2020}. Mobley and Gilson discussed the need for well-chosen validation datasets and how this will have multiple benefits to understand and expand the domain of applicability of FE methods~\cite{mobleyPredictingBindingFree2017}. They focused on validation systems that will confidently converge, and where the underlying issues are well understood, the aim was to describe systems that could be used only to assess method performance in a robust manner. As mentioned above, here we define benchmarking as assessing accuracy relative to experiment. This has implications that will be discussed in more detail throughout this article, for instance, the reliability of the underlying experimental data (structure and bioactivities), the confidence in the system setup such as protein and ligand preparation, the suitability of alchemical perturbations for FE, the statistical power of the dataset, the ability of the datasets to capture challenging real-world applications, and recommendations for analysing results. Essentially, we seek to understand what performance can be achieved when all these variables are handled to the best of our abilities.    
+The Drug Design Data Resource~\cite{amaro_drug_2021} (D3R) and Statistical Assessment of the Modeling of Proteins and Ligands~\cite{mobley_sampl_2021} (SAMPL) prospective challenges have demonstrated the utility of focusing the community on common benchmark systems and using common methods to analyze performance~\cite{geballe_sampl2_2010,muddana_blind_2012,muddana_prediction_2012,muddana_sampl4_2014,gathiaka_d3r_2016,bannan_blind_2016,yin_overview_2017,gaieb_d3r_2018,gaieb_d3r_2019,parks_d3r_2020}. Mobley and Gilson discussed the need for well-chosen validation datasets and how this will have multiple benefits to understanding and expanding the domain of applicability of FE methods~\cite{mobleyPredictingBindingFree2017}. They focused on validation systems that will confidently converge, and where the underlying issues are well understood. The aim was to describe systems that could be used only to assess method performance in a robust manner. As mentioned above, here we define benchmarking as assessing accuracy relative to experiment. This has implications that will be discussed in more detail throughout this article, for instance, the reliability of the underlying experimental data (structure and bioactivities), the confidence in the system setup such as protein and ligand preparation, the suitability of alchemical perturbations for FE, the statistical power of the dataset, the ability of the datasets to capture challenging real-world applications, and recommendations for analysing results. Essentially, we seek to understand what performance can be achieved when all these variables are handled to the best of our abilities.    
 
-Here, our proposed benchmark set augments existing datasets while recommending cleaning up or removing entirely some protein-ligand sets. We highlight key considerations in the construction of a useful set of protein-ligand benchmarks and the preparation of these systems for use as a community-wide benchmark. These recommendations are mirrored in a living benchmark set, which can be used to reliably launch future studies and which is provided on GitHub~\cite{_openforcefield_2020}. We seek to to improve the initial version of this benchmark set in the future with help of the whole community. We welcome any contribution either to improve the existing set or to expand the set by new protein-ligand sets, if they meet the requirements established in here. 
+Here, our proposed benchmark set augments existing datasets while recommending cleaning up or removing entirely some protein-ligand sets. We highlight key considerations in the construction of a useful set of protein-ligand benchmarks and the preparation of these systems for use as a community-wide benchmark. These recommendations are mirrored in a living benchmark set, which can be used to reliably launch future studies~\cite{hahn_openforcefield_2020}. We seek to to improve the initial version of this benchmark set in the future with help of the whole community. We welcome any contribution either to improve the existing set or to expand the set with new protein-ligand sets, if they meet the requirements established in here. 
 %
 We also recommend statistical analyses for assessing and comparing the accuracy of different methods and provide a set of open source tools that implement our recommendations~\cite{github_openforcefield_arsenic_2020}. 
 %
@@ -302,9 +305,9 @@ To merit inclusion in a good benchmark set, the available structural data must m
 % Number of data points
 
 While some methods (such as machine learning and GBSA rescoring) can make rapid predictions of affinity, free energy methods are generally relatively costly in terms of computational effort. 
-In order to make statistically meaningful comparisons among methods, however, a sufficient number of reliable experimental measurements (Section~\ref{sec:affinities}) will be necessary for a benchmark set. Such a set enables a statistical analysis with sufficient power to distinguish how methods are expected to perform on larger test sets for the same targets (Section~\ref{sec:analysis}).
+In order to make statistically meaningful comparisons among methods, however, a sufficient number of reliable experimental measurements (Section~\ref{sec:affinities}) will be necessary for a benchmark set. These measurements also need to cover an adequate dynamic range, i.e. the activity range should be sufficiently large.   Such a set enables a statistical analysis with sufficient power to distinguish how methods are expected to perform on larger test sets for the same targets (Section~\ref{sec:analysis}).
 %To answer this, consider beta secretase (BACE), a common drug discovery target that already occurs in FE benchmark datasets. Given the vast number of patents, medicinal chemistry articles, and X-ray structures it could be possible to construct hundreds of BACE FE datasets containing several dozen ligands in each. These might have value for very specific applications, but will likely offer limited scientific insight about cross-target performance. This same holds true for other targets; often the amount of data available far exceeds that needed for benchmarking.
-In addition to comprising a sufficiently large number of measurements with sufficient dynamic range, the set of ligands should be both unambiguously specified (with resolved stereochemistry or ambiguous tautomeric or protonation states) and have chemistries that fall within the domain of applicability of the particular free energy method used. 
+In addition, the set of ligands should be both unambiguously specified (with resolved stereochemistry or ambiguous tautomeric or protonation states) and have chemistries that fall within the domain of applicability of the particular free energy method used. 
 %
 In order for standardized benchmark sets to be broadly applicable to a range of methodologies and software packages, we recommend annotating systems in terms of common challenges that may exclude their assessment by certain methods or packages.
 For relative free energy calculations, these labels should denote transformations that include
@@ -357,7 +360,7 @@ water displacement in binding sites,
 the presence of cofactors in the binding site, 
 slow motions of ligands (e.g. rotatable bonds) and proteins, and 
 activity cliffs.
-We recommend to annotate these challenging cases in the benchmark set.
+We recommend annotating these challenging cases in the benchmark set.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -399,18 +402,25 @@ Often structural studies use shorter constructs that might be missing several do
 
 \begin{figure}[!ht]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{crystal/Jnk1_2gmx_pdb_report.png}
-        \caption{}
-        \label{fig:jnk1_pdb_report_2gmx}
-    \end{subfigure}
+    \includegraphics[width=.47\textwidth]{figures/crystal/pdb_validation.png}
+    {
+        \phantomsubcaption\label{fig:jnk1_pdb_report_2gmx}
+        \phantomsubcaption\label{fig:jnk1_pdb_report_3eljx}
+    }
+    % \begin{subfigure}[b]{0.48\textwidth}
+    %     \includegraphics[width=\textwidth]{crystal/Jnk1_2gmx_pdb_report.png}
+    %     \caption{}
+    %     \label{fig:jnk1_pdb_report_2gmx}
+    % \end{subfigure}
     
-    \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{crystal/Jnk1_3elj_pdb_report.png}
-        \caption{}
-        \label{fig:jnk1_pdb_report_3elj}
-    \end{subfigure}
-    \caption{\textbf{The PDB structure validation report percentile score panels for the Jnk1 structures PDB IDs 2GMX and 3ELJ from the RCSB PDB.} Note that 2GMX (panel \subref{fig:jnk1_pdb_report_2gmx}) is a poorly ranked structure relative to all and structures of similar resolution in the PDB.  In contrast 3ELJ (panel \subref{fig:jnk1_pdb_report_3elj}) is as good or better than structures of similar resolution or all structures in the PDB.}
+    % \begin{subfigure}[b]{0.48\textwidth}
+    %     \includegraphics[width=\textwidth]{crystal/Jnk1_3elj_pdb_report.png}
+    %     \caption{}
+    %     \label{fig:jnk1_pdb_report_3elj}
+    % \end{subfigure}
+    \caption{\textbf{The PDB structure validation report percentile score panels for the Jnk1 structures PDB IDs 2GMX and 3ELJ from the RCSB PDB.} \textbf{(\subref{fig:jnk1_pdb_report_2gmx})} Note that 2GMX is a poorly ranked structure relative to all and structures of similar resolution in the PDB.  
+    %
+    \textbf{(\subref{fig:jnk1_pdb_report_3eljx})} In contrast 3ELJ is as good or better than structures of similar resolution or all structures in the PDB.}
     \label{fig:jnk1_pdb_report}
 \end{figure}
 
@@ -420,13 +430,14 @@ Other sources include cryo-EM, NMR or homology models~\cite{courniaRelativeBindi
 As free energy calculations are usually run at atomic resolution, the input structure needs to provide the coordinates of all atoms, with those coordinates ideally determined by the experimental model.
 %
 For X-ray and cryo-EM structures, this requirement is only met by high quality structures.
-The evaluation criteria defined by OpenEye Iridium~\cite{warrenEssentialConsiderationsUsing2012} can guide the assessment of X-ray structures. It is important to note that the Iridium criteria were designed to assess structures for benchmarking docking and not necessarily for free energy calculations. As such there is one important criterion missing -- completeness of the model -- which is likely to be far more important for free energy calculations than docking.
+The evaluation criteria defined by OpenEye Iridium~\cite{warrenEssentialConsiderationsUsing2012} can guide the assessment of X-ray structures. The lower the Iridium score, the better the quality of the structure. The Iridium classification categorizes each structure into not trustworthy (NT),
+mildly trustworthy (MT) and highly trustworthy (HT) categories. It is important to note that the Iridium criteria were designed to assess structures for benchmarking docking and not necessarily for free energy calculations. As such there is one important criterion missing -- completeness of the model -- which is likely to be far more important for free energy calculations than docking.
 
 
 \begin{table*}[!h]
 \centering
 \caption{
-Evaluation of the quality of structural and activity experimental data of the proposed benchmark set.
+\textbf{Evaluation of the quality of structural and activity experimental data of the proposed benchmark set.}
 %
 The structures listed in "Used structure" are those used in the initial version of this dataset, which is drawn in part from previous studies. However, alternate available structures may be superior. In these cases, we provide a PDB ID of a higher quality structure and 
 its quality measures, in the "Alternate structure" field.
@@ -468,7 +479,7 @@ The $R$-factor is a measure for the difference between the predicted data (by th
 The $R_{\mathrm{free}}$-factor is calculated the same way, but uses only a held out randomly selected subset of the measured data. Thus, it can be used to identify overfit models as these result in a larger difference between $R$-factor and $R_{\mathrm{free}}$ (typically more than 0.05).
 Both $R$-factors are easily accessible for reported crystallographic data, e.g. in the protein data bank (PDB)~\cite{bermanProteinDataBank2000}. 
 %
-The coordinate error, while more difficult to find or calculate, provides the best way to assess the precission and quality of the model:
+The coordinate error, while more difficult to find or calculate, provides the best way to assess the precision and quality of the model:
 %
 \begin{equation}
     \mathrm{coordinate\ error} = \frac{2.22 R_{\mathrm{free}}\sqrt{N_i^3}\sqrt{V_a}} {n_{\mathrm{obs}}^{5/6}},
@@ -477,7 +488,7 @@ The coordinate error, while more difficult to find or calculate, provides the be
 %
 where $N_i$ is the number of heavy atoms with occupancy of 1, $V_a$ is the volume of the asymmetric unit cell and $n_{\mathrm{obs}}$ is the number of non-$R_{\mathrm{free}}$ reflections used during refinement. A high-quality structure should have a coordinate error $<0.7$. Recent PDB entries usually include a coordinate error estimate which can be found by searching for ESU $R_{\mathrm{free}}$, Cruickshank or Blow Density Precision Index (DPI). The coordinate error (as shown in Equation 1) is $\sqrt{3}\cdot \mathrm{BlowDPI}$. 
 
-While understanding the global quality of a structure is important, it is the local active site or ligand binding site that will have the largest impact on benchmarking performance. Thus special care should be taken to assess the ligand and surrounding active site residues. 
+While understanding the global quality of a structure is important, it is the local active site or ligand binding site that will have the largest impact on benchmarking performance. Therefore special care should be taken to assess the ligand and surrounding active site residues. 
 %
 Of highest priority is to identify all unmodeled residues and side chain atoms within 6~to~$8\,$\AA{} of any ligand atom. When multiple structures with similar coordinate error are available, the structure with no missing residues or side chain atoms that meets subsequent criteria should be used.
 %
@@ -493,63 +504,72 @@ Covalently bound ligands should be identified and appropriately modelled.
 
 \begin{figure*}
     \centering
-    \begin{subfigure}[b]{0.47\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/crystal/pic_4pv0.png}
-        \caption{SYK, PDB ID 4PV0}
-        \label{fig:4pv0}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.47\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/crystal/pic_4px6.png}
-        \caption{SYK, PDB ID 4PX6}
-        \label{fig:4px6}
-    \end{subfigure} 
+    \includegraphics[width=\textwidth]{figures/crystal/crystal1.png}
+    {
+        \phantomsubcaption\label{fig:4pv0}
+        \phantomsubcaption\label{fig:4px6}
+        \phantomsubcaption\label{fig:5e89}
+        \phantomsubcaption\label{fig:1snc}
+        \phantomsubcaption\label{fig:3zov}
+        \phantomsubcaption\label{fig:5hnb}
+    }
+    % \begin{subfigure}[b]{0.47\textwidth}
+    %     \centering
+    %     \includegraphics[width=\textwidth]{figures/crystal/pic_4pv0.png}
+    %     \caption{SYK, PDB ID 4PV0}
+    %     \label{fig:4pv0}
+    % \end{subfigure}
+    % \hfill
+    % \begin{subfigure}[b]{0.47\textwidth}
+    %     \centering
+    %     \includegraphics[width=\textwidth]{figures/crystal/pic_4px6.png}
+    %     \caption{SYK, PDB ID 4PX6}
+    %     \label{fig:4px6}
+    % \end{subfigure} 
     
-    \begin{subfigure}[b]{0.47\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/crystal/pic_5e89.png}
-        \caption{Galectin, PDB ID 5E89}
-        \label{fig:5e89}
-    \end{subfigure}   
-    \hfill
-    \begin{subfigure}[b]{0.47\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/crystal/pic_1snc.png}
-        \caption{Staphylococcal nuclease, PDB ID 1SNC}
-        \label{fig:1snc}
-    \end{subfigure}
+    % \begin{subfigure}[b]{0.47\textwidth}
+    %     \centering
+    %     \includegraphics[width=\textwidth]{figures/crystal/pic_5e89.png}
+    %     \caption{Galectin, PDB ID 5E89}
+    %     \label{fig:5e89}
+    % \end{subfigure}   
+    % \hfill
+    % \begin{subfigure}[b]{0.47\textwidth}
+    %     \centering
+    %     \includegraphics[width=\textwidth]{figures/crystal/pic_1snc.png}
+    %     \caption{Staphylococcal nuclease, PDB ID 1SNC}
+    %     \label{fig:1snc}
+    % \end{subfigure}
     
-    \begin{subfigure}[b]{0.47\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/crystal/pic_3zov.png}
-        \caption{BACE (Hunt), PDB 3ZOV}
-        \label{fig:3zov}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.47\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/crystal/pic_5hnb.png}
-        \caption{CDK8, PDB ID 5HNB}
-        \label{fig:5hnb}
-    \end{subfigure}\\
+    % \begin{subfigure}[b]{0.47\textwidth}
+    %     \centering
+    %     \includegraphics[width=\textwidth]{figures/crystal/pic_3zov.png}
+    %     \caption{BACE (Hunt), PDB 3ZOV}
+    %     \label{fig:3zov}
+    % \end{subfigure}
+    % \hfill
+    % \begin{subfigure}[b]{0.47\textwidth}
+    %     \centering
+    %     \includegraphics[width=\textwidth]{figures/crystal/pic_5hnb.png}
+    %     \caption{CDK8, PDB ID 5HNB}
+    %     \label{fig:5hnb}
+    % \end{subfigure}\\
     \caption{
     \textbf{Examples of common challenges encountered when using X-ray crystal structures.}
     The protein is shown in green and the ligand in orange. If not stated differently, the 2Fo-Fc maps are illustrated as grey isomesh at $2\sigma$ level. 
     %
-    Panel (\subref{fig:4pv0}): PDB ID 4PV0  shows poor density (at $3\sigma$) for residues in the active site.  The beta sheet loop at the top of the active site has residue side chains modeled with no density to support the conformation and the end of the loop has residues that are not modeled.
+    \textbf{(\subref{fig:4pv0})} PDB ID 4PV0  shows poor density (at $3\sigma$) for residues in the active site.  The beta sheet loop at the top of the active site has residue side chains modeled with no density to support the conformation and the end of the loop has residues that are not modeled.
     %
-    Panel (\subref{fig:4px6}): The recommended structure PDB ID 4PX6 for the same protein  has complete density (and modeled atoms) for the whole loop (at $3\sigma$).
+    \textbf{(\subref{fig:4px6})} The recommended structure PDB ID 4PX6 for the same protein  has complete density (and modeled atoms) for the whole loop (at $3\sigma$).
     %
-    Panel (\subref{fig:5e89}): PDB ID 5E89 shows poor ligand density, especially for the \textit{m}-Cl-phenyl (left) and the hydroxymethyl (center). This means that the ligand conformation, as shown, is not specified by the data, and thus should not be used as input to a computational study unless there is additional data supporting this binding mode.
+    \textbf{(\subref{fig:5e89})} PDB ID 5E89 shows poor ligand density, especially for the \textit{m}-Cl-phenyl (left) and the hydroxymethyl (center). This means that the ligand conformation, as shown, is not specified by the data, and thus should not be used as input to a computational study unless there is additional data supporting this binding mode.
     %
-    Panel (\subref{fig:1snc}): The ligand of PDB ID 1SNC has crystal contacts with the residues K70 and K71 (blue) of the neighboring unit that directly interact with the ligand, potentially affecting the binding mode relative to a solution environment.
+    \textbf{(\subref{fig:1snc})} The ligand of PDB ID 1SNC has crystal contacts with the residues K70 and K71 (blue) of the neighboring unit that directly interact with the ligand, potentially affecting the binding mode relative to a solution environment.
     %
-    Panel (\subref{fig:3zov}): PDB ID 3ZOV has two
+    \textbf{(\subref{fig:3zov})} PDB ID 3ZOV has two
     alternate side chain conformations. Residue R368 in the B conformation (magenta) has clearly more density (0.75 $\sigma$) than the A conformation (blue). The B conformation interacts with the ligand (distance $3.2\,$\AA{}) whereas the A conformation does not interact with the ligand (distance $6.5\,$\AA{}). If the user does not look at both conformations and chooses A (by default), this would likely be incorrect and miss a potentially important protein-ligand interaction.  
     %
-    Panel (\subref{fig:5hnb}): In PDB ID 5HNB, there is an excipient (formic acid) that interacts directly with the ligand ($2.7\,$\AA{} O-O distance shown in black).  The formic acid could be replacing a bridging water.  From the data it is not possible to determine how the excipient is affecting the ligand/protein conformation, but for a study of ligand binding in the absence of formic acid, this should be removed.
+    \textbf{(\subref{fig:5hnb})} In PDB ID 5HNB, there is an excipient (formic acid) that interacts directly with the ligand ($2.7\,$\AA{} O-O distance shown in black).  The formic acid could be replacing a bridging water.  From the data it is not possible to determine how the excipient is affecting the ligand/protein conformation, but for a study of ligand binding in the absence of formic acid, this should be removed.
     %
     }
     \label{fig:crystal1}
@@ -557,39 +577,43 @@ Covalently bound ligands should be identified and appropriately modelled.
 
 \begin{figure}
     \centering
-    \begin{subfigure}[b]{.47\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/crystal/pic_3fly.png}
-        \caption{P38, PDB ID 3FLY}
-        \label{fig:3fly}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{.47\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/crystal/pic_6sfi.png}
-        \caption{P38, PDB ID 6SFI}
-        \label{fig:6sfi}
-    \end{subfigure}  
+    \includegraphics[width=.47\textwidth]{figures/crystal/crystal2.png}
+    {
+        \phantomsubcaption\label{fig:3fly}
+        \phantomsubcaption\label{fig:6sfi}
+        \phantomsubcaption\label{fig:2zff}
+    }
+    % \begin{subfigure}[b]{.47\textwidth}
+    %     \centering
+    %     \includegraphics[width=\textwidth]{figures/crystal/pic_3fly.png}
+    %     \caption{P38, PDB ID 3FLY}
+    %     \label{fig:3fly}
+    % \end{subfigure}
+    % \hfill
+    % \begin{subfigure}[b]{.47\textwidth}
+    %     \centering
+    %     \includegraphics[width=\textwidth]{figures/crystal/pic_6sfi.png}
+    %     \caption{P38, PDB ID 6SFI}
+    %     \label{fig:6sfi}
+    % \end{subfigure}  
     
-    \begin{subfigure}[b]{.47\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/crystal/pic_2zff.png}
-        \caption{Thrombin, PDB ID 2ZFF}
-        \label{fig:2zff}
-    \end{subfigure}
-    \hfill
-   
-    
+    % \begin{subfigure}[b]{.47\textwidth}
+    %     \centering
+    %     \includegraphics[width=\textwidth]{figures/crystal/pic_2zff.png}
+    %     \caption{Thrombin, PDB ID 2ZFF}
+    %     \label{fig:2zff}
+    % \end{subfigure}
+    % \hfill
     \caption{
     \textbf{Examples of challenges encountered for ligand modelling using X-ray crystal structures.}
     The protein is shown in green and the ligand in orange. If not stated differently, the 2Fo-Fc maps are illustrated as grey isomesh at $2\sigma$ level. In some panels, the difference density Fo-Fc map is illustrated as cyan isomesh at $+3\sigma$ level.
     %
-    Panel (\subref{fig:3fly}): In PDB ID 3FLY, there is significant difference density, likely indicating that the ligand conformation is not modeled correctly.  It is suspected that there is a low occupancy alternate conformation that is not modeled.
+    \textbf{(\subref{fig:3fly})} In PDB ID 3FLY, there is significant difference density, likely indicating that the ligand conformation is not modeled correctly.  It is suspected that there is a low occupancy alternate conformation that is not modeled.
     %
-    Panel (\subref{fig:6sfi}): The suggested alternate structure of the same protein, PDB ID 6SFI, has no difference density.
+    \textbf{(\subref{fig:6sfi})} The suggested alternate structure of the same protein, PDB ID 6SFI, has no difference density.
     %
-    Panel (\subref{fig:2zff}): PDB ID 2ZFF shows unexplained electron density in the binding pocket (difference map, bottom, center, cyan). This could
-    be either water or a $Na^+$ ion, as $Na^+$ is present and modeled in other sites. 
+    \textbf{(\subref{fig:2zff})} PDB ID 2ZFF shows unexplained electron density in the binding pocket (difference map, bottom, center, cyan). This could
+    be either water or a Na$^+$ ion, as Na$^+$ is present and modeled in other sites. 
     %
     }
     \label{fig:crystal2}
@@ -656,26 +680,30 @@ We note that, in practice, it is often difficult to identify datasets that meet 
 Overall, it is necessary that the experimental data used in benchmarks intended to measure the accuracy of reproducing experimental data are consistent, reliable, correspond well to the model system that is used in the simulations, allowing robust conclusions on accuracy to be drawn.
 
 \subsubsection{Deriving free energies from experimental affinities}
-Binding of a ligand to a receptor protein can be described as an equilibrium between bound and unbound states with the equilibrium constant $K_D$ as
+Binding of a ligand to a receptor protein can be described as an equilibrium between unbound and bound states with the equilibrium constant of the dissociation $K_\mathrm{d}$ as
 \begin{equation*}
-    K_D = \frac{[P][L]}{[PL]}
+    K_\mathrm{d} = \frac{[P][L]}{[PL]},
 \end{equation*}
-with $[PL]$ being the concentration of the bound protein-ligand complex and $[P]$ and $[L]$ the concentrations of the unbound protein and unbound ligand respectively. The binding free energy $\Delta G$ can be related to the equilibrium constant via the following equation
+with $[PL]$ being the concentration of the bound protein-ligand complex and $[P]$ and $[L]$ the concentrations of the unbound protein and unbound ligand respectively. The binding free energy $\Delta G$ can be related to the dissociation constant via the following equation
 \begin{equation}
-    \Delta G = -k_\mathrm{B} T \ln K_D
+    \label{eq:kdtodg}
+    \Delta G = k_\mathrm{B} T \ln \frac{K_\mathrm{d}}{c^{\standardstate}},
 \end{equation}
-with Boltzmann constant $k_\mathrm{B}$ and temperature $T$. 
+with Boltzmann constant $k_\mathrm{B}$, temperature $T$ and standard state reference concentration $c^{\standardstate}$, which is typically $c^{\standardstate}=1\,\mathrm{M}$. 
 In many drug discovery projects, potency of compounds is assessed by measuring the half-maximal inhibitory concentration (IC$_{50}$) of a substance on a biological or biochemical function. This is often converted to pIC$_{50}$
 \begin{equation*}
+    \label{eq:pic50}
     \mathrm{pIC}_{50} = - \log_{10} \mathrm{IC}_{50}.
 \end{equation*}
 Typically, the substance is competing in these experiments with either a probe or substrate. For such competition assays, IC$_{50}$ can be related to the binding affinity of the inhibitor $K_i$ via the Cheng-Prusoff equation
-\begin{equation}\label{eq:CP}
+\begin{equation}
+\label{eq:CP}
     K_i = \frac{\mathrm{IC}_{50}}{1+\tfrac{[S]}{K_m}},
 \end{equation}
 where $[S]$ is the concentration of the substrate and $K_m$ the Michaelis constant. Many assays are conducted using a substrate concentration of $[S] = K_m$. This leads to a conversion factor of $0.5$ between IC$_{50}$ and $K_i$ based on Equation~\ref{eq:CP} and to a constant offset in $\Delta G$. This offset cancels out for a congeneric ligand series with the same mode-of-action in identical assay conditions. Hence, in this case, $\Delta $pIC$_{50}$ values are a useful bioactivity that can be compared to relative binding free energy calculations. We can then use the approximation
 \begin{equation*}
-    \Delta G \approx - k_B T \ln \mathrm{IC}_{50}.
+    \label{eq:ic50todg}
+    \Delta G \approx k_B T \ln \mathrm{IC}_{50}.
 \end{equation*}
 
 % JDC: Add more here about why data from different sources is unreliable and citations to Christian Kramer papers about expected magnitude of discrepancies
@@ -690,6 +718,7 @@ To avoid rounding or unit conversion errors that often arise from automated or m
 Going back to the original publication is also important to identify compounds that are outside of the detection limit of the assay but are still reported with specific numerical values (e.g., reported IC$_{50} > 30 \,\,\mu$M). Such ligands should be excluded from benchmark sets to ensure that accuracy measures can be properly evaluated.
 
 \subsubsection{Experimental uncertainty}
+\label{sec:exp_uncertainty}
 To assess the reliability, ideally, errors are reported for all ligand affinities or at least for a subset. The primary publication of the experimental results is typically the best source of experimental uncertainty as cited affinities may occasionally be subject to rounding differences or unit errors~\cite{kramer2012experimental}. Errors quoted will likely be an estimate of the repeatability of the assay, rather than true, independent reproducibility. Publications with essential experimental controls reported --- such as incubation time and concentration regime to demonstrate equilibrium --- can add confidence to the reported affinity, however these may be performed and not reported~\cite{jarmoskaite2020measure}. Meta-analyses of both repeatability~\cite{sheridan2020experimental} and reproducibility~\cite{kramer2012experimental} found errors in pKi of 0.3-0.4 log units (0.43-0.58 kcal mol$^{-1}$) and 0.44 log units (0.64 kcal mol$^{-1}$) respectively.  Another analysis for reproducibility found that variability in pIC$_{50}$ were even 21-26\% higher than for pKi data (0.55 log units)~\cite{kalliokoski_comparability_2013}. These values provide a guideline for experimental error, if none is available. Note that for difference measures $\Delta $pIC$_{50}$, the individual experimental errors propagate as $\sqrt{\sigma_1^2+\sigma_2^2}$.
 
 \begin{figure}[!ht]
@@ -716,9 +745,9 @@ Quantifying the experimental uncertainty is necessary for understanding the uppe
     R^2_{\mathrm{max}} = 1 - \left(\frac{\sigma(\mathrm{measurement\   error})}{\sigma({\mathrm{affinity}})}\right) ^2,
 \end{equation}
 %
-where $R^2_{\mathrm{max}}$ is the highest achievable $R^2$ for a dataset with a standard deviation of affinities ($\sigma(\mathrm{affinity})$) and an experimental uncertainty of  $\sigma\mathrm{(measurement\ error)}$~\cite{sheridan2020experimental}. This relation is illustrated in \ref{fig:r2max}.
+where $R^2_{\mathrm{max}}$ is the highest achievable $R^2$ for a dataset with a standard deviation of affinities ($\sigma(\mathrm{affinity})$) and an experimental uncertainty of  $\sigma\mathrm{(measurement\ error)}$~\cite{sheridan2020experimental}. This relation is illustrated in Figure \ref{fig:r2max}.
 
-For a typical experimental error of 0.64 kcal mol$^{-1}$ (see above) and a desired $R^2_{\mathrm{max}} = 0.9$, a standard deviation of affinities $\sigma(\mathrm{affinity}) = 2.02 $ kcal mol$^{-1}$ ($\approx$1.5 log units) is required. Assuming a uniform distribution of experimental affinities in the dataset, this corresponds to a required dynamic range of 7.01 kcal mol$^{-1}$ (e.g., from $-12$ to $-5$ kcal mol$^{-1}$) or $\approx$ 5 log units (e.g., from 1 nM to 100 $\mu$M). This dynamic range and the associated standard deviation of affinities also allow to differentiate typical free energy methods from a trivial affinity prediction model where all predicted affinities $\Delta G_{\text{pred}}^i$ are equal to the mean experimental affinity $\sum_{i=1}^{N} \Delta G_{\text{exp}}^i$. Note that for such a model RMSE is equal to the standard deviation of the affinities $\sigma({\mathrm{affinity}})$, while there is no correlation between predicted and experimental affinities. In practice, experimental datasets with a dynamic range of $7\,\mathrm{kcal\,mol^{-1}}$ are difficult to obtain. Using the same assumptions as before, a dynamic range of 5 and $3\,\mathrm{kcal\,mol^{-1}}$ correspond to a standard deviation of affinities of $\sigma(\mathrm{affinity}) = 1.44\,\mathrm{kcal\,mol^{-1}}$ and $\sigma(\mathrm{affinity}) = 0.87\,\mathrm{kcal\,mol^{-1}}$ and hence $R^2_{\mathrm{max}} = 0.8$ and $R^2_{\mathrm{max}} = 0.45$ respectively. Balancing, data availability and achievable $R^2_{\mathrm{max}}$, we recommend to collect datasets with a dynamic range of $5\,\mathrm{kcal\,mol^{-1}}$.
+For a typical experimental error of 0.64 kcal mol$^{-1}$ (see Section~\ref{sec:exp_uncertainty}) and a desired $R^2_{\mathrm{max}} = 0.9$, a standard deviation of affinities $\sigma(\mathrm{affinity}) = 2.02 $ kcal mol$^{-1}$ ($\approx$1.5 log units) is required. Assuming a uniform distribution of experimental affinities in the dataset, this corresponds to a required dynamic range of 7.01 kcal mol$^{-1}$ (e.g., from $-12$ to $-5$ kcal mol$^{-1}$) or $\approx$ 5 log units (e.g., from 1 nM to 100 $\mu$M). This dynamic range and the associated standard deviation of affinities also allow to differentiate typical free energy methods from a trivial affinity prediction model where all predicted affinities $\Delta G_{\text{pred}}^i$ are equal to the mean experimental affinity $\sum_{i=1}^{N} \Delta G_{\text{exp}}^i$. Note that for such a model RMSE is equal to the standard deviation of the affinities $\sigma({\mathrm{affinity}})$, while there is no correlation between predicted and experimental affinities. In practice, experimental datasets with a dynamic range of $7\,\mathrm{kcal\,mol^{-1}}$ are difficult to obtain. Using the same assumptions as before, a dynamic range of 5 and $3\,\mathrm{kcal\,mol^{-1}}$ correspond to a standard deviation of affinities of $\sigma(\mathrm{affinity}) = 1.44\,\mathrm{kcal\,mol^{-1}}$ and $\sigma(\mathrm{affinity}) = 0.87\,\mathrm{kcal\,mol^{-1}}$ and hence $R^2_{\mathrm{max}} = 0.8$ and $R^2_{\mathrm{max}} = 0.45$ respectively. Balancing data availability and achievable $R^2_{\mathrm{max}}$, we recommend collecting datasets with a dynamic range of $5\,\mathrm{kcal\,mol^{-1}}$.
 
 
 
@@ -728,10 +757,10 @@ For a typical experimental error of 0.64 kcal mol$^{-1}$ (see above) and a desir
     \label{fig:r2max}
 \end{figure}
 
-In order to robustly evaluate statistics with small confidence intervals the dataset needs to be sufficiently large. 
+In order to robustly evaluate statistics with small confidence intervals, the dataset needs to be sufficiently large. 
 Figure \ref{fig:N_CI} illustrates the dependence of the confidence interval obtained by bootstrapping for correlation statistics and accuracy statistics for simulated toy data. 
 The "experimental" toy data were simulated using a uniform distribution with an affinity range of $7\,\mathrm{kcal\,mol^{-1}}$ for the experimental toy data. 
-This would be the optimal dynamic range for an experimental error of $0.64\,\mathrm{kcal\,mol^{-1}}$ (see above). 
+This would be the optimal dynamic range for an experimental error of $0.64\,\mathrm{kcal\,mol^{-1}}$ (see Section~\ref{sec:exp_uncertainty}). 
 Predicted toy data were derived from the experimental toy data using a Gaussian distribution with standard deviation of $\sigma = 0.5$, 1 and $1.5\,\mathrm{kcal\,mol^{-1}}$. 
 While the absolute values that can be obtained for the correlation statistics are strongly affected by the dynamic range of the experimental data, the effect on the confidence intervals estimated via bootstrapping is relatively small (very similar results in terms of the size of the confidence intervals can be obtained assuming a dynamic range of $5\,\mathrm{kcal\,mol^{-1}}$).
 
@@ -744,7 +773,7 @@ Based on these simulations, we recommend a dataset size of 25 to 50 ligands. For
     \label{fig:N_CI}
 \end{figure}
 
-As stated before, in practice it is challenging to find datasets that meet these criteria for dynamic range and number of ligands. We therefore currently recommend to annotate benchmark datasets according to these criteria to make challenges and limitations visible.
+As stated before, in practice it is challenging to find datasets that meet these criteria for dynamic range and number of ligands. We therefore currently recommend annotating benchmark datasets according to these criteria to make challenges and limitations visible.
 
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -769,9 +798,9 @@ In addition to the protein itself, the subsystem carried forward from the X-ray 
     \includegraphics[width=0.95\linewidth]{figures/system_prep.pdf}
     \caption{\textbf{Outline of the system preparation steps.} 
     %
-    First the protein is prepared (left, Section \ref{sect:protprep}) by modelling missing atoms, assigning bond orders, protonation and tautomeric states. 
+    First the protein is prepared (left, Section \ref{sec:protprep}) by modelling missing atoms, assigning bond orders, protonation and tautomeric states. 
     %
-    Similarily, the chemical structure of the ligands is translated into a simulation model (right, Section \ref{sect:ligprep}). 
+    Similarily, the chemical structure of the ligands is translated into a simulation model (right, Section \ref{sec:ligprep}). 
     %
     The ligands are simulated in two different environments, once complexed with the protein (bottom left) and once in solvent (bottom right). 
     %
@@ -781,9 +810,9 @@ In addition to the protein itself, the subsystem carried forward from the X-ray 
 \end{figure}
 
 \subsubsection{Protein preparation}
-\label{sect:protprep}
+\label{sec:protprep}
 
-The experimental protein structure has frequently missing coordinates for atoms, residues or groups of residues due to the lack of supporting data (electron density) from the X-ray experiments. These often include N-terminal and C-terminal residues, mobile loops (e.g. the activation loop in kinases), and residue sidechains. Also, there can be extra coordinates available in the structure as "alternate locations" (AltLocs): residue sidechains, or occasionally entire residues or the ligand, for which the experimental density supports more than one distinct orientation in a single x-ray structure solution. For the simulation, the protein must have all the atoms provided for every residue modeled. Missing residue sidechains should always be modeled in, assigning them the most preferred rotamer given the local environment. 
+The experimental protein structure has frequently missing coordinates for atoms, residues or groups of residues due to the lack of supporting data (electron density) from the X-ray experiments. These often include N-terminal and C-terminal residues, mobile loops (e.g. the activation loop in kinases), and residue sidechains. Also, there can be extra coordinates available in the structure as "alternate locations" (AltLocs): residue sidechains, or occasionally entire residues or the ligand, for which the experimental density supports more than one distinct orientation in a single X-ray structure solution. For the simulation, the protein must have all the atoms provided for every residue modeled. Missing residue sidechains should always be modeled in, assigning them the most preferred rotamer given the local environment. 
 
 If the N- and/or C-terminal residues are missing due to lack of electron density, this may provide a basis for omitting them from the model, but the truncated N- and C-termini should be "capped" by neutral termini, usually an acetate (ACE) cap on the N-terminus and an N-methyl (NME) cap on the C-terminus to mimic the peptide backbone out to the carbon-alpha. Of course, one must be careful not to cap the charged protein termini which are properly resolved in the X-ray: these can be critical for function and structure. 
 
@@ -793,7 +822,7 @@ Another possibility for missing loops is to close the ends with a short modeled 
 
 However, all of these approaches are likely inferior to using a good quality model of the missing loop. 
 
-When multiple alternate models of a particular region of the protein are available and registered as AltLocs, the experimental model indicates that this region potentially occupies two (or more) mutually exclusive conformations experimentally, but we must choose one for our model (or repeat multiple calculations beginning from different models). Again, this selection can be a judgement call depending on where this region occurs relative to the active site: distal from the active site, the choice may be less critical; proximal requires more careful consideration. Higher occupancy for one of the AltLocs could provide a reason to choose that particular model for the calculations.
+When multiple alternate models of a particular region of the protein are available, the experimental model indicates that this region potentially occupies two (or more) mutually exclusive conformations, but one must chosen for the model. Again, this selection can be a judgement call depending on where this region occurs relative to the active site: distal from the active site, the choice may be less critical; proximal requires more careful consideration. Higher occupancy for one of the alternate models could provide a reason to choose that particular model for the calculations. For critical or uncertain cases, we recommend repeating test calculations beginning from different models to analyze the sensitivity of the choice. 
 
 Once the above issues have been resolved, there remains one more round of decision-making to select sidechain rotamers and protonation states. Protein X-ray experiments cannot resolve the positions of hydrogens, making protonation states an issue. Sidechain flips are particularly relevant for HIS, ASN, and GLN, because these experiments cannot distinguish between different first-row elements O, N, and C: they all produce similar density and thus are indistinguishable. This means that even with good electron density the sidechain orientations of ASN and GLN can have either orientation, swapping O and N positions, and thus interchanging H-bond donors and acceptors. The two possible orientations of HIS sidechains effectively interchange N and C positions in the ring. Surface exposed, these different orientations may be of little consequence, but in the interior of the protein, proximal to the active site, or especially interacting with the ligand, this can be very important and can change patterns of hydrogen bond donors and acceptors. In principle these orientations can be sampled over the course of the MD run but only if the trajectory is long enough for the sampling scheme to allow it. Considering that these orientations are experimentally ambiguous, it is a matter of judgement at setup time of whether these sidechains should be reoriented to make a more chemically reasonable model. 
 % Historically, the rather long list of tasks above would be done by hand; these days there are a number of tools available to automate many of them... but caveat emptor!
@@ -805,7 +834,7 @@ Note that a formal charge on the bound ligand can also affect the ionization sta
 There are a number of tools to automate the steps described in this section, notably the Protein Preparation Wizard~\cite{madhavisastry_protein_2013}, the Molecular Operating Environment (MOE)~\cite{moe_2021}, and Spruce~\cite{openeye_spruce}. We recommend manual inspections after applying these.
 
 \subsubsection{Ligand preparation}
-\label{sect:ligprep}
+\label{sec:ligprep}
 
 In the preparation of the ligand for simulation it is important to verify that the chemical structure is correct. While this is less problematic for structures generated from small-molecule sources, historically it has been a frequent problem for ligands taken from protein-ligand X-ray structures. Since X-ray structures lack protons and do not provide bond orders or other key information, if a PDB structure is used as input, some tool must be applied to supply this information, presenting a frequent source of failure (though, for structures in the RCSB, a ligand SMILES string can provide a more complete representation of the ligand's identity).
 
@@ -837,7 +866,8 @@ The choice of topology may be dictated by the simulation software of choice as n
 \paragraph{Choices concerning $\lambda$}
 In order to connect the initial and final state of the alchemical free energy calculation an alchemical pathway must be chosen. This pathway is regulated by a variable $\vec{\lambda}$, which at $\vec{\lambda}=0$ represents molecule A and at $\vec{\lambda}=1$ molecule B. As free energy is a state function, the computed free energy is in principle independent on the pathway, but different choices in pathway can make the problem computationally more or less tractable. The simplest way to switch between molecule A and B is using a linear switching function for the potential energy of the form:
 \begin{equation}
-U(\vec{q},\vec{\lambda}) = \vec{\lambda} U_0(\vec{q}) + (1-\vec{\lambda})U_1(\vec{q}),
+\label{eq:switching}
+U(\vec{q},\vec{\lambda}) = (1-\vec{\lambda}) U_0(\vec{q}) + \vec{\lambda}U_1(\vec{q}),
 \end{equation}
 where $U$ is the potential energy $\vec{q}$, is the set of positions and $\vec{\lambda}$ the switching parameter. However, this typically approach fails when atoms are being inserted or deleted, requiring alternate choices, as reviewed elsewhere~\cite{meyBestPracticesAlchemical2020}.
 
@@ -851,25 +881,26 @@ Considerable care needs to be taken in selecting the switching function and spac
 There are currently four common types of simulation protocols available, which are summarised in Figure~\ref{fig:protocols}, these are: Figure~\ref{fig:protocols} (A) independent replicas, (B) replica exchange, (C) Single replica, self adjusted mixture modelling and (D) non-equilibrium switching. Particularly for (B) and (C) the choice of $\lambda$-spacing will be important, as in (B) it dictates the success of replicas exchanging between $\lambda$s and in (C), often tightly spaced replicas allow for a best exploration. Independent replicas are not necessarily recommended, but are still commonly implemented in software packages. 
 \begin{figure}
     \includegraphics[width=0.95\linewidth]{figures/setup/protocol/Figure.pdf}
-    \caption{\textbf{There are four simulations protocols available for generating samples and all $\vec{\lambda}$ states.} (A) Independent replicas run in parallel at different $\lambda$s as indicated by differently colored arrows, (B) Replica exchange attempts after short simulation for each replica (C) Self-adjusted mixture sampling with a single replica exploring all of $\lambda$, (D) Non-equilibrium methods with equilibrium end-state simulation and frequent non-equlibrium switching between endstates. The clock icon is indicating the flow of simulation time and the pair of dice indicate a Metropolis Hastings based trial move}
+    \caption{\textbf{There are four simulations protocols available for generating samples and all $\vec{\lambda}$ states.} \textbf{(A)} Independent replicas run in parallel at different $\lambda$s as indicated by differently colored arrows, \textbf{(B)} Replica exchange attempts after short simulation for each replica \textbf{(C)} Self-adjusted mixture sampling with a single replica exploring all of $\lambda$, \textbf{(D)} Non-equilibrium methods with equilibrium end-state simulation and frequent non-equlibrium switching between endstates. The clock icon is indicating the flow of simulation time and the pair of dice indicate a Metropolis Hastings based trial move}
     \label{fig:protocols}
 \end{figure}
 
 \subsubsection{End-state environments}
-When setting up a relative calculation it is important to be aware of the similarity of the 'end states', i.e. of the conformational, hydrational, and charge environment of ligand A and B. Many of these end-state issues can be addressed with infinite sampling, but this may be impractical and should be considered when planning perturbations. Issues can arise, if there are two distinct bound conformations (different binding modes) for ligand A and ligand B, it may be necessary to sample both binding modes, or extend the simulation time to allow for sufficient rearrangements. A similar issue that may be addressed with extended sampling times are scaffold changes that occur between ligand A and B. Different hydration patterns may also cause inaccuracies in computed binding free energies. The probably most difficult issue to address are changes in charge states that occur either between the two ligands or may even affect the protein depending on the type of ligand binding. 
+When setting up a relative calculation it is important to be aware of the similarity of the 'end states', i.e. of the conformational, hydration, and electrostatic environment of ligand A and B. Many of these end-state issues can be addressed with infinite sampling, but this may be impractical and should be considered when planning perturbations. Issues can arise, if there are two distinct bound conformations (different binding modes) for ligand A and ligand B, it may be necessary to sample both binding modes, or extend the simulation time to allow for sufficient rearrangements. A similar issue that may be addressed with extended sampling times are scaffold changes that occur between ligand A and B. Different hydration patterns may also cause inaccuracies in computed binding free energies. The probably most difficult issue to address are changes in charge states that occur either between the two ligands or may even affect the protein depending on the type of ligand binding. 
 %- Will the protein be in two distinct conformations when bound to the two ligands, significant active site rearrangement - theoretically fixable with infinite sampling
 %- Will there be a conformational change in the structure of the ligand scaffold during the alchemical transformation (similar issue as above)  - again infinite sampling would fix this
 %- Will both endstates have the same active site hydration pattern - again infinite sampling would fix this
 %- Will a change in the ligand (charge possibly) result in a charge change in the protein - not fixable with infinite sampling (David: Charge change in protein could - theoretically - be also part of the alchemical transformation, no?)
 
 \subsubsection{Perturbation maps for relative calculations}
-In relative free energy calculations a network of perturbations between ligands can be constructed. The choice of which relative calculations is vast and can have a substantial effect on the accuracy of the results. The way in which different ligands are connected by relative alchemical calculations is called a perturbation map. In particular for benchmarking free energy methods, perturbation maps should be held fixed for a given benchmark set, unless the goal is to test different approaches for setting up perturbation maps. In this way each edge of the perturbation map will be maintained across subsequent tests and plots created during the analysis phase later will be comparable. 
+In relative free energy calculations a network of perturbations between ligands needs to be constructed. The choice of which relative calculations to carry out is vast and can have a substantial effect on the accuracy of the results. The way in which different ligands are connected by relative alchemical calculations is called a perturbation map. In particular for benchmarking free energy methods, perturbation maps should be held fixed for a given benchmark set, unless the goal is to test different approaches for setting up perturbation maps. In this way each edge of the perturbation map will be maintained across subsequent tests and plots created during the analysis phase later will be comparable. 
 
-The simplest way of connecting ligands in a perturbation map is in a star shape, with each connected to a central crystal structure ligand, with the assumption that all ligands of the congeneric series will bind in the same binding mode as the available crystal -- which may even be confirmed by other crystals, see Figure~\ref{fig:map} (A), there are different methods available for creating interconnected perturbation maps using LOMAP~\cite{liu_lead_2013} or Diffnet~\cite{xu_optimal_2019}, as well as some work towards assessing trade off in terms of what network structure will actually provide most reliable estimates with as little computational cost as possible~\cite{yang_optimal_2020, xu_optimal_2019}. To date, there are no rigorous guidelines to prioritise perturbations, but we recommend to avoid difficult perturbations such as those mentioned above involving ring breaking, changes in linker length, changes in charge, and where possible attempt to maximise structural similarity in 2D (via the maximum common substructure) and 3D.
+The simplest way of connecting ligands in a perturbation map is in a star shape, with each connected to a central crystal structure ligand, with the assumption that all ligands of the congeneric series will bind in the same binding mode as the available crystal -- which may even be confirmed by other crystals, see Figure~\ref{fig:map} (A), there are different methods available for creating interconnected perturbation maps using LOMAP~\cite{liu_lead_2013} or Diffnet~\cite{xu_optimal_2019}, as well as some work towards assessing trade off in terms of what network structure will actually provide most reliable estimates with as little computational cost as possible~\cite{yang_optimal_2020, xu_optimal_2019}. To date, there are no rigorous guidelines to prioritise perturbations, but we recommend avoiding difficult perturbations such as those mentioned above involving ring breaking, changes in linker length, changes in charge, and where possible attempt to maximise structural similarity in 2D (via the maximum common substructure) and 3D.
 
 \begin{figure}[!ht]
-    \includegraphics[width=0.95\linewidth]{figures/network.pdf}
-    \caption{\textbf{Typically either star shaped perturbation maps or multi-connected perturbation maps are used in relative calculations} (A) The star map will have a central ligand, of which the crystal structure is known and all other ligands distributed in a star. (B) A multi-connected map introduces redundancies into the network, allows for larger perturbations through multiple connections and allows assessment of robustness of calculations. The diamond and green shading indicates the crystal structure.}
+    \centering
+    \includegraphics[trim=0 0 200 0, clip, width=0.9\linewidth]{figures/network.pdf}
+    \caption{\textbf{Typically either star shaped perturbation maps or multi-connected perturbation maps are used in relative calculations.} \textbf{(A)} The star map will have a central ligand, of which the crystal structure is known and all other ligands distributed in a star. \textbf{(B)} A multi-connected map introduces redundancies into the network, allows for larger perturbations through multiple connections and allows assessment of robustness of calculations. The diamond and green shading indicates the crystal structure.}
     \label{fig:map}
 \end{figure}
 
@@ -884,24 +915,25 @@ The simplest way of connecting ligands in a perturbation map is in a star shape,
 \subsection{Measuring the success of free energy calculations requires careful analysis}
 %-----------------------------------------------------------
 
-Reliable reporting and analysis of the success of calculations is vital for the validation and benchmarking of free energy methods as well as the dissemination of published results. This reporting and analysis falls into two major categories -- visualization of results, and statistical analysis. Here we make recommendations for both categories.
+Reliable reporting and analysis of the success of calculations is vital for the validation and benchmarking of free energy methods, as well as the dissemination of published results. The reporting and analysis falls into two major categories -- visualization of results, and statistical analysis. Here, we make recommendations for both categories.
 
 \subsubsection{Plots of free energy results should adhere to certain common standards}
 \label{sec:plotting_results}
 Figures plotting experimental vs. calculated results are a very useful way to gauge the success of a method or a set of calculations. We recommend several key steps to ensure these plots are valuable, communicate accurate information, and are informative and readable. Experimental values (on the x-axis) should be converted into the same units as the free energy results (on the y-axis), and axes should use the same scale. One common issue with plotting free energy results is that different scales are used on the different axes, which can change the appearance of the results, as illustrated in Figure~\ref{fig:plotting-basics}, where changes in the axis and ratios can make the data look more correlated.
 
 \begin{figure*}
+    \centering
     \includegraphics[width=0.95\linewidth]{figures/reporting/plotting-basics.pdf}
-    \caption{\textbf{Changes to the plotting style can change the appearance of the data.} The above three figures illustrates the same toy data. A) shows the data correctly, with the same units (which are labelled) and scales on both axes. B) shows the same data, however the limits on the y-axis have been changed such that the scales is not consistent. C) is also not consistent, but this is due to the scale of the plot, rather than the limits.}
+    \caption{\textbf{Changes to the plotting style can change the appearance of the data.} The above three figures illustrates the same toy data. \textbf{(A)} shows the data correctly, with the same units (which are labelled) and scales on both axes. \textbf{(B)} shows the same data, however the limits on the y-axis have been changed such that the scales is not consistent. \textbf{(C)} is also not consistent, but this is due to the scale of the plot, rather than the limits.}
     \label{fig:plotting-basics}
 \end{figure*}
 
-Error bars can be very helpful in understanding the uncertainty in the data -- both for calculated and experimental values, and thus both experimental and computational error bars should always be included in visualizations of the data. Different sources of error might be used to quantify this, whether an uncertainty directly from a free energy estimator, variance between repeats or a hysteresis-type analysis. If the experimental errors are not reported, the experimental error can be estimated (e.g. $0.64\,\mathrm{kcal\,mol^{-1}}$, see Section \ref{sec:affinities}) can be used. How the error bars have been calculated should be reported in the figure caption.
+Error bars can be very helpful in understanding the uncertainty in the data -- both for calculated and experimental values, and thus both experimental and computational error bars should always be included in visualizations of the data. Different sources of error might be used to quantify this, whether an uncertainty directly from a free energy estimator, variance between repeats or a hysteresis-type analysis. If the experimental errors are not reported, the experimental error can be estimated as e.g. $0.64\,\mathrm{kcal\,mol^{-1}}$ (see Section \ref{sec:exp_uncertainty}). How the error bars have been calculated should be reported in the figure caption.
 
 
-Additionally, experimental values which were not actually measured (e.g. values resulting from a measured $K_D$ value which only has experimental bounds, such as $> 5\,\mu M$) should not be plotted or should be clearly indicated by different styles and symbols. These data should not be included in the accuracy or correlation statistics discussed in Section \ref{sec:statistical_analysis}, however confusion matrices and reporting sensitivity, specificity and precision can be useful for asserting a models' strength at classifying ligands as binders and non-binders, as demonstrated in~\cite{hauserPredictingResistanceClinical2018}.
+Additionally, experimental values which were not actually measured (e.g. values resulting from a measured $K_D$ value which only has experimental bounds, such as $> 5\,\mu M$) should not be plotted or should be clearly indicated by different styles and symbols. Such data should not be included in the accuracy or correlation statistics, see  discussion in Section \ref{sec:statistical_analysis}. However, confusion matrices and reporting sensitivity, specificity, and precision can be useful for asserting a models' strength at classifying ligands as binders and non-binders, as demonstrated in~\cite{hauserPredictingResistanceClinical2018}.
 
-Finally, plots of results across various targets should typically show one figure per target. Differences in the success of free energy methods can vary widely between targets, and combining the data across targets onto a single plot can obscure actual performance on any given target. Additionally, when considering absolute free energies, the affinity ranges between targets may vary, which may result in analysis picking up the correlation between targets and their affinities, rather than the free energy methods ability to differentiate affinities for a particular target. One exception to this however may be if free energy calculations were being performed for selectivity analysis of similar proteins, whereby the targets are not independent parameters~\cite{aldeghiPredictionsLigandSelectivity2017}.
+Finally, plots of results across multiple targets should typically be shown as one figure per target. Differences in the success of free energy methods can vary widely between targets, and combining the data across targets onto a single plot can obscure actual performance on any given target. Additionally, when considering absolute free energies, the affinity ranges between targets may vary, which may result in analysis picking up the correlation between targets and their affinities, rather than the free energy methods ability to differentiate affinities for a particular target. One exception to this is if free energy calculations were being performed for selectivity analysis of similar proteins, whereby the targets are not independent parameters~\cite{aldeghiPredictionsLigandSelectivity2017}.
 
 \subsubsection{Consistent reporting of statistics, and understanding their limitations is vital for measuring success}
 \label{sec:statistical_analysis}
@@ -910,9 +942,16 @@ Free energy calculations fall into two categories: absolute and relative. Depend
 
 
 \begin{figure}
-    \includegraphics[width=0.95\linewidth]{figures/reporting/relativeissues.pdf}
-    \caption{\textbf{Using correlation statistics with relative free energy results are unreliable.} For a set of $N$ datapoints, there are $\frac{2^N}{2}$ possible permutations in the sign for the datapoints, where the changes in sign results in a range of possible statistics from the same underlying data. For a set of 10 example relative free energies, the distribution of possible values ($\frac{2^{10}}{2} = 512$) for $R^2$, Kendall $\tau$ and $\rho$ are illustrated in the violin plot. The order of permutations that result in the highest (green: plots B, D and F) and lowest (red: A, C and E) correlation statistic are shown 
-below, for $R^2$ (A and B), Kendall $\tau$ (C and D) and $\rho$ (E and F), which illustrates how varied the correlation statistics for for the same relative free energy results can be achieved by simply using different definitions of relative 'directions' for various edges. For this reason, best practise is to avoid reporting correlation statistics for the reporting of relative free energy calculations, and using accuracy  statistics such as RMSE and MUE instead.}
+    \includegraphics[width=0.95\linewidth]{figures/reporting/relativeissues.png}
+    \caption{\textbf{Using correlation statistics with relative free energy results are unreliable.} 
+    \textbf{(A)} The original set of $N$ datapoints of relative free energy results yields specific statistics for $R^2$, Kendall $\tau$ and $\rho$. However, there are $2^N/2$ possible permutations in the sign for the datapoints, where the changes in sign result in a range of possible statistics from the same underlying data. \textbf{(B)} The distribution of possible values ($2^{10}/2 = 512$) for $R^2$, Kendall $\tau$ and $\rho$ are illustrated in the violin plot. 
+    %
+    In the following plots (\textbf{(C)}-\textbf{(H)}), the order of permutations are illustrated that result in the lowest (red: \textbf{(C)}, \textbf{(E)} and \textbf{(G)}) and highest (green: plots \textbf{(D)}, \textbf{(F)} and \textbf{(H)}) correlation statistic. 
+    The considered statistics are $R^2$ (\textbf{(C)} and \textbf{(D)}), Kendall $\tau$ (\textbf{(E)} and \textbf{(F)}) and $\rho$ (\textbf{(G)} and \textbf{(H)}).
+    %
+    This illustrates how better correlation statistics for the same relative free energy results can be achieved by simply using different definitions of relative 'directions' for various edges. 
+    %
+    For this reason, best practise is to avoid reporting correlation statistics for the reporting of relative free energy calculations, and using accuracy  statistics such as RMSE and MUE instead.}
     \label{fig:changing-corr}
 \end{figure}
 
@@ -950,7 +989,7 @@ While statistics are a useful measure of the performance of a method, it is also
 \subsection{Analysis tools}
 \label{sec:analysis_tools}
 
-We developed a python-based analysis package (\url{http://github.com/openforcefield/arsenic}) to compute statistics from the results of analyzing binding free energy calculations. If statistics from different approaches and sets of calculations are calculated with this package, users can ensure that they are comparing exactly the same statistics calculated in the same way. Results become invariant to different software and definitions of metrics, especially with respect to error or confidence interval calculations. We also see this as a first step towards a containerized benchmarking of methods as is planned for the SAMPL challenges.~\cite{mobley_sampl_} There, users will ultimately compare their methods by submissions of containerized methods instead of independently calculated predictions. Thus, all methods will use exactly the same input and their results will be analyzed in the same way. 
+We developed a python-based analysis package (\url{http://github.com/openforcefield/arsenic}) to compute statistics from the results of analyzing binding free energy calculations. If statistics from different approaches and sets of calculations are calculated with this package, users can ensure that they are comparing exactly the same statistics calculated in the same way. Results become invariant to different software and definitions of metrics, especially with respect to error or confidence interval calculations. We also see this as a first step towards a containerized benchmarking of methods as is planned for the SAMPL challenges~\cite{mobley_sampl_2021} There, users will ultimately compare their methods by submissions of containerized methods instead of independently calculated predictions. Thus, all methods will use exactly the same input and their results will be analyzed in the same way. 
 
 For the evaluation of X-ray structure quality, we also provide scripts to calculate Iridium scores and classifications. The Iridium score yields an objective evaluation of the structure.
 
@@ -968,14 +1007,14 @@ We tagged the protein targets as \textit{deprecated} which did not meet a propos
 
 We acknowledge that the proposed benchmark set does not meet the ideal requirements we established. To date, these requirements are challenging to meet due to scarce high-quality experimental data, especially after applying all the criteria we lay out. Experimental affinities measurements from a single source often do not cover dynamic ranges $>5\,\mathrm{kcal\,mol^{-1}}$ and much larger dynamic ranges become unrealistic. Large numbers of single source affinity data points are rarely available and additionally impose the practical limitations of large computational resources for benchmarking calculations. As a chain is only as strong as its weakest link, the above points need to be paired with high-quality structural data and a good preparation of the simulation input. 
 
-As the current set does not satisfy all our established rules, we seek to improve it in the future. We welcome community contributions and assistance in this process. 
+We welcome community contributions and assistance to build a benchmarking dataset that will eventually fulfill our high standards.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Recommendations}
 \label{sec:recommendations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Methods for binding free energy calculations have been continuously developed over the last decades and are increasingly used both in academic research as well as pharmaceutical industry applications in structure based drug discovery~\cite{sherborne_collaborating_2016, gapsysLargeScaleRelative2020,schindler_largescale_2020}, making their validation and benchmarking particularly crucial. 
+Methods for binding free energy calculations have been continuously developed over the last decades and are increasingly used both in academic research, as well as pharmaceutical industry applications in structure based drug discovery~\cite{sherborne_collaborating_2016, gapsysLargeScaleRelative2020,schindler_largescale_2020}, making their validation and benchmarking particularly crucial. 
 %
 
 In order to reliably benchmark methods, we provide best practices recommendations for setting up benchmark calculations.
@@ -990,13 +1029,11 @@ Here, we made a variety of recommendations as to how to select and prepare syste
 Benchmarking also requires analysis and comparison with experiment, thus we also recommend standard reporting procedures (Section~\ref{sec:analysis}). These provide a mechanism to assess the accuracy of the calculations, present the results and compare to calculations done with other methods. These standard procedures will make it far easier to compare results across studies done by different researchers or using different tools.
 
 Our recommendations are exemplified in publicly available tools for the analysis of calculations (\url{http://github.com/openforcefield/arsenic})
-and a living protein-ligand benchmark dataset (\url{http://github.com/openforcefield/PLBenchmarks}).
+and a living protein-ligand benchmark dataset (\url{http://github.com/openforcefield/protein-ligand-benchmark}).
 %
+This set is living in the sense that we expect it to be subject to ongoing updates, curation, and improvement -- both by ourselves and by the community, and we welcome community input via the GitHub issue tracker at \url{http://github.com/openforcefield/protein-ligand-benchmark/issues}. Additionally, further curation is clearly necessary as our recommendations are in part not fulfilled in the initial version of this benchmark dataset. Partially,this is because we have begun from previously used benchmark sets and are beginning the curation process, but also because it is difficult to find large and accurate experimental datasets meeting all the desired characteristics. Thus, in our initial set, the relevant issues are annotated and we expect the benchmark set to evolve to better meet the recommendations given here.
 
-Here, we also provide a proposed living benchmark set. 
-This set is living in the sense that we expect it to be subject to ongoing updates, curation, and improvement -- both by ourselves and by the community, and we welcome community input via the GitHub issue tracker at \url{http://github.com/openforcefield/PLBenchmarks/issues}. Additionally, further curation is clearly necessary as our recommendations are in part not fulfilled in the initial version of this benchmark dataset. This is in part because we have begun from previously used benchmark sets and are beginning the curation process, but also because it is difficult to find large and accurate experimental datasets meeting all the desired characteristics. Thus, in our initial set, the relevant issues are annotated and we expect the benchmark set to evolve to better meet the recommendations given here.
-
-We hope that our recommended best practices will be adopted and where necessary improved by the community. We believe that these best practices will ultimately help advance the accuracy, applicability and availability of binding free energy calculations. 
+We hope that our recommended best practices will be adopted and where necessary improved by the community. We believe that these best practices will ultimately help advance the accuracy, applicability, and availability of binding free energy calculations. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1168,6 +1205,8 @@ see the GitHub issue tracking and changelog at \githubrepository.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % We suggest you preserve this comment:
+We want to thank the authors of the following publications for establishing the initial protein-ligand benchmark sets: Wang et al.\cite{wang_accurate_2015}, Perez-Benito et al.\cite{perez-benito_predicting_2019}, Gapsys et al.\cite{gapsys_large_2020} and Schindler et al.\cite{schindler_largescale_2020}.
+
 For a more detailed description of contributions from the community and others, see the GitHub issue tracking and changelog at \githubrepository.
 
 \section{Potentially Conflicting Interests}
@@ -1177,14 +1216,16 @@ For a more detailed description of contributions from the community and others, 
 
 %Declare any potentially conflicting interests here, whether or not they pose an actual conflict in your view.
 DLM serves on the scientific advisory board for OpenEye Scientific Software and is an Open Science Fellow with Silicon Therapeutics.
-ASJSM is a consultant for Exscientia. 
+ASJSM is a consultant for Exscientia.
+JDC is a current member of the Scientific Advisory Board of OpenEye Scientific Software and a consultant to Foresite Laboratories.
+HEBM is employed by MSD.
 \section{Funding Information}
 %%%%%%%
 % Authors should acknowledge funding sources here. Reference specific grants.
 %%%%%%%
 JDC acknowledges support from NIH grant P30 CA008748.
 We appreciate the financial support of the Open Force Field Consortium (\url{https://openforcefield.org}), and the National Institutes of Health (NIGMS R01GM132386 and R01GM108889).
-HEBM acknowledges support from a Molecular Sciences Software Institute Investment Fellowship and Relay Therapeutics. 
+HEBM acknowledges support from a Molecular Sciences Software Institute Investment Fellowship and Relay Therapeutics.
 
 
 \section*{Author Information}
