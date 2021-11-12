@@ -116,6 +116,24 @@ CDK8\cite{schiemann_discovery_2016,schindler_largescale_2020}       & \mildlytru
     & \rmse{0.96}{0.73}{1.18}
 \\
 %
+c-MET\cite{schindler_largescale_2020}                               & \mildlytrust{4R1Y}{0.75}\tnote{\ligdens}          & 0.17
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{5EOB}{0.28} \\
+        \hightrust{3I5N}{0.37}\tnote{\present,\lesssimilar} \\
+        \hightrust{3ZC5}{0.38}\tnote{\present,\lesssimilar} \\
+        \hightrust{3CD8}{0.39}\tnote{\present,\lesssimilar} \\
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{3ZXZ}{0.44}\tnote{\present,\lesssimilar} \\
+        \hightrust{4DEG}{0.46}\tnote{\present,\lesssimilar} \\
+        \hightrust{5EYD}{0.47}\tnote{\present,\lesssimilar} \\
+        \end{tabular} 
+    & \ligcount{24}  
+    & \ligrange{6.2} 
+    % & 1.7
+    & \rmse{0.99}{0.72}{1.26}
+\\
+%
 EG5\cite{schiemann_discovery_2010,schindler_largescale_2020}        & \mildlytrust{3L9H}{0.88}          & 0.18 
     & \begin{tabular}[t]{p{9em}} 
         \hightrust{2X7C}{0.32} \\
@@ -166,7 +184,7 @@ Jnk1\cite{szczepankiewicz_aminopyridinebased_2006,wang_accurate_2015}       & \n
     \mildlytrust{3ELJ}{0.31}\tnote{\present}
       \end{tabular}
     & \begin{tabular}[t]{p{9em}} 
-        \mildlytrust{3V3V}{1.5}\tnote{\similar, \packing}
+        \mildlytrust{3V3V}{1.5}\tnote{\similar, \ligdens, \packing}
       \end{tabular} 
     & \ligcount{21}  
     & \ligrange{3.4} 
@@ -325,6 +343,6 @@ TYK2\cite{liang_lead_2013,liang_lead_2013a,wang_accurate_2015}
 \item [\packing] packing.%
 \item [\jnkfig] Fig. \ref{fig:jnk1_pdb_report}.%
 \item [\alternate] alternate conformations.%
-\item [\ligdens] ligand density: 0.79.%
+\item [\ligdens] low ligand density below 0.95.% 0.85 for cmet/0.79 for jnk1
 \end{tablenotes}
 }
