@@ -12,16 +12,17 @@ We highlight challenges and open questions that remain to be solved in these are
 
 ## List of Authors
 
-DH: David Hahn    
-CIB: Christopher I. Bayly  
-HBM: Hannah Bruce Macdonald
-JDC: John D. Chodera
-ASJSM: Antonia S. J. S. Mey
-DLM:  David L. Mobley
-LPB: Laura Perez Benito
-CS Christina E.M. Schindler
-GT: Gary Tresadern
-GW: Gregory L. Warren
+- DH: David Hahn   
+- CIB: Christopher I. Bayly
+- HBM: Hannah Bruce Macdonald
+- JDC: John D. Chodera
+- VG: Vytautas Gapsys
+- ASJSM: Antonia S. J. S. Mey
+- DLM:  David L. Mobley
+- LPB: Laura Perez Benito
+- CS Christina E.M. Schindler
+- GT: Gary Tresadern
+- GW: Gregory L. Warren
 
 ## List of Contributors
 (non-author list of people who contributed to document)
