@@ -1,0 +1,348 @@
+%define keywords for footnotes
+\def\present{a}
+\def\similar{b}
+\def\lesssimilar{c}
+\def\crystal{d}
+\def\packing{e}
+\def\jnkfig{f}
+\def\alternate{g}
+\def\ligdens{h}
+{\footnotesize
+\begin{tabular}[t]{l|ll|ll|lll}
+Target     & \multicolumn{2}{c|}{Used structure}                          & \multicolumn{2}{c|}{Alternate structures} & \multicolumn{3}{c}{Ligand Information}\\
+           &PDB & DPI & 
+           &  
+           & N 
+           & DR  
+%           & $\sigma_{\Delta G}$ 
+           & RMSE\\
+           & &  &               & & & \multicolumn{2}{l}{[$\mathrm{kcal\,mol^{-1}}$]} \\
+           %& [$\mathrm{kcal\,mol^{-1}}$] & [$\mathrm{kcal\,mol^{-1}}$]\\ 
+\hline
+BACE\cite{cumming_structure_2012,wang_accurate_2015}
+    &\hightrust{4DJW}{0.32}   
+    & 0.11 
+    &  \begin{tabular}[t]{p{9em}} 
+         \hightrust{ 6UWP}{0.28} \\
+         \hightrust{3TPP}{0.28}\tnote{\present} \\
+         \hightrust{4DJV}{0.31}\tnote{\similar} \\ \hightrust{3INH}{0.33}\tnote{\similar} 
+        \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+         \hightrust{3INF}{0.33}\tnote{\similar} \\
+         \hightrust{3IN3}{0.36}\tnote{\present,\similar} \\ 
+        \hightrust{3LHG}{0.36}\tnote{\similar}
+      \end{tabular} 
+    & \ligcount{36}  
+    & \ligrange{4.0}
+%    & 0.8
+    & \rmse{0.98}{0.78}{1.18} 
+    \\
+%
+% BACE(HUNT1) stuce 3ZOV one was not used in the benchmark studies.
+% BACE(HUNT1) & 3ZOV        &\mildlytrust{}                    & 0.4           & 0.2  
+    % & \begin{tabular}[t]{p{9em}} 
+    %     3TPP\tnote{\present} &\hightrust{}{0.28 \\
+    %     6UWP&\hightrust{}{0.28 
+    %   \end{tabular}
+%     & \begin{tabular}[t]{p{9em}} 
+%         4J0T\tnote{\similar} &\hightrust{}{0.33 \\
+%         5YGY\tnote{\similar} &\hightrust{}{0.37 \\
+%         4J0P\tnote{\similar} &\hightrust{}{0.34 \\
+%         4J0Y\tnote{\similar} &\hightrust{}{0.30 \\
+%         5HU1\tnote{\similar} &\hightrust{}{0.29 \\
+%       \end{tabular} 
+%     &   &    &    \\
+% %
+BACE\_HUNT\cite{hunt_spirocyclic_2013,ciordia_application_2016,keranen_acylguanidine_2017} &        \hightrust{4JPC}{0.32}          & 0.12 
+    & \begin{tabular}[t]{p{9em}}
+        \hightrust{6UWP}{0.28} \\
+        \hightrust{3TPP}{0.28}\tnote{\present} \\ 
+        \hightrust{4JP9}{0.31}\tnote{\present,\similar}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{4JOO}{0.33}\tnote{\similar} \\
+        \hightrust{4RRO}{0.33}\tnote{\similar} \\
+        \hightrust{4JPE}{0.35}\tnote{\similar}
+      \end{tabular}  
+    & \ligcount{32} 
+    & \ligrange{4.9}
+%    & 1.2 
+    & \rmse{0.97}{0.73}{1.19}
+    \\
+%
+BACE\_P2\cite{malamas_design_2010,keranen_acylguanidine_2017}    
+    &\hightrust{3IN4}{0.59}        
+    & 0.28 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{6UWP}{0.28} \\
+        \hightrust{3TPP}{0.28}\tnote{\present} \\
+        \hightrust{ 4DJV}{0.31}\tnote{\similar}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}}
+         \hightrust{3INF}{0.33}\tnote{\similar} \\
+         \hightrust{3IN3}{0.36}\tnote{\present,\similar} \\ 
+        \hightrust{3LHG}{0.36}\tnote{\similar}
+      \end{tabular} 
+    & \ligcount{12}  
+    & \ligrange{0.8}
+%    & 0.3
+    & \rmse{1.00}{0.59}{1.33}
+    \\
+%
+CDK2\cite{hardcastle_substituted_2004,wang_accurate_2015}       &       \mildlytrust{1H1Q}{0.87}               & 0.28 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{3DDQ}{0.31}\tnote{\present}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{4EOR}{0.39}\tnote{\present,\similar}
+      \end{tabular} 
+    & \ligcount{16}  
+    & \ligrange{4.3}
+%    & 1.2 
+    & \rmse{1.00}{0.67}{1.29}
+    \\
+%
+CDK8\cite{schiemann_discovery_2016,schindler_largescale_2020}       & \mildlytrust{5HNB }{0.74}          & 0.22 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{5XS2}{0.33} \\
+        \hightrust{5IDN}{0.36}\tnote{\lesssimilar}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{4CRL}{0.42}\tnote{\present} \\
+      \end{tabular} 
+    & \ligcount{33}  
+    & \ligrange{5.7} 
+%    & 1.3
+    & \rmse{0.96}{0.73}{1.18}
+\\
+%
+c-MET\cite{dorsch_identification_2015,schindler_largescale_2020}                               & \mildlytrust{4R1Y}{0.75}\tnote{\ligdens}          & 0.17
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{5EOB}{0.28} \\
+        \hightrust{3I5N}{0.37}\tnote{\present,\lesssimilar} \\
+        \hightrust{3ZC5}{0.38}\tnote{\present,\lesssimilar} \\
+        \hightrust{3CD8}{0.39}\tnote{\present,\lesssimilar} \\
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{3ZXZ}{0.44}\tnote{\present,\lesssimilar} \\
+        \hightrust{4DEG}{0.46}\tnote{\present,\lesssimilar} \\
+        \hightrust{5EYD}{0.47}\tnote{\present,\lesssimilar} \\
+        \end{tabular} 
+    & \ligcount{24}  
+    & \ligrange{6.2} 
+    % & 1.7
+    & \rmse{0.99}{0.72}{1.26}
+\\
+%
+EG5\cite{schiemann_discovery_2010,schindler_largescale_2020}        & \mildlytrust{3L9H}{0.88}          & 0.18 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{2X7C}{0.32} \\
+        \hightrust{3K5E}{0.35}\tnote{\present} 
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{3K3B}{0.41}\tnote{\lesssimilar}
+      \end{tabular} 
+    & \ligcount{28} 
+    & \ligrange{3.5}
+%    & 0.9 
+    & \rmse{0.98}{0.72}{1.22}\\
+%
+Galectin\cite{delaine_galectin3binding_2016,manzoni_assessing_2018}   & \mildlytrust{5E89}{1.04}          & 0.07 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{5NF7}{0.30} \\
+        \hightrust{1KJR}{0.30}\tnote{\present} \\
+        \mildlytrust{5ODY}{0.33}\tnote{\similar, \packing, \alternate}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+       \mildlytrust{4BM8}{0.38}\tnote{\present, \crystal,\similar} \\
+       \hightrust{ 5OAX}{0.54}\tnote{\similar} \\
+      \end{tabular}	
+    & \ligcount{8}  
+    & \ligrange{2.7}
+%    & 0.8
+    & \rmse{1.04}{0.55}{1.42}
+    \\ 
+%
+HIF2a\cite{wallace_smallmolecule_2016,schindler_largescale_2020}      
+    & \hightrust{5TBM}{0.35} 
+    & 0.17 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{3H82}{0.30}\tnote{\present} \\
+        \hightrust{6D09}{0.35}\tnote{\similar}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{5UFB}{0.36}\tnote{\similar}\\
+      \end{tabular} 
+    & \ligcount{42}  
+    & \ligrange{4.6} 
+%    & 1.1 
+    & \rmse{1.03}{0.79}{1.27}
+    \\ 
+%
+Jnk1\cite{szczepankiewicz_aminopyridinebased_2006,wang_accurate_2015}       & \notrust{2GMX }{-}\tnote{\jnkfig} & 0.77 
+    & \begin{tabular}[t]{p{9em}} 
+    \mildlytrust{3ELJ}{0.31}\tnote{\present}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \mildlytrust{3V3V}{1.5}\tnote{\similar, \ligdens, \packing}
+      \end{tabular} 
+    & \ligcount{21}  
+    & \ligrange{3.4} 
+%    & 0.8
+    & \rmse{0.98}{0.68}{1.26}
+    \\
+%
+MCL1\cite{friberg_discovery_2013,wang_accurate_2015}       & \hightrust{4HW3}{0.41}          & 0.26 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{6O6F}{0.30}   \\
+        \hightrust{4ZBF}{0.35}\tnote{\similar} \\
+        \hightrust{3WIX}{0.37}\tnote{\present, \lesssimilar}\\
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}}
+        \hightrust{4WMU}{0.41}\tnote{\similar} \\
+        \hightrust{4ZBI}{0.45}\tnote{\similar} \\	
+      \end{tabular} 
+    & \ligcount{42}  
+    & \ligrange{4.2} 
+%    & 1.1
+    & \rmse{1.01}{0.80}{1.21}
+    \\
+%
+P38(MAPK14) \cite{goldstein_discovery_2011,wang_accurate_2015} & \hightrust{3FLY}{0.6}           & 0.12 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{6SFI}{0.30}  \\
+        \hightrust{3FMK}{0.30 }\tnote{\present, \similar}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{3FLN}{0.33} \\
+        \hightrust{3FMH}{0.43}\tnote{\present, \similar} \\
+      \end{tabular} 
+    & \ligcount{34}  
+    & \ligrange{3.8}
+%    & 1.0
+    & \rmse{0.99}{0.76}{1.22}
+    \\
+%
+PDE2\cite{buijnsters_structurebased_2014,perez-benito_predicting_2018}       & \mildlytrust{6EZF}{0.3}           & 0.07 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{6C7E}{ 0.29} \\
+        \hightrust{5TYY}{0.30}\tnote{\present} \\
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{6B97}{0.46}\tnote{\lesssimilar}
+      \end{tabular} 
+    & \ligcount{21}  
+    & \ligrange{3.2} 
+%    & 0.9
+    & \rmse{1.05}{0.75}{1.32}
+    \\
+%
+PFKFB3\cite{boutard_discovery_2019,schindler_largescale_2020}     & \hightrust{6HVI}{0.31}          & 0.11 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{6HVH}{0.36}\tnote{\present, \similar}
+      \end{tabular}        
+    & 
+    & \ligcount{40}  
+    & \ligrange{3.8}
+%    & 1.1
+    & \rmse{1.04}{0.82}{1.25}
+    \\
+%
+PTP1B\cite{wilson_structurebased_2007,wang_accurate_2015}     & \mildlytrust{2QBS}{0.33}          & 0.15 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{2HB1}{0.32}\tnote{\present} \\
+        \mildlytrust{2ZMM}{0.33}\tnote{\similar, \crystal}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{2QBR}{0.65}\tnote{\similar, \present}
+      \end{tabular}
+    & \ligcount{23}  
+    & \ligrange{5.2}
+%    & 1.2 
+    & \rmse{0.95}{0.67}{1.21}
+    \\
+%
+SHP2\cite{chen_allosteric_2016,schindler_largescale_2020}       & \mildlytrust{5EHR}{0.32}          & 0.1  
+    & \begin{tabular}[t]{p{9em}} 
+       \mildlytrust{5EHP}{0.33}\tnote{\similar, \alternate} \\
+       \hightrust{6MDD}{0.35}\tnote{\present}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{6MD7}{0.35}
+      \end{tabular} 
+    & \ligcount{26}  
+    & \ligrange{4.3}
+%    & 1.2 
+    & \rmse{1.06}{0.76}{1.34}
+    \\
+%
+SYK\cite{currie_discovery_2014,schindler_largescale_2020}     & \mildlytrust{4PV0}{0.69}
+    & 0.19 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{4PX6}{0.3}\tnote{\present}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{4FYO}{0.40}\tnote{\lesssimilar}
+      \end{tabular}	
+    & \ligcount{44}  
+    & \ligrange{5.9}
+%    & 1.0
+    & \rmse{1.01}{0.81}{1.21}
+    \\
+%
+Thrombin\cite{baum_more_2009,wang_accurate_2015}   &         \hightrust{2ZFF}{0.3}           & 0.06
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{5JZY}{0.27}\tnote{\similar}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}}
+        \hightrust{3QX5}{0.28}\tnote{\present, \similar}
+      \end{tabular}
+    & \ligcount{11}  
+    & \ligrange{1.7}
+%    & 0.5
+    & \rmse{0.97}{0.63}{1.28}
+    \\
+%
+TNKS2\cite{buchstaller_discovery_2019}      
+    & \hightrust{4UI5}{0.29}          
+    & 0.08 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{4PC9}{0.27}\tnote{\present} \\
+        \hightrust{4BU9}{0.29}\tnote{\present, \similar}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{4UVZ}{0.29}\tnote{\similar} \\
+    \end{tabular} 
+    & \ligcount{27}  
+    & \ligrange{4.4}
+%    & 1.0
+    & \rmse{1.04}{0.78}{1.28}
+    \\
+%
+TYK2\cite{liang_lead_2013,liang_lead_2013a,wang_accurate_2015}       
+    & \hightrust{4GIH}{0.5}
+    & 0.15 
+    & \begin{tabular}[t]{p{9em}} 
+        \hightrust{3LXP}{0.31}\tnote{\present}
+      \end{tabular}
+    & \begin{tabular}[t]{p{9em}} 
+        \mildlytrust{5WAL}{0.48}\tnote{\lesssimilar, \alternate}
+    \end{tabular} 
+    & \ligcount{16}  
+    & \ligrange{4.3}
+%    & 1.3
+    & \rmse{0.97}{0.60}{1.30}
+    \\
+\hline
+\end{tabular}
+\begin{tablenotes}
+\item [\present] structure was already available 6 month prior to publication of first benchmark study.%
+\item [\similar] ligand similarity > 1.4.%
+\item [\lesssimilar] ligand considerably similar > 0.8.%
+\item [\crystal] crystal contacts.%
+\item [\packing] packing.%
+\item [\jnkfig] Fig. \ref{fig:jnk1_pdb_report}.%
+\item [\alternate] alternate conformations.%
+\item [\ligdens] low ligand density below 0.95.% 0.85 for cmet/0.79 for jnk1
+\end{tablenotes}
+}
