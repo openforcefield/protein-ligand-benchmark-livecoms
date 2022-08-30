@@ -43,4 +43,4 @@ Original brainstorming document: (https://docs.google.com/document/d/1lCGcol6jYL
 - Standard font for all figures should be Helvetica. Font size for lables should be at least the size of the document text. 
 
 ## List of Released Versions
-still working on first release
+- revision for version 1.0
